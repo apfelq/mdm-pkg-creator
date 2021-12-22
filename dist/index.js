@@ -14,6 +14,8 @@ import yaml from 'js-yaml';
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js';
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js';
 import { updateHandlerPkg } from './updateHandlerPkg.js';
+import { updateHandlerScrape } from './updateHandlerScrape.js';
+import { updateHandlerZipApp } from './updateHandlerZipApp.js';
 export const __dirname = process.cwd();
 function importYaml(fileName) {
     try {
@@ -46,24 +48,36 @@ function main() {
                 case 'direct':
                     switch (configApps[app].downloadFileType) {
                         case 'dmg':
-                            if (configApps[app].dmgFileType) {
-                                if (configApps[app].dmgFileType == 'app') {
-                                    appUpdates.push(updateHandlerDmgApp(app, configApps[app], updates));
-                                }
-                                else if (configApps[app].dmgFileType == 'pkg') {
-                                    appUpdates.push(updateHandlerDmgPkg(app, configApps[app], updates));
-                                }
-                                else {
-                                    console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].dmgFileType}"`);
-                                    console.error(`${app}: verify your config and/or contact developer`);
-                                }
+                            if (!configApps[app].dmgFileType) {
+                                console.error(`${app}: missing "dmgFileType" in confg`);
+                                break;
+                            }
+                            if (configApps[app].dmgFileType == 'app') {
+                                appUpdates.push(updateHandlerDmgApp(app, configApps[app], updates));
+                            }
+                            else if (configApps[app].dmgFileType == 'pkg') {
+                                appUpdates.push(updateHandlerDmgPkg(app, configApps[app], updates));
                             }
                             else {
-                                console.error(`${app}: missing "dmgFileType" in confg`);
+                                console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].dmgFileType}"`);
+                                console.error(`${app}: verify your config and/or contact developer`);
                             }
                             break;
                         case 'pkg':
                             appUpdates.push(updateHandlerPkg(app, configApps[app], updates));
+                            break;
+                        case 'zip':
+                            if (!configApps[app].zipFileType) {
+                                console.error(`${app}: missing "zipFileType" in confg`);
+                                break;
+                            }
+                            if (configApps[app].zipFileType == 'app') {
+                                appUpdates.push(updateHandlerZipApp(app, configApps[app], updates));
+                            }
+                            else {
+                                console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].zipFileType}"`);
+                                console.error(`${app}: verify your config and/or contact developer`);
+                            }
                             break;
                         default:
                             console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}"`);
@@ -75,7 +89,7 @@ function main() {
                     switch (configApps[app].downloadFileType) {
                         case 'dmg':
                             if (configApps[app].dmgFileType) {
-                                if (configApps[app].downloadFileType == 'app') {
+                                if (configApps[app].dmgFileType == 'app') {
                                 }
                                 else if (configApps[app].dmgFileType == 'pkg') {
                                 }
@@ -97,6 +111,9 @@ function main() {
                             console.error(`${app}: verify your config and/or contact developer`);
                             break;
                     }
+                    break;
+                case 'scrape':
+                    appUpdates.push(updateHandlerScrape(app, configApps[app], updates));
                     break;
                 default:
                     console.error(`${app}: no updateHandler for "${configApps[app].downloadType}"`);

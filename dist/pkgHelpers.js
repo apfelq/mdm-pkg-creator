@@ -38,10 +38,11 @@ export function pkgHelperExtractApp(app, appConfig) {
             const pkgTarget = appConfig.pkgTarget ? appConfig.pkgTarget : `/Applications`;
             const pkgTargetApp = path.join(pkgTarget, appConfig.appName);
             yield pkgExtractApp(app, pkgTargetApp);
+            console.log(`${app}: pkgHelperExtractApp successful`);
             return true;
         }
         catch (e) {
-            console.error(`${app}: pkgExtract failed with error "${e.message}"`);
+            console.error(`${app}: pkgHelperExtractApp failed with error "${e.message}"`);
             return false;
         }
     });

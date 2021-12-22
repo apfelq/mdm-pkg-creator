@@ -1,5 +1,5 @@
 import { appHelperInfo } from './appHelpers.js'
-import { download } from './download.js'
+import { download } from './webUtils.js'
 import { __dirname, appInterface } from './index.js'
 import { pkgHelperInfo, pkgHelperExtractApp } from './pkgHelpers.js'
 import { fileDelete, pkgFinalize } from './utils.js'
@@ -9,7 +9,7 @@ export async function updateHandlerPkg (app: string, appConfig: appInterface, up
     try
     {
         // download pkg
-        await download(app, `${app}.pkg`, appConfig.downloadUrl)
+        await download(app, appConfig)
 
         // get pkg info
         if (!await pkgHelperInfo(app, appConfig)) return false

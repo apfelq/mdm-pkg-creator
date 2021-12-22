@@ -7,19 +7,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import fs from 'graceful-fs';
-import { promisify } from 'util';
 import { appHelperInfo } from './appHelpers.js';
-import { download } from './download.js';
+import { download } from './webUtils.js';
 import { pkgHelperInfo, pkgHelperExtractApp } from './pkgHelpers.js';
 import { dmgExtractFile, fileDelete, pkgFinalize } from './utils.js';
-const unlink = promisify(fs.unlink);
 export function updateHandlerDmgPkg(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield download(app, `${app}.dmg`, appConfig.downloadUrl);
-            const pkgName = appConfig.pkgName ? appConfig.pkgName : appConfig.appName.replace('.app', '.pkg');
-            yield dmgExtractFile(app, pkgName, 'pkg');
+            yield download(app, appConfig);
+            if (!appConfig.pkgName) {
+                console.error(`${app}: no pkgName in config`);
+                return false;
+            }
+            yield dmgExtractFile(app, appConfig.pkgName, 'pkg');
             if (!(yield pkgHelperInfo(app, appConfig)))
                 throw '';
             if (!(yield pkgHelperExtractApp(app, appConfig)))

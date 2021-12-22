@@ -5,6 +5,8 @@ import yaml from 'js-yaml'
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js'
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js'
 import { updateHandlerPkg } from './updateHandlerPkg.js'
+import { updateHandlerScrape } from './updateHandlerScrape.js'
+import { updateHandlerZipApp } from './updateHandlerZipApp.js'
 export const __dirname = process.cwd()
 
 export interface appInterface
@@ -13,17 +15,19 @@ export interface appInterface
     appCodeRequirement: string,
     appName: string,
     appVersion: string,
-    downloadType: string,
+    downloadType: 'direct' | 'github' | 'scrape',
     downloadUrl?: string,
-    downloadFileType: string,
-    downloadVersionUrl: string,
-    downloadVersionRegex: string,
+    downloadFileType: 'dmg' | 'pkg' | 'zip',
     downloadGithub?: string,
     dmgFileType?: string,
     pkgChecksum: string,
     pkgName?: string,
     pkgSigned: boolean,
-    pkgTarget?: string
+    pkgTarget?: string,
+    scrapeDownloadUrl?: string,
+    scrapeUrl?: string,
+    scrapeRegex?: string,
+    zipFileType?: 'app'
 }
 
 export interface updateInterface
@@ -81,30 +85,48 @@ async function main ()
                 switch (configApps[app].downloadFileType)
                 {
                     case 'dmg':
-                        if (configApps[app].dmgFileType)
+                        if (!configApps[app].dmgFileType)
                         {
-                            if (configApps[app].dmgFileType == 'app')
-                            {
-                                appUpdates.push(updateHandlerDmgApp(app, configApps[app], updates))
-                            }
-                            else if (configApps[app].dmgFileType == 'pkg')
-                            {
-                                appUpdates.push(updateHandlerDmgPkg(app, configApps[app], updates))
-                            }
-                            else
-                            {
-                                console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].dmgFileType}"`)
-                                console.error(`${app}: verify your config and/or contact developer`)
-                            }
+                            console.error(`${app}: missing "dmgFileType" in confg`)
+                            break
+                        }
+                        if (configApps[app].dmgFileType == 'app')
+                        {
+                            appUpdates.push(updateHandlerDmgApp(app, configApps[app], updates))
+                        }
+                        else if (configApps[app].dmgFileType == 'pkg')
+                        {
+                            appUpdates.push(updateHandlerDmgPkg(app, configApps[app], updates))
                         }
                         else
                         {
-                            console.error(`${app}: missing "dmgFileType" in confg`)
+                            console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].dmgFileType}"`)
+                            console.error(`${app}: verify your config and/or contact developer`)
                         }
+                        
                         break
+
                     case 'pkg':
                         appUpdates.push(updateHandlerPkg(app, configApps[app], updates))
                         break
+
+                    case 'zip':
+                        if (!configApps[app].zipFileType)
+                        {
+                            console.error(`${app}: missing "zipFileType" in confg`)
+                            break
+                        }
+                        if (configApps[app].zipFileType == 'app')
+                        {
+                            appUpdates.push(updateHandlerZipApp(app, configApps[app], updates))
+                        }
+                        else
+                        {
+                            console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].zipFileType}"`)
+                            console.error(`${app}: verify your config and/or contact developer`)
+                        }
+                        break
+
                     default:
                         console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}"`)
                         console.error(`${app}: verify your config and/or contact developer`)
@@ -119,7 +141,7 @@ async function main ()
                     case 'dmg':
                         if (configApps[app].dmgFileType)
                         {
-                            if (configApps[app].downloadFileType == 'app')
+                            if (configApps[app].dmgFileType == 'app')
                             {
                                 //appUpdates.push(updateHandlerDmgApp(app, configApps[app], updates))
                             }
@@ -148,6 +170,10 @@ async function main ()
                         console.error(`${app}: verify your config and/or contact developer`)
                         break
                 }
+                break
+
+            case 'scrape':
+                appUpdates.push(updateHandlerScrape(app, configApps[app], updates))
                 break
             
             default:

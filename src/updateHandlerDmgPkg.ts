@@ -1,31 +1,30 @@
-import fs from 'graceful-fs'
-import path from 'path'
-import process from 'process'
-import { promisify } from 'util'
 import { appHelperInfo } from './appHelpers.js'
-import { download } from './download.js'
+import { download } from './webUtils.js'
 import { __dirname, appInterface } from './index.js'
 import { pkgHelperInfo, pkgHelperExtractApp } from './pkgHelpers.js'
 import { dmgExtractFile, fileDelete, pkgFinalize } from './utils.js'
-const unlink = promisify(fs.unlink)
 
 export async function updateHandlerDmgPkg (app: string, appConfig: appInterface, updates: string[]): Promise<boolean>
 {
     try
     {
-        // download pkg
-        await download(app, `${app}.dmg`, appConfig.downloadUrl)
+        // download dmg
+        await download(app, appConfig)
 
         // mount dmg
-        const pkgName = appConfig.pkgName ? appConfig.pkgName : appConfig.appName.replace('.app', '.pkg')
-        await dmgExtractFile(app, pkgName, 'pkg')
+        if (!appConfig.pkgName)
+        {
+            console.error(`${app}: no pkgName in config`)
+            return false
+        }
+        await dmgExtractFile(app, appConfig.pkgName, 'pkg')
 
         // get pkg info
         if (!await pkgHelperInfo(app, appConfig)) throw ''
 
         // extract app from pkg
         if (!await pkgHelperExtractApp(app, appConfig)) throw ''
-        
+
         // get app info
         if (!await appHelperInfo(app, appConfig)) throw ''
         

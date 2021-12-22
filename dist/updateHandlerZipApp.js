@@ -9,26 +9,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { appHelperInfo } from './appHelpers.js';
 import { download } from './webUtils.js';
-import { pkgHelperInfo, pkgHelperExtractApp } from './pkgHelpers.js';
-import { fileDelete, pkgFinalize } from './utils.js';
-export function updateHandlerPkg(app, appConfig, updates) {
+import { pkgHelperInfo } from './pkgHelpers.js';
+import { appRename, fileDelete, pkgCreate, pkgFinalize, zipExtractFile } from './utils.js';
+export function updateHandlerZipApp(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield download(app, appConfig);
-            if (!(yield pkgHelperInfo(app, appConfig)))
+            yield zipExtractFile(app, appConfig.appName, 'app');
+            if (!(yield appHelperInfo(app, appConfig))) {
+                console.log(`${app}: updateHandlerZipApp no update available`);
+                yield fileDelete(app, `${app}.app`, `tmp`);
+                yield fileDelete(app, `${app}.zip`, `tmp`);
                 return false;
-            if (!(yield pkgHelperExtractApp(app, appConfig)))
+            }
+            if (!(yield appRename(app, appConfig.appName)))
                 throw '';
-            if (!(yield appHelperInfo(app, appConfig)))
+            const pkgTarget = appConfig.pkgTarget ? appConfig.pkgTarget : `/Applications`;
+            yield pkgCreate(app, appConfig.appName, pkgTarget);
+            if (!(yield pkgHelperInfo(app, appConfig)))
                 throw '';
             yield pkgFinalize(app, appConfig.appVersion);
-            yield fileDelete(app, `${app}.app`, `tmp`);
-            console.log(`${app}: updateHandlerPkg update available`);
+            yield fileDelete(app, appConfig.appName, `tmp`);
+            yield fileDelete(app, `${app}.zip`, `tmp`);
+            console.log(`${app}: updateHandlerZipApp update available`);
             updates.push(app);
             return true;
         }
         catch (e) {
-            console.error(`${app}: update failed`);
+            console.error(`${app}: updateHandlerZipApp failed with error "${e.message}"`);
             return false;
         }
     });

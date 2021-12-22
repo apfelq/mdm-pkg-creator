@@ -2,25 +2,25 @@ import { appHelperInfo } from './appHelpers.js'
 import { download } from './webUtils.js'
 import { __dirname, appInterface } from './index.js'
 import { pkgHelperInfo } from './pkgHelpers.js'
-import { appRename, dmgExtractFile, fileDelete, pkgCreate, pkgFinalize } from './utils.js'
+import { appRename, fileDelete, pkgCreate, pkgFinalize, zipExtractFile } from './utils.js'
 
-export async function updateHandlerDmgApp (app: string, appConfig: appInterface, updates: string[]): Promise<boolean>
+export async function updateHandlerZipApp (app: string, appConfig: appInterface, updates: string[]): Promise<boolean>
 {
     try
     {
-        // download dmg
+        // download zip
         await download(app, appConfig)
 
-        // extract app from dmg
-        await dmgExtractFile(app, appConfig.appName, 'app')
+        // extract app from zip
+        await zipExtractFile(app, appConfig.appName, 'app')
 
         // get app info
         if (!await appHelperInfo(app, appConfig))
         {
-            console.log(`${app}: updateHandlerDmgApp no update available`)
+            console.log(`${app}: updateHandlerZipApp no update available`)
             // delete extracted app
             await fileDelete(app, `${app}.app`, `tmp`)
-            await fileDelete(app, `${app}.dmg`, `tmp`)
+            await fileDelete(app, `${app}.zip`, `tmp`)
             return false
         }
 
@@ -39,15 +39,15 @@ export async function updateHandlerDmgApp (app: string, appConfig: appInterface,
 
         // delete extracted app
         await fileDelete(app, appConfig.appName, `tmp`)
-        await fileDelete(app, `${app}.dmg`, `tmp`)
+        await fileDelete(app, `${app}.zip`, `tmp`)
 
-        console.log(`${app}: updateHandlerDmgApp update available`)
+        console.log(`${app}: updateHandlerZipApp update available`)
         updates.push(app)
         return true
     }
     catch (e)
     {
-        console.error(`${app}: updateHandlerDmgApp failed with error "${e.message}"`)
+        console.error(`${app}: updateHandlerZipApp failed with error "${e.message}"`)
         return false
     }
     

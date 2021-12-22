@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if hdiutil attach -noverify -mountpoint "${2}" "${1}"; then
+if hdiutil attach -noverify -nobrowse -mountpoint "${2}" "${1}"; then
 
     while [ ! -d "${2}" ]
     do

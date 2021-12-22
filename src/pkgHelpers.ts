@@ -45,11 +45,13 @@ export async function pkgHelperExtractApp (app: string, appConfig: appInterface)
         const pkgTargetApp = path.join(pkgTarget, appConfig.appName)
         await pkgExtractApp(app, pkgTargetApp)
 
+        console.log(`${app}: pkgHelperExtractApp successful`)
+
         return true
     }
     catch (e)
     {
-        console.error(`${app}: pkgExtract failed with error "${e.message}"`)
+        console.error(`${app}: pkgHelperExtractApp failed with error "${e.message}"`)
         return false
     }
     

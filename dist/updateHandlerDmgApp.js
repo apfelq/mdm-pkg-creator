@@ -7,21 +7,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import fs from 'graceful-fs';
-import { promisify } from 'util';
 import { appHelperInfo } from './appHelpers.js';
-import { download } from './download.js';
+import { download } from './webUtils.js';
 import { pkgHelperInfo } from './pkgHelpers.js';
 import { appRename, dmgExtractFile, fileDelete, pkgCreate, pkgFinalize } from './utils.js';
-const unlink = promisify(fs.unlink);
 export function updateHandlerDmgApp(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield download(app, `${app}.dmg`, appConfig.downloadUrl);
+            yield download(app, appConfig);
             yield dmgExtractFile(app, appConfig.appName, 'app');
             if (!(yield appHelperInfo(app, appConfig))) {
                 console.log(`${app}: updateHandlerDmgApp no update available`);
-                yield fileDelete(app, appConfig.appName, 'tmp');
+                yield fileDelete(app, `${app}.app`, `tmp`);
                 yield fileDelete(app, `${app}.dmg`, `tmp`);
                 return false;
             }
@@ -32,7 +29,7 @@ export function updateHandlerDmgApp(app, appConfig, updates) {
             if (!(yield pkgHelperInfo(app, appConfig)))
                 throw '';
             yield pkgFinalize(app, appConfig.appVersion);
-            yield fileDelete(app, appConfig.appName, 'tmp');
+            yield fileDelete(app, appConfig.appName, `tmp`);
             yield fileDelete(app, `${app}.dmg`, `tmp`);
             console.log(`${app}: updateHandlerDmgApp update available`);
             updates.push(app);

@@ -192,3 +192,22 @@ export async function pkgSigned (app:string): Promise<boolean>
         return false
     }
 }
+
+export async function zipExtractFile (app:string, appName: string, type: string): Promise<boolean>
+{
+    const inputPath = path.join(__dirname, 'tmp', `${app}.zip`)
+    const extractPath = path.join(__dirname, 'tmp', `${app}`)
+    const outputPath = path.join(__dirname, 'tmp', `${app}.${type}`)
+    try
+    {
+        // Apple Script works best with absolute paths
+        await exec(`sh ./src/zipExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}" "${appName}"`)
+        console.log(`${app}: zipExtractFile successful`)
+        return true
+    }
+    catch (e)
+    {
+        console.error(`${app}: zipExtractFile failed with error "${e.message}"`)
+        throw e
+    }
+}

@@ -174,3 +174,19 @@ export function pkgSigned(app) {
         }
     });
 }
+export function zipExtractFile(app, appName, type) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const inputPath = path.join(__dirname, 'tmp', `${app}.zip`);
+        const extractPath = path.join(__dirname, 'tmp', `${app}`);
+        const outputPath = path.join(__dirname, 'tmp', `${app}.${type}`);
+        try {
+            yield exec(`sh ./src/zipExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}" "${appName}"`);
+            console.log(`${app}: zipExtractFile successful`);
+            return true;
+        }
+        catch (e) {
+            console.error(`${app}: zipExtractFile failed with error "${e.message}"`);
+            throw e;
+        }
+    });
+}

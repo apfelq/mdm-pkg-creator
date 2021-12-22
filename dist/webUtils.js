@@ -9,15 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import fs from 'graceful-fs';
 import got from 'got';
+import { gotScraping } from 'got-scraping';
 import path from 'path';
 import stream from 'stream';
 import { promisify } from 'util';
 import { __dirname } from './index.js';
 const pipeline = promisify(stream.pipeline);
-export function download(app, filename, url) {
+export function download(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
-        const outputPath = path.join(__dirname, 'tmp', filename);
-        const downloadStream = got.stream(url);
+        let downloadUrl = appConfig.downloadUrl;
+        if (appConfig.downloadType == 'scrape')
+            downloadUrl = appConfig.scrapeDownloadUrl;
+        const outputPath = path.join(__dirname, 'tmp', `${app}.${appConfig.downloadFileType}`);
+        const downloadStream = got.stream(downloadUrl);
         const fileWriterStream = fs.createWriteStream(outputPath);
         try {
             yield pipeline(downloadStream, fileWriterStream);
@@ -26,6 +30,31 @@ export function download(app, filename, url) {
         }
         catch (e) {
             console.error(`${app}: download failed with error "${e.message}"`);
+            throw e;
+        }
+    });
+}
+export function scrape(app, url) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const headerGeneratorOptions = {
+            browsers: [
+                {
+                    name: 'firefox',
+                    minVersion: 91,
+                    maxVersion: 95
+                }
+            ],
+            devices: ['desktop'],
+            locales: ['en'],
+            operatingSystems: ['macos'],
+        };
+        try {
+            const response = yield gotScraping.get(url);
+            console.log(`${app}: scrape successful`);
+            return response.body;
+        }
+        catch (e) {
+            console.error(`${app}: scrape failed with error "${e.message}"`);
             throw e;
         }
     });
