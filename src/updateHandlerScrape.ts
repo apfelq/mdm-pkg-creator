@@ -16,7 +16,7 @@ export async function updateHandlerScrape (app: string, appConfig: appInterface,
 
         if (!version) throw 'version not found, check scrapeUrl & scrapeRegex'
 
-        const downloadUrl = appConfig.downloadUrl.replace('%VERSION%', version)
+        const downloadUrl = appConfig.downloadUrl.replaceAll('%VERSION%', version)
 
         if ( appConfig.scrapeDownloadUrl == downloadUrl )
         {

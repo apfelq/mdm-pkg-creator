@@ -5,6 +5,7 @@
     "removeComments": true,
     "outDir": "./dist",
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "lib": ["es2021"],
   }
 }
