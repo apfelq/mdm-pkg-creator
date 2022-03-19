@@ -26,13 +26,13 @@
   "homepage": "https://github.com/apfelq/mdm-pkg-creator#readme",
   "dependencies": {
     "es6-promise": "^4.2.8",
-    "got": "^12.0.0",
-    "got-scraping": "^3.2.6",
-    "graceful-fs": "^4.2.8",
+    "got": "^12.0.2",
+    "got-scraping": "^3.2.8",
+    "graceful-fs": "^4.2.9",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@types/node": "^16.11.13",
-    "typescript": "^4.5.4"
+    "@types/node": "^16.11.26",
+    "typescript": "^4.6.2"
   }
 }
