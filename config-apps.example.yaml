@@ -1,3 +1,17 @@
+AdobeReader:
+  appBundleIdentifier: 'com.adobe.Reader'
+  appCodeRequirement: ''
+  appName: 'Adobe Acrobat Reader DC.app'
+  dmgFileType: 'pkg'
+  downloadFileType: 'dmg'
+  downloadType: 'scrape'
+  downloadUrl: 'https://ardownload2.adobe.com/pub/adobe/reader/mac/AcrobatDC/%VERSION%/AcroRdrDC_%VERSION%_MUI.dmg'
+  pkgChecksum: 'ba80b0709435b7e69e3fdb3576a64f13'
+  pkgName: 'AcroRdrDC_[0-9]+_MUI.pkg'
+  pkgSigned: true
+  scrapeDownloadUrl: 'https://ardownload2.adobe.com/pub/adobe/reader/mac/AcrobatDC/2200120085/AcroRdrDC_2200120085_MUI.dmg'
+  scrapeRegex: 'prodesigntools\.com\/ardownload2\/pub\/adobe\/reader\/mac\/AcrobatDC\/([0-9]+)\/AcroRdrDC_[0-9]+_MUI\.dmg'
+  scrapeUrl: 'https://prodesigntools.com/acrobat-dc-2022-direct-download-links.html'
 AnyDesk:
   appBundleIdentifier: 'com.philandro.anydesk'
   appCodeRequirement: 'identifier "com.philandro.anydesk" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = KU6W3B6JMZ'
@@ -27,11 +41,11 @@ Chrome:
   appBundleIdentifier: 'com.google.Chrome'
   appCodeRequirement: '(identifier "com.google.Chrome" or identifier "com.google.Chrome.beta" or identifier "com.google.Chrome.dev" or identifier "com.google.Chrome.canary") and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = EQHXZ8M8AV'
   appName: 'Google Chrome.app'
-  appVersion: '99.0.4844.74'
+  appVersion: '99.0.4844.83'
   downloadFileType: 'pkg'
   downloadType: 'direct'
   downloadUrl: 'https://dl.google.com/dl/chrome/mac/universal/stable/gcem/GoogleChrome.pkg'
-  pkgChecksum: '21ee78ef2771f1f22ff70c712db34946'
+  pkgChecksum: '3e07b8de4f7c67bcbaa465f286a0b230'
   pkgSigned: true
 CitrixWorkspace:
   appBundleIdentifier: 'com.citrix.receiver.nomas'
@@ -45,7 +59,7 @@ CitrixWorkspace:
   pkgChecksum: 'e53c10f8f02bea918acdcc6db91e75e5'
   pkgName: 'Install Citrix Workspace.pkg'
   pkgSigned: true
-  scrapeDownloadUrl: 'https://downloads.citrix.com/20341/CitrixWorkspaceApp.dmg?__gda__=exp=1647706632~acl=/*~hmac=a1126df07bd243184f120b59a122dc4d0251ec877159a15f381ddab48cd14b28'
+  scrapeDownloadUrl: 'https://downloads.citrix.com/20341/CitrixWorkspaceApp.dmg?__gda__=exp=1647857999~acl=/*~hmac=8fe63206e32e1de492ea65b22bb72f172a1d200225064db69f596c91b634bec8'
   scrapeRegex: 'downloads\.citrix\.com\/([0-9]+\/CitrixWorkspaceApp\.dmg\?.+hmac\=[0-9a-z]+)'
   scrapeUrl: 'https://www.citrix.com/downloads/workspace-app/mac/workspace-app-for-mac-latest.html'
 Cyberduck:
@@ -62,6 +76,12 @@ Cyberduck:
   scrapeRegex: 'Cyberduck for macOS\s[<a-z>]+\s[<a-z>]+Cyberduck-([0-9.]+)\.zip'
   scrapeUrl: 'https://cyberduck.io/download/'
   zipFileType: 'app'
+Dropbox:
+  appName: 'Dropbox.app'
+  dmgFileType: 'app'
+  downloadFileType: 'dmg'
+  downloadType: 'direct'
+  downloadUrl: 'https://www.dropbox.com/downloading?full=1&os=mac'
 Element:
   appBundleIdentifier: 'im.riot.app'
   appCodeRequirement: 'identifier "im.riot.app" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7J4U792NQT"'
@@ -112,6 +132,19 @@ Rectangle:
   scrapeDownloadUrl: 'https://github.com/rxhanson/Rectangle/releases/download/v0.53/Rectangle0.53.dmg'
   scrapeRegex: 'Rectangle([0-9.]+)\.dmg'
   scrapeUrl: 'https://rectangleapp.com'
+TeamViewer:
+  appBundleIdentifier: 'com.teamviewer.TeamViewer'
+  appCodeRequirement: 'anchor apple generic and identifier "com.teamviewer.TeamViewer" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7UGFBUGV6)'
+  appName: 'TeamViewer.app'
+  appVersion: '15.27.3'
+  dmgFileType: 'pkg'
+  downloadFileType: 'dmg'
+  downloadType: 'direct'
+  downloadUrl: 'https://download.teamviewer.com/download/TeamViewer.dmg'
+  pkgChecksum: 'a41dd5a436140b488f75a00ec6a7349f'
+  pkgName: 'Install TeamViewer.pkg'
+  pkgSigned: true
+  pkgTarget: '/Applications/.TeamViewer'
 TeamViewerQS:
   appBundleIdentifier: 'com.teamviewer.TeamViewerQS'
   appCodeRequirement: 'anchor apple generic and identifier "com.teamviewer.TeamViewerQS" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7UGFBUGV6)'
@@ -133,6 +166,49 @@ Teams:
   downloadUrl: 'https://go.microsoft.com/fwlink/p/?LinkID=869428&clcid=0x407&culture=de-de&country=DE&lm=deeplink&cmpid=directDownloadMac'
   pkgChecksum: '0f12691e2570e053f5f56f315f1b7acb'
   pkgSigned: true
+Tunnelblick:
+  appBundleIdentifier: 'net.tunnelblick.tunnelblick'
+  appCodeRequirement: 'identifier "net.tunnelblick.tunnelblick" and anchor apple generic and certificate leaf[subject.OU] = Z2SG5H3HC8'
+  appName: 'Tunnelblick.app'
+  appVersion: '3.8.7a (build 5770)'
+  dmgFileType: 'app'
+  downloadFileType: 'dmg'
+  downloadType: 'direct'
+  downloadUrl: 'https://tunnelblick.net/release/Latest_Tunnelblick_Stable.dmg'
+  pkgChecksum: 'c7f5866a910955dcbc36c4d1b71c7e76'
+  pkgSigned: false
+Webex_ARM:
+  appBundleIdentifier: 'Cisco-Systems.Spark'
+  appCodeRequirement: 'identifier "Cisco-Systems.Spark" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DE8Y96K9QP'
+  appName: 'Webex.app'
+  appVersion: '42.3.0.21576'
+  dmgFileType: 'app'
+  downloadFileType: 'dmg'
+  downloadType: 'direct'
+  downloadUrl: 'https://binaries.webex.com/WebexDesktop-MACOS-Apple-Silicon-Gold/Webex.dmg'
+  pkgChecksum: '01cf80464756e4b132cdc2b6a6dc9fc3'
+  pkgSigned: false
+Webex_Intel:
+  appBundleIdentifier: 'Cisco-Systems.Spark'
+  appCodeRequirement: 'identifier "Cisco-Systems.Spark" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DE8Y96K9QP'
+  appName: 'Webex.app'
+  appVersion: '42.3.0.21576'
+  dmgFileType: 'app'
+  downloadFileType: 'dmg'
+  downloadType: 'direct'
+  downloadUrl: 'https://binaries.webex.com/WebexTeamsDesktop-MACOS-Gold/Webex.dmg'
+  pkgChecksum: 'dd46a0f312657de89b057a8cedd4f712'
+  pkgSigned: false
+Zoom:
+  appBundleIdentifier: 'us.zoom.xos'
+  appCodeRequirement: 'identifier "us.zoom.xos" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BJ4HAAB9B3'
+  appName: 'zoom.us.app'
+  appVersion: '5.9.6 (4993)'
+  downloadFileType: 'pkg'
+  downloadType: 'direct'
+  downloadUrl: 'https://zoom.us/client/latest/ZoomInstallerIT.pkg'
+  pkgChecksum: 'ca3b3b73b48bff8301a03e49faa59e86'
+  pkgSigned: true
 alfaview:
   appBundleIdentifier: 'com.alfaview.desktop'
   appCodeRequirement: 'identifier "com.alfaview.desktop" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = AFPV6P844Y'
@@ -148,10 +224,10 @@ calibre:
   appBundleIdentifier: 'net.kovidgoyal.calibre'
   appCodeRequirement: 'identifier "net.kovidgoyal.calibre" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = NTY7FVCEKP'
   appName: 'calibre.app'
-  appVersion: '5.39.0'
+  appVersion: '5.39.1'
   dmgFileType: 'app'
   downloadFileType: 'dmg'
   downloadType: 'direct'
   downloadUrl: 'https://calibre-ebook.com/dist/osx'
-  pkgChecksum: 'e7a0c4ef93f41d3ae18be2f417a75e03'
+  pkgChecksum: '2e168e770a91a450cc04b9d0eac8a584'
   pkgSigned: false
