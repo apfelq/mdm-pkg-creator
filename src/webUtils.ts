@@ -12,7 +12,8 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     //console.log(url)
     let downloadUrl = appConfig.downloadUrl
     if (appConfig.downloadType == 'scrape') downloadUrl = appConfig.scrapeDownloadUrl
-    const outputPath = path.join(__dirname, 'tmp', `${app}.${appConfig.downloadFileType}`)
+    if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`))) fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`))
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${appConfig.downloadFileType}`)
     const downloadStream = got.stream(downloadUrl)
     const fileWriterStream = fs.createWriteStream(outputPath)
 

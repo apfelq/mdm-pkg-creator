@@ -16,7 +16,7 @@ export async function pkgHelperInfo (app: string, appConfig: appInterface): Prom
         if (checksum == appConfig.pkgChecksum)
         {
             // delete pkg
-            await unlink(path.join(__dirname, `tmp`, `${app}.pkg`))
+            await unlink(path.join(__dirname, `tmp`, `${app}`, `${app}.pkg`))
             console.log(`${app}: no update available`)
             return false
         }

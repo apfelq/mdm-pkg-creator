@@ -7,7 +7,7 @@ const exec = promisify(child_process.exec)
 
 export async function appBundleIdentifier (app: string): Promise<string>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.app`, `Contents`, `Info.plist`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`)
     try
     {
         const output = await exec(`sh ./src/appBundleIdentifier.sh "${inputPath}"`)
@@ -24,7 +24,7 @@ export async function appBundleIdentifier (app: string): Promise<string>
 
 export async function appCodeRequirement (app: string): Promise<string>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.app`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`)
     try
     {
         const output = await exec(`sh ./src/appCodeRequirement.sh "${inputPath}"`)
@@ -41,8 +41,8 @@ export async function appCodeRequirement (app: string): Promise<string>
 
 export async function appRename (app: string, appName: string): Promise<boolean>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.app`)
-    const outputPath = path.join(__dirname, 'tmp', appName)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`)
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, appName)
     try
     {
         const output = await exec(`sh ./src/appRename.sh "${inputPath}" "${outputPath}"`)
@@ -58,7 +58,7 @@ export async function appRename (app: string, appName: string): Promise<boolean>
 
 export async function appVersion (app: string): Promise<string>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.app`, `Contents`, `Info.plist`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`)
     try
     {
         const output = await exec(`sh ./src/appVersion.sh "${inputPath}"`)
@@ -75,9 +75,10 @@ export async function appVersion (app: string): Promise<string>
 
 export async function dmgExtractFile (app:string, appName: string, type: string): Promise<boolean>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.dmg`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.dmg`)
     const mountPoint = path.join(__dirname, 'mnt', `${app}`)
-    const outputPath = path.join(__dirname, 'tmp', `${app}.${type}`)
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${type}`)
+
     try
     {
         // Apple Script works best with absolute paths
@@ -94,6 +95,7 @@ export async function dmgExtractFile (app:string, appName: string, type: string)
 
 export async function fileDelete (app: string, fileName: string, dir: string): Promise<boolean>
 {
+    if (dir=='tmp') dir=`tmp/${app}`
     const inputPath = path.join(__dirname, dir, fileName)
     try
     {
@@ -110,7 +112,7 @@ export async function fileDelete (app: string, fileName: string, dir: string): P
 
 export async function pkgChecksum (app:string): Promise<string>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.pkg`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`)
     try
     {
         const output = await exec(`sh ./src/pkgChecksum.sh "${inputPath}"`)
@@ -126,8 +128,8 @@ export async function pkgChecksum (app:string): Promise<string>
 
 export async function pkgCreate (app: string, appName: string, pkgTarget: string): Promise<boolean>
 {
-    const inputPath = path.join(__dirname, 'tmp', appName)
-    const outputPath = path.join(__dirname, 'tmp', `${app}.pkg`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, appName)
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`)
     try
     {
         const output = await exec(`sh ./src/pkgCreate.sh "${inputPath}" "${pkgTarget}" "${outputPath}"`)
@@ -143,8 +145,8 @@ export async function pkgCreate (app: string, appName: string, pkgTarget: string
 
 export async function pkgExtractApp (app:string, appTargetPath: string): Promise<boolean>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.pkg`)
-    const outputPath = path.join(__dirname, 'tmp', `${app}.app`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`)
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`)
     try
     {
         // Apple Script works best with absolute paths
@@ -161,7 +163,7 @@ export async function pkgExtractApp (app:string, appTargetPath: string): Promise
 
 export async function pkgFinalize (app:string, version: string): Promise<boolean>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.pkg`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`)
     const outputPath = path.join(__dirname, 'pkgs', `${app}_${version}.pkg`)
     try
     {
@@ -178,7 +180,7 @@ export async function pkgFinalize (app:string, version: string): Promise<boolean
 
 export async function pkgSigned (app:string): Promise<boolean>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.pkg`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`)
     try
     {
         const output = await exec(`sh ./src/pkgSigned.sh "${inputPath}"`)
@@ -195,9 +197,9 @@ export async function pkgSigned (app:string): Promise<boolean>
 
 export async function zipExtractFile (app:string, appName: string, type: string): Promise<boolean>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}.zip`)
-    const extractPath = path.join(__dirname, 'tmp', `${app}`)
-    const outputPath = path.join(__dirname, 'tmp', `${app}.${type}`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.zip`)
+    const extractPath = path.join(__dirname, 'tmp', `${app}`, `${app}`)
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${type}`)
     try
     {
         // Apple Script works best with absolute paths
