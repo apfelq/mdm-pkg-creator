@@ -5,3 +5,10 @@ mail:
   to: "recipient@example.com"
   username: "sender@example.com"
   password: "supersecretpassword"
+uploads:
+  - server: "sftp://secure.ftp.server/dir/"
+    username: "myuser1"
+    password: "supersecret1"
+  - server: "webdav://secure.dav.server/dir/"
+    username: "myuser2"
+    password: "supersecret2"

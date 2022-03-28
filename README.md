@@ -56,3 +56,14 @@ Have a look at
 - `config-tenants.example.yaml`
 
 on how to set them up. If you add app configs, please share.
+
+### 3.1 config
+
+You can upload to any of the services supported by `duck` (see `duck --help` and <https://docs.duck.sh/protocols/>).
+
+### 3.2 config-apps
+
+Currently there are 2 types of downloads:
+
+- direct (you have a permalink to a file which doesn't change)
+- scrape (you first need to scrape the version number from a website in order to download a file)

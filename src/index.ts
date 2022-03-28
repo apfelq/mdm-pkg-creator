@@ -8,6 +8,7 @@ import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js'
 import { updateHandlerPkg } from './updateHandlerPkg.js'
 import { updateHandlerScrape } from './updateHandlerScrape.js'
 import { updateHandlerZipApp } from './updateHandlerZipApp.js'
+import { uploadPkg } from './utils.js'
 export const __dirname = process.cwd()
 
 export interface appInterface
@@ -69,7 +70,7 @@ async function main ()
 {
 
     // import config
-    let config: {mail?: mailInterface, upload?: uploadInterface[]} = importYaml('config')
+    let config: {mail?: mailInterface, uploads?: uploadInterface[]} = importYaml('config')
     let configApps: {[propName: string]: appInterface} = importYaml('config-apps')
     const configTenants: {[propName: string]: string[]} = importYaml('config-tenants')
 
@@ -230,6 +231,17 @@ async function main ()
     fs.writeFileSync(path.join(__dirname, 'config-apps.yaml'), yaml.dump(configApps, {quotingType: "'", forceQuotes: true, sortKeys: true}))
     console.log('updated "config-apps.yaml"')
     console.log('updates published to "updates.yaml"')
+
+    // upload updates
+    if (config.uploads)
+    {
+        let uploads = []
+        for (let update of updates)
+        {
+            uploads.push(uploadPkg(update, configApps[update].appVersion, config.uploads))
+        }
+        await Promise.all(uploads)
+    }
 
     // mail updates file to recipient
     if (config.mail)

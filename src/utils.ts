@@ -2,7 +2,7 @@ import fs from 'graceful-fs'
 import child_process from 'child_process'
 import path from 'path'
 import { promisify } from 'util'
-import { __dirname, appInterface } from './index.js'
+import { __dirname, appInterface, uploadInterface } from './index.js'
 const exec = promisify(child_process.exec)
 
 export async function appBundleIdentifier (app: string): Promise<string>
@@ -191,6 +191,40 @@ export async function pkgSigned (app:string): Promise<boolean>
     catch (e)
     {
         console.error(`${app}: pkgSigned failed with error "${e.message}"`)
+        return false
+    }
+}
+
+export async function uploadPkg (app:string, version:string, uploadConfigs: uploadInterface[]): Promise<boolean>
+{
+    let uploads = []
+    const inputPath = path.join(__dirname, 'pkgs', `${app}_${version}.pkg`)
+
+    for (let uploadConfig of uploadConfigs)
+    {
+        if (uploadConfig.username && uploadConfig.password)
+        {
+            uploads.push(exec(`/usr/local/bin/duck --assumeyes --username '${uploadConfig.username}' --password '${uploadConfig.password}' --upload '${uploadConfig.server}' '${inputPath}'`))
+        }
+        else if (uploadConfig.username)
+        {
+            uploads.push(exec(`/usr/local/bin/duck --assumeyes --username '${uploadConfig.username}' --upload '${uploadConfig.server}' '${inputPath}'`))
+        }
+        else
+        {
+            uploads.push(exec(`/usr/local/bin/duck --assumeyes --upload '${uploadConfig.server}' '${inputPath}'`))
+        }
+    }
+    try
+    {
+        // Wait for uploads to finish
+        await Promise.all(uploads)
+        console.log(`${app}: uploadPkg successful`)
+        return true
+    }
+    catch (e)
+    {
+        console.error(`${app}: uploadPkg failed with error "${e.message}"`)
         return false
     }
 }
