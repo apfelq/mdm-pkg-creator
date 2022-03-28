@@ -3,7 +3,7 @@ import { __dirname, mailInterface } from './index.js'
 
 export interface attachmentInterface
 {
-    filename: string
+    path: string
 }
 
 export async function sendMail (subject: string, msg: string, settings: mailInterface, attachments?: attachmentInterface[]): Promise<boolean>

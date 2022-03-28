@@ -246,7 +246,7 @@ async function main ()
     // mail updates file to recipient
     if (config.mail)
     {
-        await sendMail('MDM-PKG-CREATOR: new updates!', 'MDM-PKG-CREATOR uploaded new PKGs, see attachment.', config.mail, [{filename: path.join(__dirname, 'updates.yaml')}])
+        await sendMail('MDM-PKG-CREATOR: new updates!', 'MDM-PKG-CREATOR uploaded new PKGs, see attachment.', config.mail, [{path: path.join(__dirname, 'updates.yaml')}])
     }
     
 }

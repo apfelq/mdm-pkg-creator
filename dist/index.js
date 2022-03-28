@@ -156,7 +156,7 @@ function main() {
             yield Promise.all(uploads);
         }
         if (config.mail) {
-            yield sendMail('MDM-PKG-CREATOR: new updates!', 'MDM-PKG-CREATOR uploaded new PKGs, see attachment.', config.mail, [{ filename: path.join(__dirname, 'updates.yaml') }]);
+            yield sendMail('MDM-PKG-CREATOR: new updates!', 'MDM-PKG-CREATOR uploaded new PKGs, see attachment.', config.mail, [{ path: path.join(__dirname, 'updates.yaml') }]);
         }
     });
 }
