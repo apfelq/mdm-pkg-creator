@@ -29,7 +29,7 @@ brew install --cask suspicious-package
 
 I also recommend a decent editor:
 
-- BBEdit from Website or via brew: `brew install --cask bbedit`
+- BBEdit from Website, via AppStore or brew: `brew install --cask bbedit`
 - Visual Studio Code from Website or via brew: `brew install --cask visual-studio-code`
 
 ## 2. Installation
