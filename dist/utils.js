@@ -14,7 +14,7 @@ import { __dirname } from './index.js';
 const exec = promisify(child_process.exec);
 export function appBundleIdentifier(app) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.app`, `Contents`, `Info.plist`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`);
         try {
             const output = yield exec(`sh ./src/appBundleIdentifier.sh "${inputPath}"`);
             console.log(`${app}: appBundleIdentifier successful`);
@@ -28,7 +28,7 @@ export function appBundleIdentifier(app) {
 }
 export function appCodeRequirement(app) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.app`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`);
         try {
             const output = yield exec(`sh ./src/appCodeRequirement.sh "${inputPath}"`);
             console.log(`${app}: appCodeRequirement successful`);
@@ -42,8 +42,8 @@ export function appCodeRequirement(app) {
 }
 export function appRename(app, appName) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.app`);
-        const outputPath = path.join(__dirname, 'tmp', appName);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`);
+        const outputPath = path.join(__dirname, 'tmp', `${app}`, appName);
         try {
             const output = yield exec(`sh ./src/appRename.sh "${inputPath}" "${outputPath}"`);
             console.log(`${app}: appRename successful`);
@@ -57,7 +57,7 @@ export function appRename(app, appName) {
 }
 export function appVersion(app) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.app`, `Contents`, `Info.plist`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`);
         try {
             const output = yield exec(`sh ./src/appVersion.sh "${inputPath}"`);
             console.log(`${app}: appVersion successful`);
@@ -71,9 +71,9 @@ export function appVersion(app) {
 }
 export function dmgExtractFile(app, appName, type) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.dmg`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.dmg`);
         const mountPoint = path.join(__dirname, 'mnt', `${app}`);
-        const outputPath = path.join(__dirname, 'tmp', `${app}.${type}`);
+        const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${type}`);
         try {
             yield exec(`sh ./src/dmgExtractFile.sh "${inputPath}" "${mountPoint}" "${outputPath}" "${appName}"`);
             console.log(`${app}: dmgExtractFile successful`);
@@ -87,6 +87,8 @@ export function dmgExtractFile(app, appName, type) {
 }
 export function fileDelete(app, fileName, dir) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (dir == 'tmp')
+            dir = `tmp/${app}`;
         const inputPath = path.join(__dirname, dir, fileName);
         try {
             const output = yield exec(`sh ./src/fileDelete.sh "${inputPath}"`);
@@ -101,7 +103,7 @@ export function fileDelete(app, fileName, dir) {
 }
 export function pkgChecksum(app) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.pkg`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`);
         try {
             const output = yield exec(`sh ./src/pkgChecksum.sh "${inputPath}"`);
             console.log(`${app}: pkgChecksum successful`);
@@ -115,8 +117,8 @@ export function pkgChecksum(app) {
 }
 export function pkgCreate(app, appName, pkgTarget) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', appName);
-        const outputPath = path.join(__dirname, 'tmp', `${app}.pkg`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, appName);
+        const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`);
         try {
             const output = yield exec(`sh ./src/pkgCreate.sh "${inputPath}" "${pkgTarget}" "${outputPath}"`);
             console.log(`${app}: pkgCreate successful`);
@@ -130,8 +132,8 @@ export function pkgCreate(app, appName, pkgTarget) {
 }
 export function pkgExtractApp(app, appTargetPath) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.pkg`);
-        const outputPath = path.join(__dirname, 'tmp', `${app}.app`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`);
+        const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`);
         try {
             const output = yield exec(`sh ./src/pkgExtractApp.sh "${inputPath}" "${appTargetPath}" "${outputPath}"`);
             console.log(`${app}: pkgExtractApp successful`);
@@ -145,7 +147,7 @@ export function pkgExtractApp(app, appTargetPath) {
 }
 export function pkgFinalize(app, version) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.pkg`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`);
         const outputPath = path.join(__dirname, 'pkgs', `${app}_${version}.pkg`);
         try {
             yield exec(`sh ./src/appRename.sh "${inputPath}" "${outputPath}"`);
@@ -160,7 +162,7 @@ export function pkgFinalize(app, version) {
 }
 export function pkgSigned(app) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.pkg`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`);
         try {
             const output = yield exec(`sh ./src/pkgSigned.sh "${inputPath}"`);
             console.log(`${app}: pkgSigned successful`);
@@ -174,11 +176,37 @@ export function pkgSigned(app) {
         }
     });
 }
+export function uploadPkg(app, version, uploadConfigs) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let uploads = [];
+        const inputPath = path.join(__dirname, 'pkgs', `${app}_${version}.pkg`);
+        for (let uploadConfig of uploadConfigs) {
+            if (uploadConfig.username && uploadConfig.password) {
+                uploads.push(exec(`/usr/local/bin/duck --assumeyes --username '${uploadConfig.username}' --password '${uploadConfig.password}' --upload '${uploadConfig.server}' '${inputPath}'`));
+            }
+            else if (uploadConfig.username) {
+                uploads.push(exec(`/usr/local/bin/duck --assumeyes --username '${uploadConfig.username}' --upload '${uploadConfig.server}' '${inputPath}'`));
+            }
+            else {
+                uploads.push(exec(`/usr/local/bin/duck --assumeyes --upload '${uploadConfig.server}' '${inputPath}'`));
+            }
+        }
+        try {
+            yield Promise.all(uploads);
+            console.log(`${app}: uploadPkg successful`);
+            return true;
+        }
+        catch (e) {
+            console.error(`${app}: uploadPkg failed with error "${e.message}"`);
+            return false;
+        }
+    });
+}
 export function zipExtractFile(app, appName, type) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}.zip`);
-        const extractPath = path.join(__dirname, 'tmp', `${app}`);
-        const outputPath = path.join(__dirname, 'tmp', `${app}.${type}`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.zip`);
+        const extractPath = path.join(__dirname, 'tmp', `${app}`, `${app}`);
+        const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${type}`);
         try {
             yield exec(`sh ./src/zipExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}" "${appName}"`);
             console.log(`${app}: zipExtractFile successful`);

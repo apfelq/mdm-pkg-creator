@@ -18,7 +18,7 @@ export function pkgHelperInfo(app, appConfig) {
         try {
             const checksum = yield pkgChecksum(app);
             if (checksum == appConfig.pkgChecksum) {
-                yield unlink(path.join(__dirname, `tmp`, `${app}.pkg`));
+                yield unlink(path.join(__dirname, `tmp`, `${app}`, `${app}.pkg`));
                 console.log(`${app}: no update available`);
                 return false;
             }

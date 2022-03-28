@@ -11,11 +11,13 @@ import fs from 'graceful-fs';
 import path from 'path';
 import process from 'process';
 import yaml from 'js-yaml';
+import { sendMail } from './mailer.js';
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js';
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js';
 import { updateHandlerPkg } from './updateHandlerPkg.js';
 import { updateHandlerScrape } from './updateHandlerScrape.js';
 import { updateHandlerZipApp } from './updateHandlerZipApp.js';
+import { uploadPkg } from './utils.js';
 export const __dirname = process.cwd();
 function importYaml(fileName) {
     try {
@@ -27,6 +29,7 @@ function importYaml(fileName) {
 }
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
+        let config = importYaml('config');
         let configApps = importYaml('config-apps');
         const configTenants = importYaml('config-tenants');
         try {
@@ -145,6 +148,16 @@ function main() {
         fs.writeFileSync(path.join(__dirname, 'config-apps.yaml'), yaml.dump(configApps, { quotingType: "'", forceQuotes: true, sortKeys: true }));
         console.log('updated "config-apps.yaml"');
         console.log('updates published to "updates.yaml"');
+        if (config.uploads) {
+            let uploads = [];
+            for (let update of updates) {
+                uploads.push(uploadPkg(update, configApps[update].appVersion, config.uploads));
+            }
+            yield Promise.all(uploads);
+        }
+        if (config.mail) {
+            yield sendMail('MDM-PKG-CREATOR: new updates!', 'MDM-PKG-CREATOR uploaded new PKGs, see attachment.', config.mail, [{ filename: path.join(__dirname, 'updates.yaml') }]);
+        }
     });
 }
 main();
