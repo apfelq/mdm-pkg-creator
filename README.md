@@ -16,7 +16,7 @@ A small utility to download apps for macOS from the Internet and create a PKG th
 
 ```bash
 brew install duck node npm
-brew cask install suspicious-package
+brew install --cask suspicious-package
 ```
 
 #### 1.2.2 Install tools directly from their maintainers
@@ -29,8 +29,8 @@ brew cask install suspicious-package
 
 I also recommend a decent editor:
 
-- BBEdit from Website or via brew: `brew cask install bbedit`
-- Visual Studio Code from Website or via brew: `brew cask install visual-studio-code`
+- BBEdit from Website or via brew: `brew install --cask bbedit`
+- Visual Studio Code from Website or via brew: `brew install --cask visual-studio-code`
 
 ## 2. Installation
 
