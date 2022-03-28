@@ -16,10 +16,9 @@ export function updateHandlerScrape(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const body = yield scrape(app, appConfig.scrapeUrl);
-            const version = body.match(new RegExp(appConfig.scrapeRegex))[1];
-            if (!version)
+            const downloadUrl = body.replace(new RegExp(appConfig.scrapeRegex), appConfig.downloadUrl);
+            if (!downloadUrl)
                 throw 'version not found, check scrapeUrl & scrapeRegex';
-            const downloadUrl = appConfig.downloadUrl.replaceAll('%VERSION%', version);
             if (appConfig.scrapeDownloadUrl == downloadUrl) {
                 console.log(`${app}: updateHandlerScrape no update`);
                 return false;

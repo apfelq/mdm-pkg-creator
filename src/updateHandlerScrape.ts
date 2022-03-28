@@ -12,11 +12,13 @@ export async function updateHandlerScrape (app: string, appConfig: appInterface,
     {
         // get website body and scrape version
         const body = await scrape(app, appConfig.scrapeUrl)
-        const version = body.match(new RegExp(appConfig.scrapeRegex))[1]
+        //const version = body.match(new RegExp(appConfig.scrapeRegex))[1]
+        const downloadUrl = body.replace(new RegExp(appConfig.scrapeRegex), appConfig.downloadUrl)
 
-        if (!version) throw 'version not found, check scrapeUrl & scrapeRegex'
+        //if (!version) throw 'version not found, check scrapeUrl & scrapeRegex'
+        if (!downloadUrl) throw 'version not found, check scrapeUrl & scrapeRegex'
 
-        const downloadUrl = appConfig.downloadUrl.replaceAll('%VERSION%', version)
+        //const downloadUrl = appConfig.downloadUrl.replaceAll('%VERSION%', version)
 
         if ( appConfig.scrapeDownloadUrl == downloadUrl )
         {
