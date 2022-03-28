@@ -204,15 +204,15 @@ export async function uploadPkg (app:string, version:string, uploadConfigs: uplo
     {
         if (uploadConfig.username && uploadConfig.password)
         {
-            uploads.push(exec(`/usr/local/bin/duck --assumeyes --username '${uploadConfig.username}' --password '${uploadConfig.password}' --upload '${uploadConfig.server}' '${inputPath}'`))
+            uploads.push(exec(`/usr/local/bin/duck --assumeyes --existing skip --username '${uploadConfig.username}' --password '${uploadConfig.password}' --upload '${uploadConfig.server}' '${inputPath}'`))
         }
         else if (uploadConfig.username)
         {
-            uploads.push(exec(`/usr/local/bin/duck --assumeyes --username '${uploadConfig.username}' --upload '${uploadConfig.server}' '${inputPath}'`))
+            uploads.push(exec(`/usr/local/bin/duck --assumeyes --existing skip --username '${uploadConfig.username}' --upload '${uploadConfig.server}' '${inputPath}'`))
         }
         else
         {
-            uploads.push(exec(`/usr/local/bin/duck --assumeyes --upload '${uploadConfig.server}' '${inputPath}'`))
+            uploads.push(exec(`/usr/local/bin/duck --assumeyes --existing skip --upload '${uploadConfig.server}' '${inputPath}'`))
         }
     }
     try
