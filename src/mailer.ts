@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer')
+import nodemailer from 'nodemailer'
 import { __dirname, mailInterface } from './index.js'
 
 export interface attachmentInterface

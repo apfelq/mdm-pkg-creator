@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 export function sendMail(subject, msg, settings, attachments) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
