@@ -67,3 +67,18 @@ Currently there are 2 types of downloads:
 
 - direct (you have a permalink to a file which doesn't change)
 - scrape (you first need to scrape the version number from a website in order to download a file)
+
+#### 3.2.1 Minimum config
+
+You need to provide at least the following information:
+
+- appName (the app name in the file system after installation, use Terminal if in doubt, e. g. `calibre.app`)
+- downloadType (currently `direct` or `scrape`)
+- downloadFileType (the file that is downloaded, currently `dmg`, `pkg`, `zip`)
+- \<dmg|zip\>FileType (what is expected side a downloaded `dmg`, `zip`; can be `app` or `pkg`)
+- downloadUrl (the download URL, in case of type `scrape` replace the dynamic part with `%VERSION%`, e. g. `https://update.cyberduck.io/Cyberduck-%VERSION%.zip`)
+  
+*In case of type scrape you need to configure the following additional settings:*
+
+- scrapeUrl (the URL where can scrape the version/dynamic information)
+- scrapeRegex (a regular expression to find the version/dynamic information, the tool will use the first match group)
