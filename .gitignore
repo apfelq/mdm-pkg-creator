@@ -5,6 +5,5 @@ pkgs
 tmp
 config.yaml
 config*.yaml
-!config-apps.example.yaml
-!config-tenants.example.yaml
+!config*.example.yaml
 updates.yaml

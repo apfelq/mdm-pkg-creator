@@ -1,0 +1,7 @@
+mail:
+  server: "smtp.example.com"
+  port: 587
+  from: "sender@example.com"
+  to: "recipient@example.com"
+  username: "sender@example.com"
+  password: "supersecretpassword"

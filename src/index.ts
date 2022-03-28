@@ -2,6 +2,7 @@ import fs from 'graceful-fs'
 import path from 'path'
 import process from 'process'
 import yaml from 'js-yaml'
+import { sendMail } from './mailer.js'
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js'
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js'
 import { updateHandlerPkg } from './updateHandlerPkg.js'
@@ -29,7 +30,15 @@ export interface appInterface
     scrapeRegex?: string,
     zipFileType?: 'app'
 }
-
+export interface mailInterface
+{
+    server: string,
+    port: number,
+    from: string,
+    to: string,
+    username: string,
+    password: string
+}
 export interface updateInterface
 {
     appBundleIdentifier: string,
@@ -38,6 +47,13 @@ export interface updateInterface
     appVersion: string,
     pkgChecksum: string,
     pkgSigned: boolean
+}
+
+export interface uploadInterface
+{
+    server: string,
+    username?: string,
+    password?: string
 }
 
 function importYaml (fileName: string): any
@@ -53,6 +69,7 @@ async function main ()
 {
 
     // import config
+    let config: {mail?: mailInterface, upload?: uploadInterface[]} = importYaml('config')
     let configApps: {[propName: string]: appInterface} = importYaml('config-apps')
     const configTenants: {[propName: string]: string[]} = importYaml('config-tenants')
 
@@ -213,6 +230,13 @@ async function main ()
     fs.writeFileSync(path.join(__dirname, 'config-apps.yaml'), yaml.dump(configApps, {quotingType: "'", forceQuotes: true, sortKeys: true}))
     console.log('updated "config-apps.yaml"')
     console.log('updates published to "updates.yaml"')
+
+    // mail updates file to recipient
+    if (config.mail)
+    {
+        await sendMail('MDM-PKG-CREATOR: new updates!', 'MDM-PKG-CREATOR uploaded new PKGs, see attachment.', config.mail, [{filename: path.join(__dirname, 'updates.yaml')}])
+    }
+    
 }
 
 main()
