@@ -134,6 +134,28 @@ LibreOffice:
   scrapeDownloadUrl: 'https://download.documentfoundation.org/libreoffice/stable/7.2.6/mac/x86_64/LibreOffice_7.2.6_MacOS_x86-64.dmg'
   scrapeRegex: '[\s\S]*<span class="dl_version_number">([0-9.]+)<\/span><br \/>\s+<span class="dl_description_text">This version is slightly older[\s\S]*'
   scrapeUrl: 'https://www.libreoffice.org/download/download/'
+Notion_ARM:
+  appBundleIdentifier: 'notion.id'
+  appCodeRequirement: 'identifier "notion.id" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = LBQJ96FQ8D'
+  appName: 'Notion.app'
+  appVersion: '2.0.20'
+  dmgFileType: 'app'
+  downloadFileType: 'dmg'
+  downloadType: 'direct'
+  downloadUrl: 'https://www.notion.so/desktop/apple-silicon/download'
+  pkgChecksum: '82b146e5473a68b58f095406e8fd010b'
+  pkgSigned: false
+Notion_Intel:
+  appBundleIdentifier: 'notion.id'
+  appCodeRequirement: 'identifier "notion.id" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = LBQJ96FQ8D'
+  appName: 'Notion.app'
+  appVersion: '2.0.21'
+  dmgFileType: 'app'
+  downloadFileType: 'dmg'
+  downloadType: 'direct'
+  downloadUrl: 'https://www.notion.so/desktop/mac/download'
+  pkgChecksum: 'cdc373ee6504213ac199dbb216511ee8'
+  pkgSigned: false
 Rectangle:
   appBundleIdentifier: 'com.knollsoft.Rectangle'
   appCodeRequirement: 'anchor apple generic and identifier "com.knollsoft.Rectangle" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = XSYZ3E4B7D)'
@@ -165,6 +187,20 @@ ScanSnapHome:
   scrapeDownloadUrl: 'https://origin.pfultd.com/downloads/ss/sshinst/m-250/MacSSHOfflineInstaller_2_5_0.dmg'
   scrapeRegex: '[\s\S]*m-sshoffline-([0-9]+)_([0-9]+)_([0-9]+)[\s\S]*'
   scrapeUrl: 'https://scansnap.fujitsu.com/global/dl/mac-sshoffline.html'
+SpeechControl:
+  appBundleIdentifier: 'com.Philips.SpeechControl'
+  appCodeRequirement: 'anchor apple generic and identifier "com.Philips.SpeechControl" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DUQ8LK9P92)'
+  appName: 'SpeechControl.app'
+  appVersion: '3.5'
+  dmgFileType: 'app'
+  downloadFileType: 'dmg'
+  downloadType: 'scrape'
+  downloadUrl: 'https://cdn.speech.com/fileadmin/Support/software/speechcontrol/speechcontrol4mac_swm_$1.dmg'
+  pkgChecksum: '85ef7535e063d55f23ebc6823d40879e'
+  pkgSigned: false
+  scrapeDownloadUrl: 'https://cdn.speech.com/fileadmin/Support/software/speechcontrol/speechcontrol4mac_swm_3.5.11.dmg'
+  scrapeRegex: '[\s\S]*?([0-9.]+) - macOS[\s\S]*'
+  scrapeUrl: 'https://www.dictation.philips.com/de/produkte/workflow-software/speechcontrol-software-zur-geraete-und-anwendungssteuerung-lfh4000/'
 TeamViewer:
   appBundleIdentifier: 'com.teamviewer.TeamViewer'
   appCodeRequirement: 'anchor apple generic and identifier "com.teamviewer.TeamViewer" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7UGFBUGV6)'
