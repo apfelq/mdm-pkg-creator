@@ -4,7 +4,7 @@ import { updateHandlerDmgApp } from './updateHandlerDmgApp.js'
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js'
 import { updateHandlerPkg } from './updateHandlerPkg.js'
 import { updateHandlerZipApp } from './updateHandlerZipApp.js'
-import { updateHandlerNestedDmg } from './updateHandlerNestedDmg'
+import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js'
 
 
 export async function updateHandlerScrape (app: string, appConfig: appInterface, updates: string[]): Promise<boolean>

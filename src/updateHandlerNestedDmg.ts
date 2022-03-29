@@ -1,4 +1,4 @@
-import { dmgExtractFile, fileDelete, fileRename } from './utils.js'
+import { dmgExtractFile, fileDelete } from './utils.js'
 import { download } from './webUtils.js'
 import { __dirname, appInterface } from './index.js'
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js'

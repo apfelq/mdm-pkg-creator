@@ -8,8 +8,8 @@ import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js'
 import { updateHandlerPkg } from './updateHandlerPkg.js'
 import { updateHandlerScrape } from './updateHandlerScrape.js'
 import { updateHandlerZipApp } from './updateHandlerZipApp.js'
-import { uploadPkg } from './utils.js'
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js'
+import { uploadPkg } from './utils.js'
 export const __dirname = process.cwd()
 
 export interface appInterface
