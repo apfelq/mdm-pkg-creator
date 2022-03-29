@@ -20,7 +20,8 @@ export function updateHandlerDmgPkg(app, appConfig, updates) {
                 console.error(`${app}: no pkgName in config`);
                 return false;
             }
-            yield dmgExtractFile(app, appConfig.downloadFileType, appConfig.pkgName, appConfig.dmgFileType);
+            const fileType = appConfig.downloadFileType.startsWith('nested') ? appConfig.nestedDmgFileType : appConfig.downloadFileType;
+            yield dmgExtractFile(app, fileType, appConfig.pkgName, appConfig.dmgFileType);
             if (!(yield pkgHelperInfo(app, appConfig)))
                 throw '';
             if (!(yield pkgHelperExtractApp(app, appConfig)))
