@@ -18,6 +18,7 @@ import { updateHandlerPkg } from './updateHandlerPkg.js';
 import { updateHandlerScrape } from './updateHandlerScrape.js';
 import { updateHandlerZipApp } from './updateHandlerZipApp.js';
 import { uploadPkg } from './utils.js';
+import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
 export const __dirname = process.cwd();
 function importYaml(fileName) {
     try {
@@ -79,6 +80,19 @@ function main() {
                             }
                             else {
                                 console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].zipFileType}"`);
+                                console.error(`${app}: verify your config and/or contact developer`);
+                            }
+                            break;
+                        case 'nested-dmg':
+                            if (!configApps[app].nestedDmgFileType) {
+                                console.error(`${app}: missing "nestedDmgFileType" in confg`);
+                                break;
+                            }
+                            if (configApps[app].nestedDmgFileType == 'dmg') {
+                                appUpdates.push(updateHandlerNestedDmg(app, configApps[app], updates));
+                            }
+                            else {
+                                console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].nestedDmgFileType}"`);
                                 console.error(`${app}: verify your config and/or contact developer`);
                             }
                             break;

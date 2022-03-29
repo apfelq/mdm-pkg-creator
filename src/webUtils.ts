@@ -10,8 +10,7 @@ const pipeline = promisify(stream.pipeline)
 export async function download (app: string, appConfig: appInterface): Promise<boolean> 
 {
     //console.log(url)
-    let downloadUrl = appConfig.downloadUrl
-    if (appConfig.downloadType == 'scrape') downloadUrl = appConfig.scrapeDownloadUrl
+    const downloadUrl = appConfig.downloadType == 'scrape' ? appConfig.scrapeDownloadUrl : appConfig.downloadUrl
     if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`))) fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`))
     const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${appConfig.downloadFileType}`)
     const downloadStream = got.stream(downloadUrl)

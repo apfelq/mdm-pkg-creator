@@ -73,11 +73,11 @@ export async function appVersion (app: string): Promise<string>
     
 }
 
-export async function dmgExtractFile (app:string, appName: string, type: string): Promise<boolean>
+export async function dmgExtractFile (app:string, downloadFileType: string, appName: string, dmgFileType: string): Promise<boolean>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.dmg`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${downloadFileType}`)
     const mountPoint = path.join(__dirname, 'mnt', `${app}`)
-    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${type}`)
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${dmgFileType}`)
 
     try
     {
@@ -106,6 +106,23 @@ export async function fileDelete (app: string, fileName: string, dir: string): P
     catch (e)
     {
         console.error(`${app}: fileDelete failed with error "${e.message}"`)
+        throw e
+    }
+}
+
+export async function fileRename (app: string, oldName: string, newName: string): Promise<boolean>
+{
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${oldName}`)
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${newName}`)
+    try
+    {
+        const output = await exec(`sh ./src/appRename.sh "${inputPath}" "${outputPath}"`)
+        console.log(`${app}: fileRename successful`)
+        return true
+    }
+    catch (e)
+    {
+        console.error(`${app}: fileRename failed with error "${e.message}"`)
         throw e
     }
 }

@@ -14,8 +14,9 @@ import { appRename, dmgExtractFile, fileDelete, pkgCreate, pkgFinalize } from '.
 export function updateHandlerDmgApp(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield download(app, appConfig);
-            yield dmgExtractFile(app, appConfig.appName, 'app');
+            if (!appConfig.downloadFileType.startsWith('nested'))
+                yield download(app, appConfig);
+            yield dmgExtractFile(app, appConfig.downloadFileType, appConfig.appName, appConfig.dmgFileType);
             if (!(yield appHelperInfo(app, appConfig))) {
                 console.log(`${app}: updateHandlerDmgApp no update available`);
                 yield fileDelete(app, `${app}.app`, `tmp`);

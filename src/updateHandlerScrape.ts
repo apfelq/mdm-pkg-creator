@@ -4,6 +4,7 @@ import { updateHandlerDmgApp } from './updateHandlerDmgApp.js'
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js'
 import { updateHandlerPkg } from './updateHandlerPkg.js'
 import { updateHandlerZipApp } from './updateHandlerZipApp.js'
+import { updateHandlerNestedDmg } from './updateHandlerNestedDmg'
 
 
 export async function updateHandlerScrape (app: string, appConfig: appInterface, updates: string[]): Promise<boolean>
@@ -61,6 +62,18 @@ export async function updateHandlerScrape (app: string, appConfig: appInterface,
                 if (appConfig.zipFileType == 'app')
                 {
                     handler = await updateHandlerZipApp(app, appConfig, updates)
+                }
+                break
+
+            case 'nested-dmg':
+                if (!appConfig.nestedDmgFileType)
+                {
+                    console.error(`${app}: missing "nestedDmgFileType" in confg`)
+                    break
+                }
+                if (appConfig.nestedDmgFileType == 'dmg')
+                {
+                    handler = await updateHandlerNestedDmg(app, appConfig, updates)
                 }
                 break
         }

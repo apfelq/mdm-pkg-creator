@@ -9,10 +9,10 @@ export async function updateHandlerDmgApp (app: string, appConfig: appInterface,
     try
     {
         // download dmg
-        await download(app, appConfig)
+        if (!appConfig.downloadFileType.startsWith('nested')) await download(app, appConfig)
 
         // extract app from dmg
-        await dmgExtractFile(app, appConfig.appName, 'app')
+        await dmgExtractFile(app, appConfig.downloadFileType, appConfig.appName, appConfig.dmgFileType)
 
         // get app info
         if (!await appHelperInfo(app, appConfig))

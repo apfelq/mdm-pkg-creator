@@ -17,7 +17,7 @@ export async function updateHandlerDmgPkg (app: string, appConfig: appInterface,
             console.error(`${app}: no pkgName in config`)
             return false
         }
-        await dmgExtractFile(app, appConfig.pkgName, 'pkg')
+        await dmgExtractFile(app, appConfig.downloadFileType, appConfig.pkgName, appConfig.dmgFileType)
 
         // get pkg info
         if (!await pkgHelperInfo(app, appConfig)) throw ''

@@ -9,6 +9,7 @@ import { updateHandlerPkg } from './updateHandlerPkg.js'
 import { updateHandlerScrape } from './updateHandlerScrape.js'
 import { updateHandlerZipApp } from './updateHandlerZipApp.js'
 import { uploadPkg } from './utils.js'
+import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js'
 export const __dirname = process.cwd()
 
 export interface appInterface
@@ -19,9 +20,11 @@ export interface appInterface
     appVersion: string,
     downloadType: 'direct' | 'github' | 'scrape',
     downloadUrl?: string,
-    downloadFileType: 'dmg' | 'pkg' | 'zip',
+    downloadFileType: 'dmg' | 'pkg' | 'zip' | 'nested-dmg',
     downloadGithub?: string,
     dmgFileType?: string,
+    nestedDmgFileType?: 'dmg',
+    nestedDmgName?: string,
     pkgChecksum: string,
     pkgName?: string,
     pkgSigned: boolean,
@@ -143,6 +146,24 @@ async function main ()
                             console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].zipFileType}"`)
                             console.error(`${app}: verify your config and/or contact developer`)
                         }
+                        break
+
+                    case 'nested-dmg':
+                        if (!configApps[app].nestedDmgFileType)
+                        {
+                            console.error(`${app}: missing "nestedDmgFileType" in confg`)
+                            break
+                        }
+                        if (configApps[app].nestedDmgFileType == 'dmg')
+                        {
+                            appUpdates.push(updateHandlerNestedDmg(app, configApps[app], updates))
+                        }
+                        else
+                        {
+                            console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].nestedDmgFileType}"`)
+                            console.error(`${app}: verify your config and/or contact developer`)
+                        }
+                        
                         break
 
                     default:

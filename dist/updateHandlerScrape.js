@@ -12,6 +12,7 @@ import { updateHandlerDmgApp } from './updateHandlerDmgApp.js';
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js';
 import { updateHandlerPkg } from './updateHandlerPkg.js';
 import { updateHandlerZipApp } from './updateHandlerZipApp.js';
+import { updateHandlerNestedDmg } from './updateHandlerNestedDmg';
 export function updateHandlerScrape(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -48,6 +49,15 @@ export function updateHandlerScrape(app, appConfig, updates) {
                     }
                     if (appConfig.zipFileType == 'app') {
                         handler = yield updateHandlerZipApp(app, appConfig, updates);
+                    }
+                    break;
+                case 'nested-dmg':
+                    if (!appConfig.nestedDmgFileType) {
+                        console.error(`${app}: missing "nestedDmgFileType" in confg`);
+                        break;
+                    }
+                    if (appConfig.nestedDmgFileType == 'dmg') {
+                        handler = yield updateHandlerNestedDmg(app, appConfig, updates);
                     }
                     break;
             }

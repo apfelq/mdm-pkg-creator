@@ -17,9 +17,7 @@ import { __dirname } from './index.js';
 const pipeline = promisify(stream.pipeline);
 export function download(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
-        let downloadUrl = appConfig.downloadUrl;
-        if (appConfig.downloadType == 'scrape')
-            downloadUrl = appConfig.scrapeDownloadUrl;
+        const downloadUrl = appConfig.downloadType == 'scrape' ? appConfig.scrapeDownloadUrl : appConfig.downloadUrl;
         if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`)))
             fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`));
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${appConfig.downloadFileType}`);
