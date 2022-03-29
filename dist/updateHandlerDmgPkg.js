@@ -14,7 +14,8 @@ import { dmgExtractFile, fileDelete, pkgFinalize } from './utils.js';
 export function updateHandlerDmgPkg(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield download(app, appConfig);
+            if (!appConfig.downloadFileType.startsWith('nested'))
+                yield download(app, appConfig);
             if (!appConfig.pkgName) {
                 console.error(`${app}: no pkgName in config`);
                 return false;

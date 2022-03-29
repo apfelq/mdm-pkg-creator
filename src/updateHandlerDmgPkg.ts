@@ -9,7 +9,7 @@ export async function updateHandlerDmgPkg (app: string, appConfig: appInterface,
     try
     {
         // download dmg
-        await download(app, appConfig)
+        if (!appConfig.downloadFileType.startsWith('nested')) await download(app, appConfig)
 
         // mount dmg
         if (!appConfig.pkgName)
