@@ -1,3 +1,5 @@
+cdn:
+  - "https://pkgs.example.com"
 mail:
   server: "smtp.example.com"
   port: 587

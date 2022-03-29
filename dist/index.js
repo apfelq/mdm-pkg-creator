@@ -152,6 +152,7 @@ function main() {
                         appCodeRequirement: configApps[update].appCodeRequirement,
                         appName: configApps[update].appName,
                         appVersion: configApps[update].appVersion,
+                        cdn: config.cdn.map(server => `${server}${update}_${configApps[update].appVersion}.pkg`),
                         pkgChecksum: configApps[update].pkgChecksum,
                         pkgSigned: configApps[update].pkgSigned
                     };

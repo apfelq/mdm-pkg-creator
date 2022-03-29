@@ -49,6 +49,7 @@ export interface updateInterface
     appCodeRequirement: string,
     appName: string,
     appVersion: string,
+    cdn: string[],
     pkgChecksum: string,
     pkgSigned: boolean
 }
@@ -73,7 +74,7 @@ async function main ()
 {
 
     // import config
-    let config: {mail?: mailInterface, uploads?: uploadInterface[]} = importYaml('config')
+    let config: {cdn: string[], mail?: mailInterface, uploads?: uploadInterface[]} = importYaml('config')
     let configApps: {[propName: string]: appInterface} = importYaml('config-apps')
     const configTenants: {[propName: string]: string[]} = importYaml('config-tenants')
 
@@ -242,6 +243,7 @@ async function main ()
                     appCodeRequirement: configApps[update].appCodeRequirement,
                     appName: configApps[update].appName,
                     appVersion: configApps[update].appVersion,
+                    cdn: config.cdn.map(server => `${server}${update}_${configApps[update].appVersion}.pkg`),
                     pkgChecksum: configApps[update].pkgChecksum,
                     pkgSigned: configApps[update].pkgSigned
                 }
