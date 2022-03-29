@@ -5,12 +5,12 @@ AdobeReader:
   dmgFileType: 'pkg'
   downloadFileType: 'dmg'
   downloadType: 'scrape'
-  downloadUrl: 'https://ardownload2.adobe.com/pub/adobe/reader/mac/AcrobatDC/%VERSION%/AcroRdrDC_%VERSION%_MUI.dmg'
+  downloadUrl: 'https://ardownload2.adobe.com/pub/adobe/reader/mac/AcrobatDC/$1/AcroRdrDC_$1_MUI.dmg'
   pkgChecksum: 'ba80b0709435b7e69e3fdb3576a64f13'
   pkgName: 'AcroRdrDC_[0-9]+_MUI.pkg'
   pkgSigned: true
   scrapeDownloadUrl: 'https://ardownload2.adobe.com/pub/adobe/reader/mac/AcrobatDC/2200120085/AcroRdrDC_2200120085_MUI.dmg'
-  scrapeRegex: 'prodesigntools\.com\/ardownload2\/pub\/adobe\/reader\/mac\/AcrobatDC\/([0-9]+)\/AcroRdrDC_[0-9]+_MUI\.dmg'
+  scrapeRegex: '[\s\S]*prodesigntools\.com\/ardownload2\/pub\/adobe\/reader\/mac\/AcrobatDC\/([0-9]+)\/AcroRdrDC_[0-9]+_MUI\.dmg[\s\S]*'
   scrapeUrl: 'https://prodesigntools.com/acrobat-dc-2022-direct-download-links.html'
 AnyDesk:
   appBundleIdentifier: 'com.philandro.anydesk'
@@ -30,11 +30,11 @@ AppCleaner:
   appVersion: '3.6.4'
   downloadFileType: 'zip'
   downloadType: 'scrape'
-  downloadUrl: 'https://freemacsoft.net/downloads/AppCleaner_%VERSION%.zip'
+  downloadUrl: 'https://freemacsoft.net/downloads/AppCleaner_$1.zip'
   pkgChecksum: 'a577d43ff4219efd144c69cf4437a6ee'
   pkgSigned: false
   scrapeDownloadUrl: 'https://freemacsoft.net/downloads/AppCleaner_3.6.4.zip'
-  scrapeRegex: 'Version\s([0-9.]+)'
+  scrapeRegex: '[\s\S]*Version\s([0-9.]+)[\s\S]*'
   scrapeUrl: 'https://freemacsoft.net/appcleaner/'
   zipFileType: 'app'
 Chrome:
@@ -55,12 +55,12 @@ CitrixWorkspace:
   dmgFileType: 'pkg'
   downloadFileType: 'dmg'
   downloadType: 'scrape'
-  downloadUrl: 'https://downloads.citrix.com/%VERSION%'
+  downloadUrl: 'https://downloads.citrix.com/$1'
   pkgChecksum: '1c0f4307e5d99944d1e19dea4fdf493f'
   pkgName: 'Install Citrix Workspace.pkg'
   pkgSigned: true
   scrapeDownloadUrl: 'https://downloads.citrix.com/20792/CitrixWorkspaceApp.dmg?__gda__=exp=1648504731~acl=/*~hmac=ce1963513556c8be2cd9438f019f93ac8d90d3cbc713863c0691525587407439'
-  scrapeRegex: 'downloads\.citrix\.com\/([0-9]+\/CitrixWorkspaceApp\.dmg\?.+hmac\=[0-9a-z]+)'
+  scrapeRegex: '[\s\S]*downloads\.citrix\.com\/([0-9]+\/CitrixWorkspaceApp\.dmg\?.+hmac\=[0-9a-z]+)[\s\S]*'
   scrapeUrl: 'https://www.citrix.com/downloads/workspace-app/mac/workspace-app-for-mac-latest.html'
 Cyberduck:
   appBundleIdentifier: 'ch.sudo.cyberduck'
@@ -69,11 +69,11 @@ Cyberduck:
   appVersion: '8.2.3'
   downloadFileType: 'zip'
   downloadType: 'scrape'
-  downloadUrl: 'https://update.cyberduck.io/Cyberduck-%VERSION%.zip'
+  downloadUrl: 'https://update.cyberduck.io/Cyberduck-$1.zip'
   pkgChecksum: 'ac3af4490377259ef134f32768b45905'
   pkgSigned: false
   scrapeDownloadUrl: 'https://update.cyberduck.io/Cyberduck-8.2.3.36880.zip'
-  scrapeRegex: 'Cyberduck for macOS\s[<a-z>]+\s[<a-z>]+Cyberduck-([0-9.]+)\.zip'
+  scrapeRegex: '[\s\S]*Cyberduck for macOS\s[<a-z>]+\s[<a-z>]+Cyberduck-([0-9.]+)\.zip[\s\S]*'
   scrapeUrl: 'https://cyberduck.io/download/'
   zipFileType: 'app'
 Dropbox:
@@ -128,11 +128,11 @@ LibreOffice:
   dmgFileType: 'app'
   downloadFileType: 'dmg'
   downloadType: 'scrape'
-  downloadUrl: 'https://download.documentfoundation.org/libreoffice/stable/%VERSION%/mac/x86_64/LibreOffice_%VERSION%_MacOS_x86-64.dmg'
+  downloadUrl: 'https://download.documentfoundation.org/libreoffice/stable/$1/mac/x86_64/LibreOffice_$1_MacOS_x86-64.dmg'
   pkgChecksum: '0d288dc62c791dffb68902a679a82a62'
   pkgSigned: false
   scrapeDownloadUrl: 'https://download.documentfoundation.org/libreoffice/stable/7.2.6/mac/x86_64/LibreOffice_7.2.6_MacOS_x86-64.dmg'
-  scrapeRegex: '<span class="dl_version_number">([0-9.]+)<\/span><br \/>\s+<span class="dl_description_text">This version is slightly older'
+  scrapeRegex: '[\s\S]*<span class="dl_version_number">([0-9.]+)<\/span><br \/>\s+<span class="dl_description_text">This version is slightly older[\s\S]*'
   scrapeUrl: 'https://www.libreoffice.org/download/download/'
 Rectangle:
   appBundleIdentifier: 'com.knollsoft.Rectangle'
@@ -142,12 +142,22 @@ Rectangle:
   dmgFileType: 'app'
   downloadFileType: 'dmg'
   downloadType: 'scrape'
-  downloadUrl: 'https://github.com/rxhanson/Rectangle/releases/download/v%VERSION%/Rectangle%VERSION%.dmg'
+  downloadUrl: 'https://github.com/rxhanson/Rectangle/releases/download/v$1/Rectangle$1.dmg'
   pkgChecksum: '3c4d7f33a150a220152e6aaa7c6191c5'
   pkgSigned: false
   scrapeDownloadUrl: 'https://github.com/rxhanson/Rectangle/releases/download/v0.53/Rectangle0.53.dmg'
-  scrapeRegex: 'Rectangle([0-9.]+)\.dmg'
+  scrapeRegex: '[\s\S]*Rectangle([0-9.]+)\.dmg[\s\S]*'
   scrapeUrl: 'https://rectangleapp.com'
+ScanSnapHome:
+  appName: 'ScanSnapHomeMain.app'
+  dmgFileType: 'pkg'
+  downloadFileType: 'dmg'
+  downloadType: 'scrape'
+  downloadUrl: 'https://origin.pfultd.com/downloads/ss/sshinst/m-$1$2$3/MacSSHOfflineInstaller_$1_$2_$3.dmg'
+  pkgName: 'ScanSnap Home.pkg'
+  scrapeDownloadUrl: 'https://origin.pfultd.com/downloads/ss/sshinst/m-250/MacSSHOfflineInstaller_2_5_0.dmg'
+  scrapeRegex: '[\s\S]*m-sshoffline-([0-9]+)_([0-9]+)_([0-9]+)[\s\S]*'
+  scrapeUrl: 'https://scansnap.fujitsu.com/global/dl/mac-sshoffline.html'
 TeamViewer:
   appBundleIdentifier: 'com.teamviewer.TeamViewer'
   appCodeRequirement: 'anchor apple generic and identifier "com.teamviewer.TeamViewer" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7UGFBUGV6)'
@@ -232,9 +242,9 @@ alfaview:
   dmgFileType: 'app'
   downloadFileType: 'dmg'
   downloadType: 'scrape'
-  downloadUrl: 'https://assets.alfaview.com/stable/mac/alfaview-mac-production-%VERSION%.dmg'
+  downloadUrl: 'https://assets.alfaview.com/stable/mac/alfaview-mac-production-$1.dmg'
   scrapeDownloadUrl: 'https://assets.alfaview.com/stable/mac/alfaview-mac-production-8.41.0.dmg'
-  scrapeRegex: 'alfaview-mac-production-([0-9.]+)\.dmg'
+  scrapeRegex: '[\s\S]*alfaview-mac-production-([0-9.]+)\.dmg[\s\S]*'
   scrapeUrl: 'https://assets.alfaview.com/stable/mac/version.info'
 calibre:
   appBundleIdentifier: 'net.kovidgoyal.calibre'

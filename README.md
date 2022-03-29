@@ -80,5 +80,5 @@ You need to provide at least the following information:
   
 *In case of type scrape you need to configure the following additional settings:*
 
-- scrapeUrl (the URL where can scrape the version/dynamic information)
-- scrapeRegex (a regular expression to find the version/dynamic information, the tool will use the first match group)
+- scrapeUrl (the URL where can scrape the version/dynamic information, use capturing groups)
+- scrapeRegex (a regular expression to find the version/dynamic information, make sure to match everything by putting `[\s\S]*` at the beginning and end of your expression and work with capturing groups)
