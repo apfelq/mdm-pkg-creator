@@ -14,6 +14,10 @@ export const __dirname = process.cwd()
 
 export interface appInterface
 {
+    additionalInfo?: {
+        preInstall?: string[],
+        postInstall?: string[]
+    }
     appBundleIdentifier: string,
     appCodeRequirement: string,
     appName: string,
@@ -45,6 +49,10 @@ export interface mailInterface
 }
 export interface updateInterface
 {
+    additionalInfo?: {
+        preInstall?: string[],
+        postInstall?: string[]
+    }
     appBundleIdentifier: string,
     appCodeRequirement: string,
     appName: string,
@@ -246,6 +254,12 @@ async function main ()
                     cdn: config.cdn.map(server => `${server}${update}_${configApps[update].appVersion}.pkg`),
                     pkgChecksum: configApps[update].pkgChecksum,
                     pkgSigned: configApps[update].pkgSigned
+                }
+                if (configApps[update].additionalInfo)
+                {
+                    tenantUpdates[tenant][update].additionalInfo = {}
+                    if (configApps[update].additionalInfo.preInstall) tenantUpdates[tenant][update].additionalInfo.preInstall
+                    if (configApps[update].additionalInfo.postInstall) tenantUpdates[tenant][update].additionalInfo.postInstall
                 }
             }
         }
