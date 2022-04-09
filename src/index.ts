@@ -22,6 +22,7 @@ export interface appInterface
     appCodeRequirement: string,
     appName: string,
     appVersion: string,
+    cookieUrl?: string,
     downloadType: 'direct' | 'github' | 'scrape',
     downloadUrl?: string,
     downloadFileType: 'dmg' | 'pkg' | 'zip' | 'nested-dmg',

@@ -156,6 +156,13 @@ function main() {
                         pkgChecksum: configApps[update].pkgChecksum,
                         pkgSigned: configApps[update].pkgSigned
                     };
+                    if (configApps[update].additionalInfo) {
+                        tenantUpdates[tenant][update].additionalInfo = {};
+                        if (configApps[update].additionalInfo.preInstall)
+                            tenantUpdates[tenant][update].additionalInfo.preInstall;
+                        if (configApps[update].additionalInfo.postInstall)
+                            tenantUpdates[tenant][update].additionalInfo.postInstall;
+                    }
                 }
             }
         }

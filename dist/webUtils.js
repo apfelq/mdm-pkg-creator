@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import fs from 'graceful-fs';
 import got from 'got';
 import { gotScraping } from 'got-scraping';
+import { Cookie, CookieJar } from 'tough-cookie';
 import path from 'path';
 import stream from 'stream';
 import { promisify } from 'util';
@@ -18,11 +19,26 @@ const pipeline = promisify(stream.pipeline);
 export function download(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         const downloadUrl = appConfig.downloadType == 'scrape' ? appConfig.scrapeDownloadUrl : appConfig.downloadUrl;
+        let cookies = undefined;
+        let cookieJar = new CookieJar();
+        if (appConfig.cookieUrl) {
+            const response = yield got(appConfig.cookieUrl);
+            if (response.headers['set-cookie'] instanceof Array) {
+                cookies = response.headers['set-cookie'].map(Cookie.parse);
+            }
+            else {
+                cookies = [Cookie.parse(response.headers['set-cookie'])];
+            }
+            for (let cookie of cookies) {
+                cookieJar.setCookieSync(cookie, downloadUrl);
+            }
+        }
         if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`)))
             fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`));
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${appConfig.downloadFileType}`);
-        const downloadStream = got.stream(downloadUrl);
         const fileWriterStream = fs.createWriteStream(outputPath);
+        let options = cookies ? { cookieJar } : {};
+        const downloadStream = got.stream(downloadUrl, options);
         try {
             yield pipeline(downloadStream, fileWriterStream);
             console.log(`${app}: download successful`);
