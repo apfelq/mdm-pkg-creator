@@ -298,6 +298,17 @@ Webex_Intel:
   downloadUrl: 'https://binaries.webex.com/WebexTeamsDesktop-MACOS-Gold/Webex.dmg'
   pkgChecksum: 'dd46a0f312657de89b057a8cedd4f712'
   pkgSigned: false
+Zoiper:
+  appBundleIdentifier: 'com.securax.zoiper5'
+  appCodeRequirement: 'identifier "com.securax.zoiper5" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "8923WVMRDE"'
+  appName: 'Zoiper5.app'
+  appVersion: '5.5.10'
+  cookieUrl: 'https://www.zoiper.com/en/voip-softphone/download/current'
+  downloadFileType: 'pkg'
+  downloadType: 'direct'
+  downloadUrl: 'https://www.zoiper.com/en/voip-softphone/download/zoiper5/for/mac'
+  pkgChecksum: '73fb9ce40697f421f39705e273afd6d7'
+  pkgSigned: true
 Zoom:
   appBundleIdentifier: 'us.zoom.xos'
   appCodeRequirement: 'identifier "us.zoom.xos" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BJ4HAAB9B3'
