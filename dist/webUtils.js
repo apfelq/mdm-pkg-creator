@@ -24,7 +24,7 @@ export function download(app, appConfig) {
         if (appConfig.cookieUrl) {
             const response = yield got(appConfig.cookieUrl);
             if (response.headers['set-cookie'] instanceof Array) {
-                cookies = response.headers['set-cookie'].map(Cookie.parse);
+                cookies = response.headers['set-cookie'].map(header => Cookie.parse(header));
             }
             else {
                 cookies = [Cookie.parse(response.headers['set-cookie'])];

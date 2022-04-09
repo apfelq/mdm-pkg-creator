@@ -21,7 +21,7 @@ export async function download (app: string, appConfig: appInterface): Promise<b
         const response  = await got(appConfig.cookieUrl)
         if (response.headers['set-cookie'] instanceof Array)
         {
-            cookies = response.headers['set-cookie'].map(Cookie.parse)
+            cookies = response.headers['set-cookie'].map(header => Cookie.parse(header))
         }
         else
         {
