@@ -232,6 +232,10 @@ SpeechControl:
   scrapeRegex: '[\s\S]*?([0-9.]+) - macOS[\s\S]*'
   scrapeUrl: 'https://www.dictation.philips.com/de/produkte/workflow-software/speechcontrol-software-zur-geraete-und-anwendungssteuerung-lfh4000/'
 TeamViewer:
+  additionalInfo:
+    postInstall:
+      - 'defaults write com.teamviewer.TeamViewer SUEnableAutomaticChecks -bool false'
+      - 'defaults write com.teamviewer.TeamViewer SUAutomaticallyUpdate -bool false'
   appBundleIdentifier: 'com.teamviewer.TeamViewer'
   appCodeRequirement: 'anchor apple generic and identifier "com.teamviewer.TeamViewer" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7UGFBUGV6)'
   appName: 'TeamViewer.app'
