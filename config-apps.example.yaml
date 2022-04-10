@@ -33,11 +33,11 @@ AppCleaner:
   appVersion: '3.6.4'
   downloadFileType: 'zip'
   downloadType: 'scrape'
-  downloadUrl: 'https://freemacsoft.net/downloads/AppCleaner_$1.zip'
+  downloadUrl: '$1'
   pkgChecksum: 'a577d43ff4219efd144c69cf4437a6ee'
   pkgSigned: false
   scrapeDownloadUrl: 'https://freemacsoft.net/downloads/AppCleaner_3.6.4.zip'
-  scrapeRegex: '[\s\S]*Version\s([0-9.]+)[\s\S]*'
+  scrapeRegex: '[\s\S]*?(https:\/\/freemacsoft.net\/downloads\/AppCleaner_[0-9.]+.zip)[\s\S]*'
   scrapeUrl: 'https://freemacsoft.net/appcleaner/'
   zipFileType: 'app'
 Chrome:
@@ -155,7 +155,7 @@ LibreOffice:
   dmgFileType: 'app'
   downloadFileType: 'dmg'
   downloadType: 'scrape'
-  downloadUrl: 'https://download.documentfoundation.org/libreoffice/stable/$1/mac/x86_64/LibreOffice_$1_MacOS_x86-64.dmg'
+  downloadUrl: 'https://ftp.halifax.rwth-aachen.de/tdf/libreoffice/stable/$1/mac/x86_64/LibreOffice_$1_MacOS_x86-64.dmg'
   pkgChecksum: '0d288dc62c791dffb68902a679a82a62'
   pkgSigned: false
   scrapeDownloadUrl: 'https://download.documentfoundation.org/libreoffice/stable/7.2.6/mac/x86_64/LibreOffice_7.2.6_MacOS_x86-64.dmg'
