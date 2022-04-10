@@ -82,3 +82,7 @@ You need to provide at least the following information:
 
 - scrapeUrl (the URL where can scrape the version/dynamic information, use capturing groups)
 - scrapeRegex (a regular expression to find the version/dynamic information, make sure to match everything by putting `[\s\S]*` at the beginning and end of your expression and work with capturing groups)
+
+## 4. Execute
+
+Simply execute the script by typing `npm start` or `./mdm-pkg-creator.sh`

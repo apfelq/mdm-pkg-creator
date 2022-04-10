@@ -177,8 +177,13 @@ function main() {
             }
             yield Promise.all(uploads);
         }
-        if (config.mail && updates.length > 0) {
-            yield sendMail('MDM-PKG-CREATOR: new updates!', `MDM-PKG-CREATOR uploaded the following new PKGs:\r\n\r\n${updates.toString()}\r\n\r\nFor tenant updates refer to attachment.`, config.mail, [{ path: path.join(__dirname, 'updates.yaml') }]);
+        if (config.mail) {
+            if (updates.length > 0) {
+                yield sendMail('MDM-PKG-CREATOR: new updates!', `MDM-PKG-CREATOR uploaded the following new PKGs:\r\n\r\n${updates.toString()}\r\n\r\nFor tenant updates and log refer to attachment.`, config.mail, [{ path: path.join(__dirname, 'updates.yaml') }, { path: path.join(__dirname, 'mdm-pkg-creater.log') }]);
+            }
+            else {
+                yield sendMail('MDM-PKG-CREATOR: no updates!', `MDM-PKG-CREATOR did not detect any updates.\r\n\r\nLog attached.`, config.mail, [{ path: path.join(__dirname, 'mdm-pkg-creater.log') }]);
+            }
         }
     });
 }
