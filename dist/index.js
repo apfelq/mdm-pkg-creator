@@ -177,7 +177,7 @@ function main() {
             }
             yield Promise.all(uploads);
         }
-        if (config.mail) {
+        if (config.mail && updates.length > 0) {
             yield sendMail('MDM-PKG-CREATOR: new updates!', `MDM-PKG-CREATOR uploaded the following new PKGs:\r\n\r\n${updates.toString()}\r\n\r\nFor tenant updates refer to attachment.`, config.mail, [{ path: path.join(__dirname, 'updates.yaml') }]);
         }
     });
