@@ -287,11 +287,11 @@ async function main ()
         // check if any updates
         if (updates.length>0)
         {
-            await sendMail('MDM-PKG-CREATOR: new updates!', `MDM-PKG-CREATOR uploaded the following new PKGs:\r\n\r\n${updates.toString()}\r\n\r\nFor tenant updates and log refer to attachment.`, config.mail, [{path: path.join(__dirname, 'updates.yaml')},{path: path.join(__dirname, 'mdm-pkg-creater.log')}])
+            await sendMail('MDM-PKG-CREATOR: new updates!', `MDM-PKG-CREATOR uploaded the following new PKGs:\r\n\r\n${updates.toString()}\r\n\r\nFor tenant updates and log refer to attachment.`, config.mail, [{path: path.join(__dirname, 'updates.yaml')},{path: path.join(__dirname, 'mdm-pkg-creator.log')}])
         }
         else
         {
-            await sendMail('MDM-PKG-CREATOR: no updates!', `MDM-PKG-CREATOR did not detect any updates.\r\n\r\nLog attached.`, config.mail, [{path: path.join(__dirname, 'mdm-pkg-creater.log')}])
+            await sendMail('MDM-PKG-CREATOR: no updates!', `MDM-PKG-CREATOR did not detect any updates.\r\n\r\nLog attached.`, config.mail, [{path: path.join(__dirname, 'mdm-pkg-creator.log')}])
         }
     }
     
