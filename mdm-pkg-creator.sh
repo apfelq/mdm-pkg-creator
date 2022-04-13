@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# expand path
+export PATH=/usr/local/bin:$PATH
+
 # change to script dir
 cd "$(dirname "$0")"
 
