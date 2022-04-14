@@ -8,7 +8,7 @@
 			<string>YOURUSERNAME</string>
 		<key>ProgramArguments</key>
 			<array>
-				<string>/bin/bash</string>
+				<string>/bin/sh</string>
 				<string>PATHTO/mdm-pkg-creator.sh</string>
 			</array>
 		<key>StartCalendarInterval</key>
