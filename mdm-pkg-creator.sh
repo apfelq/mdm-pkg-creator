@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 # expand path
-export PATH=/usr/local/bin:$PATH
+export PATH="/usr/local/bin:${PATH}"
 
 # change to script dir
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit 1
 
 # check that everything is up to date and installed
 git pull
