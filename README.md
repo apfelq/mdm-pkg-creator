@@ -85,4 +85,8 @@ You need to provide at least the following information:
 
 ## 4. Execute
 
-Simply execute the script by typing `npm start` or `./mdm-pkg-creator.sh`
+Simply execute the script by typing `npm start` or `./mdm-pkg-creator.sh`.
+
+There is also an example for a `launchd` job so you could run this script on a regular basis.
+
+Make sure you grant full disk access to `/bin/sh` in macOS' "great" Security & Privacy settings.
