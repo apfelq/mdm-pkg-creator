@@ -191,6 +191,18 @@ export function pkgSigned(app) {
         }
     });
 }
+export function quitSuspiciousPackage() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const output = yield exec(`sh ./src/quitSuspiciousPackage.sh`);
+            return true;
+        }
+        catch (e) {
+            console.error(`quitSuspiciousPackage failed with error "${e.message}"`);
+            return false;
+        }
+    });
+}
 export function uploadPkg(app, version, uploadConfigs) {
     return __awaiter(this, void 0, void 0, function* () {
         let uploads = [];

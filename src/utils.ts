@@ -212,6 +212,20 @@ export async function pkgSigned (app:string): Promise<boolean>
     }
 }
 
+export async function quitSuspiciousPackage (): Promise<boolean>
+{
+    try
+    {
+        const output = await exec(`sh ./src/quitSuspiciousPackage.sh`)
+        return true
+    }
+    catch (e)
+    {
+        console.error(`quitSuspiciousPackage failed with error "${e.message}"`)
+        return false
+    }
+}
+
 export async function uploadPkg (app:string, version:string, uploadConfigs: uploadInterface[]): Promise<boolean>
 {
     let uploads = []

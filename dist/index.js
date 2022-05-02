@@ -18,7 +18,7 @@ import { updateHandlerPkg } from './updateHandlerPkg.js';
 import { updateHandlerScrape } from './updateHandlerScrape.js';
 import { updateHandlerZipApp } from './updateHandlerZipApp.js';
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
-import { uploadPkg } from './utils.js';
+import { quitSuspiciousPackage, uploadPkg } from './utils.js';
 export const __dirname = process.cwd();
 function importYaml(fileName) {
     try {
@@ -159,9 +159,9 @@ function main() {
                     if (configApps[update].additionalInfo) {
                         tenantUpdates[tenant][update].additionalInfo = {};
                         if (configApps[update].additionalInfo.preInstall)
-                            tenantUpdates[tenant][update].additionalInfo.preInstall;
+                            tenantUpdates[tenant][update].additionalInfo.preInstall = configApps[update].additionalInfo.preInstall;
                         if (configApps[update].additionalInfo.postInstall)
-                            tenantUpdates[tenant][update].additionalInfo.postInstall;
+                            tenantUpdates[tenant][update].additionalInfo.postInstall = configApps[update].additionalInfo.postInstall;
                     }
                 }
             }
@@ -170,6 +170,7 @@ function main() {
         fs.writeFileSync(path.join(__dirname, 'config-apps.yaml'), yaml.dump(configApps, { quotingType: "'", forceQuotes: true, sortKeys: true }));
         console.log('updated "config-apps.yaml"');
         console.log('updates published to "updates.yaml"');
+        quitSuspiciousPackage();
         if (config.uploads) {
             let uploads = [];
             for (let update of updates) {
