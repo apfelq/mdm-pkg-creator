@@ -259,8 +259,8 @@ async function main ()
                 if (configApps[update].additionalInfo)
                 {
                     tenantUpdates[tenant][update].additionalInfo = {}
-                    if (configApps[update].additionalInfo.preInstall) tenantUpdates[tenant][update].additionalInfo.preInstall
-                    if (configApps[update].additionalInfo.postInstall) tenantUpdates[tenant][update].additionalInfo.postInstall
+                    if (configApps[update].additionalInfo.preInstall) tenantUpdates[tenant][update].additionalInfo.preInstall = configApps[update].additionalInfo.preInstall
+                    if (configApps[update].additionalInfo.postInstall) tenantUpdates[tenant][update].additionalInfo.postInstall = configApps[update].additionalInfo.postInstall
                 }
             }
         }
