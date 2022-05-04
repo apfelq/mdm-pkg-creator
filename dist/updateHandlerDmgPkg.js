@@ -23,7 +23,7 @@ export function updateHandlerDmgPkg(app, appConfig, updates) {
             const fileType = appConfig.downloadFileType.startsWith('nested') ? appConfig.nestedDmgFileType : appConfig.downloadFileType;
             yield dmgExtractFile(app, fileType, appConfig.pkgName, appConfig.dmgFileType);
             if (!(yield pkgHelperInfo(app, appConfig)))
-                throw '';
+                return false;
             if (!(yield pkgHelperExtractApp(app, appConfig)))
                 throw '';
             if (!(yield appHelperInfo(app, appConfig)))

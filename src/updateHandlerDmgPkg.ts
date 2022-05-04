@@ -21,7 +21,7 @@ export async function updateHandlerDmgPkg (app: string, appConfig: appInterface,
         await dmgExtractFile(app, fileType, appConfig.pkgName, appConfig.dmgFileType)
 
         // get pkg info
-        if (!await pkgHelperInfo(app, appConfig)) throw ''
+        if (!await pkgHelperInfo(app, appConfig)) return false
 
         // extract app from pkg
         if (!await pkgHelperExtractApp(app, appConfig)) throw ''
