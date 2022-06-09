@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import child_process from 'child_process';
 import fs from 'graceful-fs';
 import got from 'got';
 import { gotScraping } from 'got-scraping';
@@ -15,6 +16,7 @@ import path from 'path';
 import stream from 'stream';
 import { promisify } from 'util';
 import { __dirname } from './index.js';
+const exec = promisify(child_process.exec);
 const pipeline = promisify(stream.pipeline);
 export function download(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -46,6 +48,21 @@ export function download(app, appConfig) {
         }
         catch (e) {
             console.error(`${app}: download failed with error "${e.message}"`);
+            console.error(`${app}: trying to download with curl`);
+            return downloadCurl(app, `${app}.${appConfig.downloadFileType}`, downloadUrl);
+        }
+    });
+}
+export function downloadCurl(app, downloadName, downloadUrl) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const outputPath = path.join(__dirname, 'tmp', `${app}`, `${downloadName}`);
+        try {
+            const output = yield exec(`/usr/bin/curl -LSs -o "${outputPath}" "${downloadUrl}"`);
+            console.log(`${app}: downloadCurl successful`);
+            return true;
+        }
+        catch (e) {
+            console.error(`${app}: downloadCurl failed with error "${e.message}"`);
             throw e;
         }
     });

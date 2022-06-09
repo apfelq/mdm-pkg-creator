@@ -1,3 +1,4 @@
+import child_process from 'child_process'
 import fs from 'graceful-fs'
 import got from 'got'
 import { gotScraping } from 'got-scraping'
@@ -6,6 +7,7 @@ import path from 'path'
 import stream from 'stream'
 import { promisify } from 'util'
 import { __dirname, appInterface } from './index.js'
+const exec = promisify(child_process.exec)
 const pipeline = promisify(stream.pipeline)
 
 export async function download (app: string, appConfig: appInterface): Promise<boolean> 
@@ -52,6 +54,23 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     catch (e)
     {
         console.error(`${app}: download failed with error "${e.message}"`)
+        console.error(`${app}: trying to download with curl`)
+        return downloadCurl(app, `${app}.${appConfig.downloadFileType}`, downloadUrl)
+    }
+}
+
+export async function downloadCurl (app: string, downloadName:string, downloadUrl: string): Promise<boolean>
+{
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${downloadName}`)
+    try
+    {
+        const output = await exec(`/usr/bin/curl -LSs -o "${outputPath}" "${downloadUrl}"`)
+        console.log(`${app}: downloadCurl successful`)
+        return true
+    }
+    catch (e)
+    {
+        console.error(`${app}: downloadCurl failed with error "${e.message}"`)
         throw e
     }
 }
