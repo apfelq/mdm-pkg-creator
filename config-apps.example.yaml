@@ -136,6 +136,17 @@ Firefox-ESR-DE:
   downloadUrl: 'https://download.mozilla.org/?product=firefox-esr-latest-ssl&os=osx&lang=de'
   pkgChecksum: '423c55d7b5209e3fcfa8083f6f0ff284'
   pkgSigned: false
+FontExplorerX:
+  appBundleIdentifier: 'com.linotype.FontExplorerX'
+  appCodeRequirement: 'identifier "com.linotype.FontExplorerX" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "2V7G2B7WG4"'
+  appName: 'FontExplorer X Pro.app'
+  appVersion: '7.3.0'
+  dmgFileType: 'app'
+  downloadFileType: 'dmg'
+  downloadType: 'direct'
+  downloadUrl: 'https://www.macupdate.com/action/download/19514'
+  pkgChecksum: 'cb177ca37788e697d69c6c756dc87f06'
+  pkgSigned: false
 Idana:
   appBundleIdentifier: 'com.tomes.idana'
   appCodeRequirement: 'identifier "com.tomes.idana" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7AYP86229Z"'
