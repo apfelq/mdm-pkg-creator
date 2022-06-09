@@ -231,6 +231,20 @@ SpeechControl:
   scrapeDownloadUrl: 'https://cdn.speech.com/fileadmin/Support/software/speechcontrol/speechcontrol4mac_swm_3.5.11.dmg'
   scrapeRegex: '[\s\S]*?([0-9.]+) - macOS[\s\S]*'
   scrapeUrl: 'https://www.dictation.philips.com/de/produkte/workflow-software/speechcontrol-software-zur-geraete-und-anwendungssteuerung-lfh4000/'
+Starface:
+  appBundleIdentifier: 'de.starface.STARFACE-Client'
+  appCodeRequirement: 'anchor apple generic and identifier "de.starface.STARFACE-Client" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = Q965D3UXEW)'
+  appName: 'STARFACE.app'
+  appVersion: '7.2.0.0'
+  downloadFileType: 'zip'
+  downloadType: 'scrape'
+  downloadUrl: '$1'
+  pkgChecksum: '0828f6c9f61e3a86c27eb769de4557cb'
+  pkgSigned: false
+  scrapeDownloadUrl: 'https://www.starface-cdn.de/starface/clients/mac/STARFACE-7.2.0.0-452.zip'
+  scrapeRegex: '[\s\S]*?(https:\/\/www\.starface-cdn\.de\/starface\/clients\/mac\/STARFACE-[-.0-9]+\.zip)[\s\S]*'
+  scrapeUrl: 'https://knowledge.starface.de/pages/viewpage.action?pageId=46564694'
+  zipFileType: 'app'
 TeamViewer:
   additionalInfo:
     postInstall:
