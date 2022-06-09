@@ -360,3 +360,14 @@ calibre:
   downloadUrl: 'https://calibre-ebook.com/dist/osx'
   pkgChecksum: '2e168e770a91a450cc04b9d0eac8a584'
   pkgSigned: false
+pascom:
+  appBundleIdentifier: 'net.pascom.pascomClient'
+  appCodeRequirement: 'identifier "net.pascom.pascomClient" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "5EMFH93B78"'
+  appName: 'pascom Client.app'
+  appVersion: '89.R2339_6ca543b'
+  dmgFileType: 'app'
+  downloadFileType: 'dmg'
+  downloadType: 'direct'
+  downloadUrl: 'https://my.pascom.net/update/client/stable/macos'
+  pkgChecksum: 'ecc763d811ccd75034e3757305924810'
+  pkgSigned: false
