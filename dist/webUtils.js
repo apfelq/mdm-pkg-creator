@@ -21,6 +21,10 @@ const pipeline = promisify(stream.pipeline);
 export function download(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         const downloadUrl = appConfig.downloadType == 'scrape' ? appConfig.scrapeDownloadUrl : appConfig.downloadUrl;
+        if (appConfig.downloadTool === 'curl')
+            return downloadCurl(app, `${app}.${appConfig.downloadFileType}`, downloadUrl);
+        if (appConfig.downloadTool === 'wget')
+            return downloadWget(app, `${app}.${appConfig.downloadFileType}`, downloadUrl);
         let cookies = undefined;
         let cookieJar = new CookieJar();
         if (appConfig.cookieUrl) {
@@ -55,14 +59,42 @@ export function download(app, appConfig) {
 }
 export function downloadCurl(app, downloadName, downloadUrl) {
     return __awaiter(this, void 0, void 0, function* () {
+        let curlBin = '/usr/local/opt/curl/bin/curl';
+        try {
+            yield fs.access(`${curlBin}`);
+        }
+        catch (e) {
+            curlBin = '/usr/bin/curl';
+        }
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${downloadName}`);
         try {
-            const output = yield exec(`/usr/bin/curl -LSs -o "${outputPath}" "${downloadUrl}"`);
+            const output = yield exec(`${curlBin} -LSs -o "${outputPath}" "${downloadUrl}"`);
             console.log(`${app}: downloadCurl successful`);
             return true;
         }
         catch (e) {
             console.error(`${app}: downloadCurl failed with error "${e.message}"`);
+            throw e;
+        }
+    });
+}
+export function downloadWget(app, downloadName, downloadUrl) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let wgetBin = '/usr/local/bin/wget';
+        try {
+            yield fs.access(`${wgetBin}`);
+        }
+        catch (e) {
+            throw new Error('wget not installed');
+        }
+        const outputPath = path.join(__dirname, 'tmp', `${app}`, `${downloadName}`);
+        try {
+            const output = yield exec(`${wgetBin} -q -O "${outputPath}" "${downloadUrl}"`);
+            console.log(`${app}: downloadWget successful`);
+            return true;
+        }
+        catch (e) {
+            console.error(`${app}: downloadWget failed with error "${e.message}"`);
             throw e;
         }
     });

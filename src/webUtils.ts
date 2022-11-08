@@ -15,9 +15,14 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     // exchange url when scraping
     const downloadUrl = appConfig.downloadType == 'scrape' ? appConfig.scrapeDownloadUrl : appConfig.downloadUrl
 
+    // check if specific tool is requested
+    if (appConfig.downloadTool === 'curl') return downloadCurl(app, `${app}.${appConfig.downloadFileType}`, downloadUrl)
+    if (appConfig.downloadTool === 'wget') return downloadWget(app, `${app}.${appConfig.downloadFileType}`, downloadUrl)
+
     // obtain cookies if applicable
     let cookies = undefined
     let cookieJar = new CookieJar()
+    
     if (appConfig.cookieUrl)
     {
         const response  = await got(appConfig.cookieUrl)
@@ -61,16 +66,54 @@ export async function download (app: string, appConfig: appInterface): Promise<b
 
 export async function downloadCurl (app: string, downloadName:string, downloadUrl: string): Promise<boolean>
 {
+    // check if Homebrew's curl is installed
+    let curlBin = '/usr/local/opt/curl/bin/curl'
+    try
+    {
+        await fs.access(`${curlBin}`)
+    }
+    catch (e)
+    {
+        curlBin = '/usr/bin/curl'
+    }
+
     const outputPath = path.join(__dirname, 'tmp', `${app}`, `${downloadName}`)
     try
     {
-        const output = await exec(`/usr/bin/curl -LSs -o "${outputPath}" "${downloadUrl}"`)
+        const output = await exec(`${curlBin} -LSs -o "${outputPath}" "${downloadUrl}"`)
         console.log(`${app}: downloadCurl successful`)
         return true
     }
     catch (e)
     {
         console.error(`${app}: downloadCurl failed with error "${e.message}"`)
+        throw e
+    }
+}
+
+export async function downloadWget (app: string, downloadName:string, downloadUrl: string): Promise<boolean>
+{
+    // check if Homebrew's wget is installed
+    let wgetBin = '/usr/local/bin/wget'
+    try
+    {
+        await fs.access(`${wgetBin}`)
+    }
+    catch (e)
+    {
+        throw new Error('wget not installed')
+    }
+
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${downloadName}`)
+    try
+    {
+        const output = await exec(`${wgetBin} -q -O "${outputPath}" "${downloadUrl}"`)
+        console.log(`${app}: downloadWget successful`)
+        return true
+    }
+    catch (e)
+    {
+        console.error(`${app}: downloadWget failed with error "${e.message}"`)
         throw e
     }
 }

@@ -19,6 +19,12 @@ brew install duck node npm
 brew install --cask suspicious-package
 ```
 
+- optional but recommended
+
+```
+brew install curl wget
+```
+
 #### 1.2.2 Install tools directly from their maintainers
 
 - get duck: <https://dist.duck.sh/>
@@ -82,6 +88,10 @@ You need to provide at least the following information:
 
 - scrapeUrl (the URL where can scrape the version/dynamic information, use capturing groups)
 - scrapeRegex (a regular expression to find the version/dynamic information, make sure to match everything by putting `[\s\S]*` at the beginning and end of your expression and work with capturing groups)
+
+#### 3.2.2 Optional config
+
+- downloadTool (`curl`, `wget`), per default the tool uses `got` to download and falls back to curl
 
 ## 4. Execute
 
