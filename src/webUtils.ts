@@ -22,7 +22,7 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     // obtain cookies if applicable
     let cookies = undefined
     let cookieJar = new CookieJar()
-    
+
     if (appConfig.cookieUrl)
     {
         const response  = await got(appConfig.cookieUrl)
@@ -70,7 +70,7 @@ export async function downloadCurl (app: string, downloadName:string, downloadUr
     let curlBin = '/usr/local/opt/curl/bin/curl'
     try
     {
-        await fs.access(`${curlBin}`)
+        await fs.access(`${curlBin}`, fs.constants.X_OK)
     }
     catch (e)
     {
@@ -97,7 +97,7 @@ export async function downloadWget (app: string, downloadName:string, downloadUr
     let wgetBin = '/usr/local/bin/wget'
     try
     {
-        await fs.access(`${wgetBin}`)
+        await fs.access(`${wgetBin}`, fs.constants.X_OK)
     }
     catch (e)
     {
