@@ -61,7 +61,7 @@ export function downloadCurl(app, downloadName, downloadUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         let curlBin = '/usr/local/opt/curl/bin/curl';
         try {
-            yield fs.access(`${curlBin}`, fs.constants.X_OK);
+            yield fs.readlink(`${curlBin}`);
         }
         catch (e) {
             curlBin = '/usr/bin/curl';
@@ -82,7 +82,7 @@ export function downloadWget(app, downloadName, downloadUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         let wgetBin = '/usr/local/bin/wget';
         try {
-            yield fs.access(`${wgetBin}`, fs.constants.X_OK);
+            yield fs.readlink(`${wgetBin}`);
         }
         catch (e) {
             throw new Error('wget not installed');

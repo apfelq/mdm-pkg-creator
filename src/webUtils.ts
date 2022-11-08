@@ -70,7 +70,7 @@ export async function downloadCurl (app: string, downloadName:string, downloadUr
     let curlBin = '/usr/local/opt/curl/bin/curl'
     try
     {
-        await fs.access(`${curlBin}`, fs.constants.X_OK)
+        await fs.readlink(`${curlBin}`)
     }
     catch (e)
     {
@@ -97,7 +97,7 @@ export async function downloadWget (app: string, downloadName:string, downloadUr
     let wgetBin = '/usr/local/bin/wget'
     try
     {
-        await fs.access(`${wgetBin}`, fs.constants.X_OK)
+        await fs.readlink(`${wgetBin}`)
     }
     catch (e)
     {
