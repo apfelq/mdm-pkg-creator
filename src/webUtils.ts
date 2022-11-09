@@ -15,6 +15,9 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     // exchange url when scraping
     const downloadUrl = appConfig.downloadType == 'scrape' ? appConfig.scrapeDownloadUrl : appConfig.downloadUrl
 
+    // create output dir
+    if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`))) fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`))
+
     // check if specific tool is requested
     if (appConfig.downloadTool === 'curl') return downloadCurl(app, `${app}.${appConfig.downloadFileType}`, downloadUrl)
     if (appConfig.downloadTool === 'wget') return downloadWget(app, `${app}.${appConfig.downloadFileType}`, downloadUrl)
@@ -41,8 +44,7 @@ export async function download (app: string, appConfig: appInterface): Promise<b
         }
     }
 
-    // create output dir & output
-    if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`))) fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`))
+    // create output
     const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${appConfig.downloadFileType}`)
     const fileWriterStream = fs.createWriteStream(outputPath)
 
@@ -70,7 +72,7 @@ export async function downloadCurl (app: string, downloadName:string, downloadUr
     let curlBin = '/usr/local/opt/curl/bin/curl'
     try
     {
-        await fs.readlink(`${curlBin}`)
+        await fs.promises.realpath(`${curlBin}`)
     }
     catch (e)
     {
@@ -95,13 +97,15 @@ export async function downloadWget (app: string, downloadName:string, downloadUr
 {
     // check if Homebrew's wget is installed
     let wgetBin = '/usr/local/bin/wget'
+
     try
     {
-        await fs.readlink(`${wgetBin}`)
+        await fs.promises.realpath(`${wgetBin}`)
     }
     catch (e)
     {
-        throw new Error('wget not installed')
+        console.error(`${app}: downloadWget failed with error "${e.message}"`)
+        throw e
     }
 
     const outputPath = path.join(__dirname, 'tmp', `${app}`, `${downloadName}`)

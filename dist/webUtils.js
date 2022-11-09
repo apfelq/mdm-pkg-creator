@@ -21,6 +21,8 @@ const pipeline = promisify(stream.pipeline);
 export function download(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         const downloadUrl = appConfig.downloadType == 'scrape' ? appConfig.scrapeDownloadUrl : appConfig.downloadUrl;
+        if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`)))
+            fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`));
         if (appConfig.downloadTool === 'curl')
             return downloadCurl(app, `${app}.${appConfig.downloadFileType}`, downloadUrl);
         if (appConfig.downloadTool === 'wget')
@@ -39,8 +41,6 @@ export function download(app, appConfig) {
                 cookieJar.setCookieSync(cookie, downloadUrl);
             }
         }
-        if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`)))
-            fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`));
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${appConfig.downloadFileType}`);
         const fileWriterStream = fs.createWriteStream(outputPath);
         let options = cookies ? { cookieJar } : {};
@@ -61,7 +61,7 @@ export function downloadCurl(app, downloadName, downloadUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         let curlBin = '/usr/local/opt/curl/bin/curl';
         try {
-            yield fs.readlink(`${curlBin}`);
+            yield fs.promises.realpath(`${curlBin}`);
         }
         catch (e) {
             curlBin = '/usr/bin/curl';
@@ -82,10 +82,11 @@ export function downloadWget(app, downloadName, downloadUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         let wgetBin = '/usr/local/bin/wget';
         try {
-            yield fs.readlink(`${wgetBin}`);
+            yield fs.promises.realpath(`${wgetBin}`);
         }
         catch (e) {
-            throw new Error('wget not installed');
+            console.error(`${app}: downloadWget failed with error "${e.message}"`);
+            throw e;
         }
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${downloadName}`);
         try {
