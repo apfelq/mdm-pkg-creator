@@ -7,8 +7,13 @@ import path from 'path'
 import stream from 'stream'
 import { promisify } from 'util'
 import { __dirname, appInterface } from './index.js'
+import { getPackedSettings } from 'http2'
 const exec = promisify(child_process.exec)
 const pipeline = promisify(stream.pipeline)
+let gotOptions: {https: {ciphers: string}, http2: boolean, cookieJar?: CookieJar, url?: string} = {
+    https: {ciphers: 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384'},
+    http2: true
+}
 
 export async function download (app: string, appConfig: appInterface): Promise<boolean> 
 {
@@ -49,8 +54,9 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     const fileWriterStream = fs.createWriteStream(outputPath)
 
     // download
-    let options = cookies ? {cookieJar} : {}
-    const downloadStream = got.stream(downloadUrl, options)
+    gotOptions['url'] = downloadUrl
+    if (cookies) gotOptions['cookieJar'] = cookieJar
+    const downloadStream = got.stream(gotOptions)
 
     try
     {
@@ -137,10 +143,11 @@ export async function scrape (app: string, url: string): Promise<string>
         locales: ['en'],
         operatingSystems: ['macos'],
     }
+    gotOptions['url'] = url
 
     try
     {
-        const response = await gotScraping.get(url)
+        const response = await gotScraping.get(gotOptions)
         console.log(`${app}: scrape successful`)
         return response.body
     }

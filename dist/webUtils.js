@@ -18,6 +18,10 @@ import { promisify } from 'util';
 import { __dirname } from './index.js';
 const exec = promisify(child_process.exec);
 const pipeline = promisify(stream.pipeline);
+let gotOptions = {
+    https: { ciphers: 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384' },
+    http2: true
+};
 export function download(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         const downloadUrl = appConfig.downloadType == 'scrape' ? appConfig.scrapeDownloadUrl : appConfig.downloadUrl;
@@ -43,8 +47,10 @@ export function download(app, appConfig) {
         }
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${appConfig.downloadFileType}`);
         const fileWriterStream = fs.createWriteStream(outputPath);
-        let options = cookies ? { cookieJar } : {};
-        const downloadStream = got.stream(downloadUrl, options);
+        gotOptions['url'] = downloadUrl;
+        if (cookies)
+            gotOptions['cookieJar'] = cookieJar;
+        const downloadStream = got.stream(gotOptions);
         try {
             yield pipeline(downloadStream, fileWriterStream);
             console.log(`${app}: download successful`);
@@ -114,8 +120,9 @@ export function scrape(app, url) {
             locales: ['en'],
             operatingSystems: ['macos'],
         };
+        gotOptions['url'] = url;
         try {
-            const response = yield gotScraping.get(url);
+            const response = yield gotScraping.get(gotOptions);
             console.log(`${app}: scrape successful`);
             return response.body;
         }

@@ -84,7 +84,7 @@ async function main ()
 {
 
     // import config
-    let config: {cdn: string[], mail?: mailInterface, uploads?: uploadInterface[]} = importYaml('config')
+    let config: {cdn: string[], mail?: mailInterface, uploads?: uploadInterface[], tls?: {ciphers?: string}} = importYaml('config')
     let configApps: {[propName: string]: appInterface} = importYaml('config-apps')
     const configTenants: {[propName: string]: string[]} = importYaml('config-tenants')
 
