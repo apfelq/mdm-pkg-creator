@@ -12,3 +12,6 @@ npm ci
 
 # run node script
 node dist/index.js 2>&1 | tee mdm-pkg-creator.log
+
+# close all instances of Suspicious Package to prevent hanging after error
+killall "Suspicious Package"
