@@ -73,11 +73,12 @@ export async function appVersion (app: string): Promise<string>
     
 }
 
-export async function dmgExtractFile (app:string, downloadFileType: string, appName: string, dmgFileType: string): Promise<boolean>
+export async function dmgExtractFile (app:string, downloadFileType: string, appName: string, dmgFileType: string, dmgFileName?: string): Promise<boolean>
 {
     const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${downloadFileType}`)
     const mountPoint = path.join(__dirname, 'mnt', `${app}`)
     const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${dmgFileType}`)
+    const fileName = dmgFileName && dmgFileName.length > 0 ? dmgFileName : appName
 
     try
     {

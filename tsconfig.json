@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "ES2020", 
+    "module": "node16", 
     "removeComments": true,
     "outDir": "./dist",
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "lib": ["es2021"],
+    "moduleResolution": "node16",
+    "lib": [ "es6", "es2022", "esnext", "dom" ],
   }
 }

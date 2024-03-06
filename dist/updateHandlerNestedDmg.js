@@ -15,7 +15,7 @@ export function updateHandlerNestedDmg(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield download(app, appConfig);
-            yield dmgExtractFile(app, appConfig.downloadFileType, appConfig.nestedDmgName, appConfig.nestedDmgFileType);
+            yield dmgExtractFile(app, appConfig.downloadFileType, appConfig.nestedDmgName, appConfig.nestedDmgFileType, '');
             yield fileDelete(app, `${app}.${appConfig.downloadFileType}`, 'tmp');
             let handler = false;
             switch (appConfig.nestedDmgFileType) {

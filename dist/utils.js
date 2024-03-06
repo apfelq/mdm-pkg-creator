@@ -69,11 +69,12 @@ export function appVersion(app) {
         }
     });
 }
-export function dmgExtractFile(app, downloadFileType, appName, dmgFileType) {
+export function dmgExtractFile(app, downloadFileType, appName, dmgFileType, dmgFileName) {
     return __awaiter(this, void 0, void 0, function* () {
         const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${downloadFileType}`);
         const mountPoint = path.join(__dirname, 'mnt', `${app}`);
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${dmgFileType}`);
+        const fileName = dmgFileName && dmgFileName.length > 0 ? dmgFileName : appName;
         try {
             yield exec(`sh ./src/dmgExtractFile.sh "${inputPath}" "${mountPoint}" "${outputPath}" "${appName}"`);
             console.log(`${app}: dmgExtractFile successful`);

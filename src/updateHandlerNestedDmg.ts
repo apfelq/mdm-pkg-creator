@@ -13,7 +13,7 @@ export async function updateHandlerNestedDmg (app: string, appConfig: appInterfa
         await download(app, appConfig)
 
         // extract nested file from dmg
-        await dmgExtractFile(app, appConfig.downloadFileType, appConfig.nestedDmgName, appConfig.nestedDmgFileType)
+        await dmgExtractFile(app, appConfig.downloadFileType, appConfig.nestedDmgName, appConfig.nestedDmgFileType, '')
 
         // delete downloaded dmg
         await fileDelete(app, `${app}.${appConfig.downloadFileType}`, 'tmp')

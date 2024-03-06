@@ -17,7 +17,8 @@ export function updateHandlerDmgApp(app, appConfig, updates) {
             if (!appConfig.downloadFileType.startsWith('nested'))
                 yield download(app, appConfig);
             const fileType = appConfig.downloadFileType.startsWith('nested') ? appConfig.nestedDmgFileType : appConfig.downloadFileType;
-            yield dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType);
+            const fileName = appConfig.dmgFileName ? appConfig.dmgFileName : '';
+            yield dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType, fileName);
             if (!(yield appHelperInfo(app, appConfig))) {
                 console.log(`${app}: updateHandlerDmgApp no update available`);
                 yield fileDelete(app, `${app}.app`, `tmp`);

@@ -28,6 +28,7 @@ export interface appInterface
     downloadFileType: 'dmg' | 'pkg' | 'zip' | 'nested-dmg',
     downloadGithub?: string,
     downloadTool?: 'curl' | 'wget',
+    dmgFileName?: string,
     dmgFileType?: string,
     nestedDmgFileType?: 'dmg',
     nestedDmgName?: string,

@@ -18,7 +18,8 @@ export async function updateHandlerDmgPkg (app: string, appConfig: appInterface,
             return false
         }
         const fileType = appConfig.downloadFileType.startsWith('nested') ? appConfig.nestedDmgFileType : appConfig.downloadFileType
-        await dmgExtractFile(app, fileType, appConfig.pkgName, appConfig.dmgFileType)
+        const fileName = appConfig.dmgFileName ? appConfig.dmgFileName : ''
+        await dmgExtractFile(app, fileType, appConfig.pkgName, appConfig.dmgFileType, fileName)
 
         // get pkg info
         if (!await pkgHelperInfo(app, appConfig)) return false

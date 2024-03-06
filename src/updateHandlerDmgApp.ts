@@ -13,7 +13,8 @@ export async function updateHandlerDmgApp (app: string, appConfig: appInterface,
 
         // extract app from dmg
         const fileType = appConfig.downloadFileType.startsWith('nested') ? appConfig.nestedDmgFileType : appConfig.downloadFileType
-        await dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType)
+        const fileName = appConfig.dmgFileName ? appConfig.dmgFileName : ''
+        await dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType, fileName)
 
         // get app info
         if (!await appHelperInfo(app, appConfig))
