@@ -76,7 +76,7 @@ export function dmgExtractFile(app, downloadFileType, appName, dmgFileType, dmgF
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${dmgFileType}`);
         const fileName = dmgFileName && dmgFileName.length > 0 ? dmgFileName : appName;
         try {
-            yield exec(`sh ./src/dmgExtractFile.sh "${inputPath}" "${mountPoint}" "${outputPath}" "${appName}"`);
+            yield exec(`sh ./src/dmgExtractFile.sh "${inputPath}" "${mountPoint}" "${outputPath}" "${fileName}"`);
             console.log(`${app}: dmgExtractFile successful`);
             return true;
         }

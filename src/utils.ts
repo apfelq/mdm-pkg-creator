@@ -83,7 +83,7 @@ export async function dmgExtractFile (app:string, downloadFileType: string, appN
     try
     {
         // Apple Script works best with absolute paths
-        await exec(`sh ./src/dmgExtractFile.sh "${inputPath}" "${mountPoint}" "${outputPath}" "${appName}"`)
+        await exec(`sh ./src/dmgExtractFile.sh "${inputPath}" "${mountPoint}" "${outputPath}" "${fileName}"`)
         console.log(`${app}: dmgExtractFile successful`)
         return true
     }
