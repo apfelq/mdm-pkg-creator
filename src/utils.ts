@@ -94,6 +94,27 @@ export async function dmgExtractFile (app:string, downloadFileType: string, appN
     }
 }
 
+export async function dmgInstallFile (app:string, downloadFileType: string, installCommand: string): Promise<boolean>
+{
+    const appTmpDir = path.join(__dirname, 'tmp', `${app}`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${downloadFileType}`)
+    const mountPoint = path.join(__dirname, 'mnt', `${app}`)
+    const installCmd = `${mountPoint}/${installCommand.replaceAll('<APPDIR>', appTmpDir)}`
+
+    try
+    {
+        // Apple Script works best with absolute paths
+        await exec(`sh ./src/dmgInstallFile.sh "${inputPath}" "${mountPoint}" "${installCmd}"`)
+        console.log(`${app}: dmgInstallFile successful`)
+        return true
+    }
+    catch (e)
+    {
+        console.error(`${app}: dmgInstallFile failed with error "${e.message}"`)
+        throw e
+    }
+}
+
 export async function fileDelete (app: string, fileName: string, dir: string): Promise<boolean>
 {
     if (dir=='tmp') dir=`tmp/${app}`

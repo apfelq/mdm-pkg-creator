@@ -1,0 +1,24 @@
+(node:44415) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+TeamDrive: scrape successful
+TeamDrive: download successful
+TeamDrive: dmgInstallFile successful
+TeamDrive: appBundleIdentifier successful
+TeamDrive: appCodeRequirement successful
+TeamDrive: appVersion successful
+TeamDrive: appHelperInfo successful
+TeamDrive: appRename successful
+TeamDrive: pkgCreate successful
+TeamDrive: pkgChecksum successful
+TeamDrive: pkgSigned successful
+TeamDrive: pkgFinalize successful
+TeamDrive: fileDelete successful
+TeamDrive: fileDelete successful
+TeamDrive: updateHandlerDmgApp update available
+TeamDrive: updateHandlerScrape update available
+updated "config-apps.yaml"
+updates published to "updates.yaml"
+TeamDrive: uploadPkg failed with error "Command failed: /usr/local/bin/duck --assumeyes --existing skip --username 'u88173442-mosyle' --password 'kKKHL=CCRb8pkCJoP5)q$Fwd' --upload 'sftp://home667902122.1and1-data.host/' '/Users/alexander/Documents/ApfelQ/GitHub/mdm-pkg-creator/pkgs/TeamDrive_5.1.1.pkg'
+/bin/sh: /usr/local/bin/duck: No such file or directory
+"
+updates: mail notification sent

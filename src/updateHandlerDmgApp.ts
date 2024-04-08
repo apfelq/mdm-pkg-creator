@@ -2,7 +2,7 @@ import { appHelperInfo } from './appHelpers.js'
 import { download } from './webUtils.js'
 import { __dirname, appInterface } from './index.js'
 import { pkgHelperInfo } from './pkgHelpers.js'
-import { appRename, dmgExtractFile, fileDelete, pkgCreate, pkgFinalize } from './utils.js'
+import { appRename, dmgExtractFile, dmgInstallFile, fileDelete, pkgCreate, pkgFinalize } from './utils.js'
 
 export async function updateHandlerDmgApp (app: string, appConfig: appInterface, updates: string[]): Promise<boolean>
 {
@@ -14,7 +14,15 @@ export async function updateHandlerDmgApp (app: string, appConfig: appInterface,
         // extract app from dmg
         const fileType = appConfig.downloadFileType.startsWith('nested') ? appConfig.nestedDmgFileType : appConfig.downloadFileType
         const fileName = appConfig.dmgFileName ? appConfig.dmgFileName : ''
-        await dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType, fileName)
+        if (appConfig.dmgInstallCommand)
+        {
+            await dmgInstallFile(app, fileType, appConfig.dmgInstallCommand)
+        }
+        else
+        {
+            await dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType, fileName)
+        }
+        
 
         // get app info
         if (!await appHelperInfo(app, appConfig))

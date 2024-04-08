@@ -30,6 +30,7 @@ export interface appInterface
     downloadTool?: 'curl' | 'wget',
     dmgFileName?: string,
     dmgFileType?: string,
+    dmgInstallCommand?: string,
     nestedDmgFileType?: 'dmg',
     nestedDmgName?: string,
     pkgChecksum: string,

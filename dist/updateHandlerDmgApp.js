@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { appHelperInfo } from './appHelpers.js';
 import { download } from './webUtils.js';
 import { pkgHelperInfo } from './pkgHelpers.js';
-import { appRename, dmgExtractFile, fileDelete, pkgCreate, pkgFinalize } from './utils.js';
+import { appRename, dmgExtractFile, dmgInstallFile, fileDelete, pkgCreate, pkgFinalize } from './utils.js';
 export function updateHandlerDmgApp(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -18,7 +18,12 @@ export function updateHandlerDmgApp(app, appConfig, updates) {
                 yield download(app, appConfig);
             const fileType = appConfig.downloadFileType.startsWith('nested') ? appConfig.nestedDmgFileType : appConfig.downloadFileType;
             const fileName = appConfig.dmgFileName ? appConfig.dmgFileName : '';
-            yield dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType, fileName);
+            if (appConfig.dmgInstallCommand) {
+                yield dmgInstallFile(app, fileType, appConfig.dmgInstallCommand);
+            }
+            else {
+                yield dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType, fileName);
+            }
             if (!(yield appHelperInfo(app, appConfig))) {
                 console.log(`${app}: updateHandlerDmgApp no update available`);
                 yield fileDelete(app, `${app}.app`, `tmp`);

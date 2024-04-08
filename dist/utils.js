@@ -86,6 +86,23 @@ export function dmgExtractFile(app, downloadFileType, appName, dmgFileType, dmgF
         }
     });
 }
+export function dmgInstallFile(app, downloadFileType, installCommand) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const appTmpDir = path.join(__dirname, 'tmp', `${app}`);
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${downloadFileType}`);
+        const mountPoint = path.join(__dirname, 'mnt', `${app}`);
+        const installCmd = `${mountPoint}/${installCommand.replaceAll('<APPDIR>', appTmpDir)}`;
+        try {
+            yield exec(`sh ./src/dmgInstallFile.sh "${inputPath}" "${mountPoint}" "${installCmd}"`);
+            console.log(`${app}: dmgInstallFile successful`);
+            return true;
+        }
+        catch (e) {
+            console.error(`${app}: dmgInstallFile failed with error "${e.message}"`);
+            throw e;
+        }
+    });
+}
 export function fileDelete(app, fileName, dir) {
     return __awaiter(this, void 0, void 0, function* () {
         if (dir == 'tmp')
