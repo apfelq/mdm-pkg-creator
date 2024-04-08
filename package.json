@@ -1,6 +1,6 @@
 {
   "name": "mdm-pkg-creator",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "Automatically create macOS installers (PKG) for MDM deployment",
   "type": "module",
   "exports": "./dist/index.js",

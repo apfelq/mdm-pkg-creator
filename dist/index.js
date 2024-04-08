@@ -48,6 +48,9 @@ function main() {
         const apps = Object.keys(configApps);
         const updates = [];
         for (let app of apps) {
+            if (fs.existsSync(`tmp/${app}`))
+                fs.rmSync(`tmp/${app}`, { recursive: true });
+            fs.mkdirSync(`tmp/${app}`);
             switch (configApps[app].downloadType) {
                 case 'direct':
                     switch (configApps[app].downloadFileType) {

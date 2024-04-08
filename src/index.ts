@@ -111,7 +111,10 @@ async function main ()
 
     for (let app of apps)
     {
-        
+        // delete/create tmp dir
+        if (fs.existsSync(`tmp/${app}`)) fs.rmSync(`tmp/${app}`, {recursive: true})
+        fs.mkdirSync(`tmp/${app}`)
+
         switch (configApps[app].downloadType)
         {
             case 'direct':
