@@ -85,7 +85,7 @@ function main() {
                             if (configApps[app].zipFileType == 'app') {
                                 appUpdates.push(updateHandlerZipApp(app, configApps[app], updates));
                             }
-                            else if (configApps[app].zipFileType == 'app') {
+                            else if (configApps[app].zipFileType == 'pkg') {
                                 appUpdates.push(updateHandlerZipPkg(app, configApps[app], updates));
                             }
                             else {

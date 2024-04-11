@@ -45,7 +45,7 @@ export interface appInterface
     scrapeDownloadUrl?: string,
     scrapeUrl?: string,
     scrapeRegex?: string,
-    zipFileType?: 'app'
+    zipFileType?: 'app' | 'pkg'
 }
 export interface mailInterface
 {
@@ -162,7 +162,7 @@ async function main ()
                         {
                             appUpdates.push(updateHandlerZipApp(app, configApps[app], updates))
                         }
-                        else if (configApps[app].zipFileType == 'app')
+                        else if (configApps[app].zipFileType == 'pkg')
                         {
                             appUpdates.push(updateHandlerZipPkg(app, configApps[app], updates))
                         }

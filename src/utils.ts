@@ -185,7 +185,7 @@ export async function fsExists (path: string, app?:string): Promise<boolean> {
     } 
     catch (e)
     {
-        app ? console.error(`${app}: fsExists failed with error "${e.message}"`) : console.error(`fsExists failed with error "${e.message}"`)
+        //app ? console.error(`${app}: fsExists failed with error "${e.message}"`) : console.error(`fsExists failed with error "${e.message}"`)
         return false
     }
   }
