@@ -47,6 +47,14 @@ cd mdm-pkg-creator
 npm ci
 ```
 
+In case you're going to use the functionality to install pkg's you need to give the user privileges to run installer as root without password
+
+```
+cat <<EOF | sudo tee /etc/sudoers.d/mdm-pkg-creator
+$(whoami) ALL = NOPASSWD: /usr/sbin/installer
+EOF
+```
+
 ## 3. Configuration
 
 The tool expects 3 files:
@@ -100,3 +108,5 @@ Simply execute the script by typing `npm start` or `./mdm-pkg-creator.sh`.
 There is also an example for a `launchd` job so you could run this script on a regular basis.
 
 Make sure you grant full disk access to `/bin/sh` in macOS' "great" Security & Privacy settings.
+
+## 
