@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { appHelperInfo } from './appHelpers.js';
 import { download } from './webUtils.js';
 import { pkgHelperInfo, pkgHelperExtractApp } from './pkgHelpers.js';
-import { fileDelete, pkgFinalize, zipExtractFile } from './utils.js';
+import { pkgFinalize, pkgInstall, zipExtractFile } from './utils.js';
 export function updateHandlerZipPkg(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -18,12 +18,16 @@ export function updateHandlerZipPkg(app, appConfig, updates) {
             yield zipExtractFile(app, appConfig.appName, 'pkg');
             if (!(yield pkgHelperInfo(app, appConfig)))
                 return false;
-            if (!(yield pkgHelperExtractApp(app, appConfig)))
-                throw '';
+            if (appConfig.pkgInstall) {
+                pkgInstall(app);
+            }
+            else {
+                if (!(yield pkgHelperExtractApp(app, appConfig)))
+                    throw '';
+            }
             if (!(yield appHelperInfo(app, appConfig)))
                 throw '';
             yield pkgFinalize(app, appConfig.appVersion);
-            yield fileDelete(app, `${app}.app`, `tmp`);
             console.log(`${app}: updateHandlerZipPkg update available`);
             updates.push(app);
             return true;

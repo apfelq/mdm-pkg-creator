@@ -2,7 +2,7 @@ import { appHelperInfo } from './appHelpers.js'
 import { download } from './webUtils.js'
 import { __dirname, appInterface } from './index.js'
 import { pkgHelperInfo, pkgHelperExtractApp } from './pkgHelpers.js'
-import { fileDelete, pkgFinalize, zipExtractFile } from './utils.js'
+import { fileDelete, pkgFinalize, pkgInstall, zipExtractFile } from './utils.js'
 
 export async function updateHandlerZipPkg (app: string, appConfig: appInterface, updates: string[]): Promise<boolean>
 {
@@ -17,17 +17,21 @@ export async function updateHandlerZipPkg (app: string, appConfig: appInterface,
         // get pkg info
         if (!await pkgHelperInfo(app, appConfig)) return false
 
-        // extract app from pkg
-        if (!await pkgHelperExtractApp(app, appConfig)) throw ''
+        if (appConfig.pkgInstall)
+        {
+            pkgInstall(app)
+        }
+        else
+        {
+            // extract app from pkg
+            if (!await pkgHelperExtractApp(app, appConfig)) throw ''
+        }
         
         // get app info
         if (!await appHelperInfo(app, appConfig)) throw ''
 
         // finalize pkg
         await pkgFinalize(app, appConfig.appVersion)
-
-        // delete extracted app
-        await fileDelete(app, `${app}.app`, `tmp`)
 
         console.log(`${app}: updateHandlerZipPkg update available`)
         updates.push(app)

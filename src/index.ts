@@ -35,6 +35,7 @@ export interface appInterface
     nestedDmgFileType?: 'dmg',
     nestedDmgName?: string,
     pkgChecksum: string,
+    pkgInstall?: boolean,
     pkgName?: string,
     pkgSigned: boolean,
     pkgTarget?: string,

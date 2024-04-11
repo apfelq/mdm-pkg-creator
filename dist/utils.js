@@ -230,6 +230,20 @@ export function pkgFinalize(app, version) {
         }
     });
 }
+export function pkgInstall(app) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`);
+        try {
+            yield exec(`/usr/sbin/installer -target "/" -pkg "${inputPath}"`);
+            console.log(`${app}: pkgInstall successful`);
+            return true;
+        }
+        catch (e) {
+            console.error(`${app}: pkgInstall failed with error "${e.message}"`);
+            throw e;
+        }
+    });
+}
 export function pkgSigned(app) {
     return __awaiter(this, void 0, void 0, function* () {
         const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`);

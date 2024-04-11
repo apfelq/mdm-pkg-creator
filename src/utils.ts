@@ -257,6 +257,22 @@ export async function pkgFinalize (app:string, version: string): Promise<boolean
     }
 }
 
+export async function pkgInstall (app:string): Promise<boolean>
+{
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`)
+    try
+    {
+        await exec(`/usr/sbin/installer -target "/" -pkg "${inputPath}"`)
+        console.log(`${app}: pkgInstall successful`)
+        return true
+    }
+    catch (e)
+    {
+        console.error(`${app}: pkgInstall failed with error "${e.message}"`)
+        throw e
+    }
+}
+
 export async function pkgSigned (app:string): Promise<boolean>
 {
     const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`)
