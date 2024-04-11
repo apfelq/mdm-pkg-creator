@@ -19,7 +19,7 @@ export function updateHandlerZipPkg(app, appConfig, updates) {
             if (!(yield pkgHelperInfo(app, appConfig)))
                 return false;
             if (appConfig.pkgInstall) {
-                pkgInstall(app);
+                yield pkgInstall(app);
             }
             else {
                 if (!(yield pkgHelperExtractApp(app, appConfig)))

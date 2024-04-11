@@ -19,7 +19,7 @@ export async function updateHandlerZipPkg (app: string, appConfig: appInterface,
 
         if (appConfig.pkgInstall)
         {
-            pkgInstall(app)
+            await pkgInstall(app)
         }
         else
         {
