@@ -8,15 +8,15 @@ export async function appHelperInfo (app: string, appConfig: appInterface): Prom
     try
     {
         // get bundle id
-        const bundleIdentifier = await appBundleIdentifier(app)
+        const bundleIdentifier = await appBundleIdentifier(app, appConfig.appName)
         appConfig.appBundleIdentifier = bundleIdentifier
 
         // get codesignature
-        const codeRequirement = await appCodeRequirement(app)
+        const codeRequirement = await appCodeRequirement(app, appConfig.appName)
         appConfig.appCodeRequirement = codeRequirement
 
         // get version
-        const version = await appVersion(app)
+        const version = await appVersion(app, appConfig.appName)
 
         console.log(`${app}: appHelperInfo successful`)
 

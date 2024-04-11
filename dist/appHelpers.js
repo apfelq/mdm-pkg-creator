@@ -11,11 +11,11 @@ import { appBundleIdentifier, appCodeRequirement, appVersion } from './utils.js'
 export function appHelperInfo(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const bundleIdentifier = yield appBundleIdentifier(app);
+            const bundleIdentifier = yield appBundleIdentifier(app, appConfig.appName);
             appConfig.appBundleIdentifier = bundleIdentifier;
-            const codeRequirement = yield appCodeRequirement(app);
+            const codeRequirement = yield appCodeRequirement(app, appConfig.appName);
             appConfig.appCodeRequirement = codeRequirement;
-            const version = yield appVersion(app);
+            const version = yield appVersion(app, appConfig.appName);
             console.log(`${app}: appHelperInfo successful`);
             if (version == appConfig.appVersion)
                 return false;
