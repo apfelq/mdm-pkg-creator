@@ -51,15 +51,8 @@ export function appPath(app, appName) {
                 if (!(yield fsExists(appPath, app))) {
                     appPath = path.join(`/Application/${appName}`);
                     if (!(yield fsExists(appPath, app))) {
-                        let searchResult;
-                        try {
-                            searchResult = yield exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit 2> /dev/null`);
-                        }
-                        catch (e) {
-                            if (e.code > 1)
-                                throw e;
-                        }
-                        appPath = searchResult.stdout.replace(/(\r\n|\n|\r)/gm, "");
+                        const searchResult = yield appPathSearch(appName);
+                        appPath = searchResult.replace(/(\r\n|\n|\r)/gm, "");
                         if (!(yield fsExists(appPath, app)))
                             throw 'Path does not exist';
                     }
@@ -72,6 +65,15 @@ export function appPath(app, appName) {
             console.error(`${app}: appPath failed with error "${e.message}"`);
             throw e;
         }
+    });
+}
+function appPathSearch(appName) {
+    return new Promise((resolve, reject) => {
+        child_process.exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit`, (error, stdout, stderr) => {
+            if (error.code > 1)
+                reject(error);
+            resolve(stdout);
+        });
     });
 }
 export function appRename(app, appName) {

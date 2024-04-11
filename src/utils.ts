@@ -53,16 +53,8 @@ export async function appPath (app: string, appName?: string): Promise<string>
                 appPath = path.join(`/Application/${appName}`)
                 if (!await fsExists(appPath, app))
                 {
-                    let searchResult
-                    try
-                    {
-                        searchResult = await exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit 2> /dev/null`)
-                    }
-                    catch (e)
-                    {
-                        if (e.code > 1) throw e 
-                    }
-                    appPath = searchResult.stdout.replace(/(\r\n|\n|\r)/gm,"")
+                    const searchResult = await appPathSearch(appName)
+                    appPath = searchResult.replace(/(\r\n|\n|\r)/gm,"")
                     if (!await fsExists(appPath, app)) throw 'Path does not exist'
                 }
             }
@@ -75,8 +67,17 @@ export async function appPath (app: string, appName?: string): Promise<string>
         console.error(`${app}: appPath failed with error "${e.message}"`)
         throw e
     }
-    
 }
+
+function appPathSearch (appName: string): Promise<string>
+{
+    return new Promise((resolve, reject) => {
+        child_process.exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit`, (error, stdout, stderr) => {
+            if (error.code > 1) reject(error)
+            resolve(stdout)
+        })
+    })
+} 
 
 export async function appRename (app: string, appName: string): Promise<boolean>
 {
