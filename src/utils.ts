@@ -5,11 +5,20 @@ import { promisify } from 'util'
 import { __dirname, appInterface, uploadInterface } from './index.js'
 const exec = promisify(child_process.exec)
 
-export async function appBundleIdentifier (app: string): Promise<string>
+export async function appBundleIdentifier (app: string, appName?: string): Promise<string>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`)
+    let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`)
     try
     {
+        if (!await fsExists(inputPath, app))
+        {
+            let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`)
+            if (!await fsExists(inputPath, app))
+            {
+                let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`)
+                if (!await fsExists(inputPath, app)) throw new Error('Path does not exist')
+            }
+        }
         const output = await exec(`sh ./src/appBundleIdentifier.sh "${inputPath}"`)
         console.log(`${app}: appBundleIdentifier successful`)
         return output.stdout.replace(/(\r\n|\n|\r)/gm,"")
@@ -22,11 +31,20 @@ export async function appBundleIdentifier (app: string): Promise<string>
     
 }
 
-export async function appCodeRequirement (app: string): Promise<string>
+export async function appCodeRequirement (app: string, appName?: string): Promise<string>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`)
+    let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`)
     try
     {
+        if (!await fsExists(inputPath, app))
+        {
+            let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`)
+            if (!await fsExists(inputPath, app))
+            {
+                let inputPath = path.join(`/Application/${appName}`)
+                if (!await fsExists(inputPath, app)) throw new Error('Path does not exist')
+            }
+        }
         const output = await exec(`sh ./src/appCodeRequirement.sh "${inputPath}"`)
         console.log(`${app}: appCodeRequirement successful`)
         return output.stdout.replace(/(\r\n|\n|\r)/gm,"")
@@ -56,11 +74,20 @@ export async function appRename (app: string, appName: string): Promise<boolean>
     }
 }
 
-export async function appVersion (app: string): Promise<string>
+export async function appVersion (app: string, appName?: string): Promise<string>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`)
+    let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`)
     try
     {
+        if (!await fsExists(inputPath, app))
+        {
+            let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`)
+            if (!await fsExists(inputPath, app))
+            {
+                let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`)
+                if (!await fsExists(inputPath, app)) throw new Error('Path does not exist')
+            }
+        }
         const output = await exec(`sh ./src/appVersion.sh "${inputPath}"`)
         console.log(`${app}: appVersion successful`)
         return output.stdout.replace(/(\r\n|\n|\r)/gm,"")
@@ -148,6 +175,19 @@ export async function fileRename (app: string, oldName: string, newName: string)
         throw e
     }
 }
+
+export async function fsExists (path: string, app?:string) {  
+    try
+    {
+        await fs.access(path)
+        return true
+    } 
+    catch (e)
+    {
+        app ? console.error(`${app}: fsExists failed with error "${e.message}"`) : console.error(`fsExists failed with error "${e.message}"`)
+        return false
+    }
+  }
 
 export async function pkgChecksum (app:string): Promise<string>
 {

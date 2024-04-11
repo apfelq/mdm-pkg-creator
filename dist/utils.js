@@ -7,15 +7,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import fs from 'graceful-fs';
 import child_process from 'child_process';
 import path from 'path';
 import { promisify } from 'util';
 import { __dirname } from './index.js';
 const exec = promisify(child_process.exec);
-export function appBundleIdentifier(app) {
+export function appBundleIdentifier(app, appName) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`);
+        let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`);
         try {
+            if (!(yield fsExists(inputPath, app))) {
+                let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`);
+                if (!(yield fsExists(inputPath, app))) {
+                    let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`);
+                    if (!(yield fsExists(inputPath, app)))
+                        throw new Error('Path does not exist');
+                }
+            }
             const output = yield exec(`sh ./src/appBundleIdentifier.sh "${inputPath}"`);
             console.log(`${app}: appBundleIdentifier successful`);
             return output.stdout.replace(/(\r\n|\n|\r)/gm, "");
@@ -26,10 +35,18 @@ export function appBundleIdentifier(app) {
         }
     });
 }
-export function appCodeRequirement(app) {
+export function appCodeRequirement(app, appName) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`);
+        let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`);
         try {
+            if (!(yield fsExists(inputPath, app))) {
+                let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`);
+                if (!(yield fsExists(inputPath, app))) {
+                    let inputPath = path.join(`/Application/${appName}`);
+                    if (!(yield fsExists(inputPath, app)))
+                        throw new Error('Path does not exist');
+                }
+            }
             const output = yield exec(`sh ./src/appCodeRequirement.sh "${inputPath}"`);
             console.log(`${app}: appCodeRequirement successful`);
             return output.stdout.replace(/(\r\n|\n|\r)/gm, "");
@@ -55,10 +72,18 @@ export function appRename(app, appName) {
         }
     });
 }
-export function appVersion(app) {
+export function appVersion(app, appName) {
     return __awaiter(this, void 0, void 0, function* () {
-        const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`);
+        let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`);
         try {
+            if (!(yield fsExists(inputPath, app))) {
+                let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`);
+                if (!(yield fsExists(inputPath, app))) {
+                    let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`);
+                    if (!(yield fsExists(inputPath, app)))
+                        throw new Error('Path does not exist');
+                }
+            }
             const output = yield exec(`sh ./src/appVersion.sh "${inputPath}"`);
             console.log(`${app}: appVersion successful`);
             return output.stdout.replace(/(\r\n|\n|\r)/gm, "");
@@ -131,6 +156,18 @@ export function fileRename(app, oldName, newName) {
         catch (e) {
             console.error(`${app}: fileRename failed with error "${e.message}"`);
             throw e;
+        }
+    });
+}
+export function fsExists(path, app) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield fs.access(path);
+            return true;
+        }
+        catch (e) {
+            app ? console.error(`${app}: fsExists failed with error "${e.message}"`) : console.error(`fsExists failed with error "${e.message}"`);
+            return false;
         }
     });
 }

@@ -28,9 +28,6 @@ export async function updateHandlerDmgApp (app: string, appConfig: appInterface,
         if (!await appHelperInfo(app, appConfig))
         {
             console.log(`${app}: updateHandlerDmgApp no update available`)
-            // delete extracted app
-            await fileDelete(app, `${app}.app`, `tmp`)
-            await fileDelete(app, `${app}.dmg`, `tmp`)
             return false
         }
 

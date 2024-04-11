@@ -10,7 +10,7 @@ import { updateHandlerScrape } from './updateHandlerScrape.js'
 import { updateHandlerZipApp } from './updateHandlerZipApp.js'
 import { updateHandlerZipPkg } from './updateHandlerZipPkg.js'
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js'
-import { quitSuspiciousPackage, uploadPkg } from './utils.js'
+import { fsExists, quitSuspiciousPackage, uploadPkg } from './utils.js'
 export const __dirname = process.cwd()
 
 export interface appInterface
@@ -94,9 +94,9 @@ async function main ()
     // create output dirs
     try
     {
-        if (!fs.existsSync('mnt')) fs.mkdirSync('mnt')
-        if (!fs.existsSync('pkgs')) fs.mkdirSync('pkgs')
-        if (!fs.existsSync('tmp')) fs.mkdirSync('tmp')
+        if (!await fsExists('mnt')) await fs.mkdir('mnt')
+        if (!await fsExists('pkgs')) await fs.mkdir('pkgs')
+        if (!await fsExists('tmp')) await fs.mkdir('tmp')
     } 
     catch (e) 
     {
@@ -113,8 +113,8 @@ async function main ()
     for (let app of apps)
     {
         // delete/create tmp dir
-        if (fs.existsSync(`tmp/${app}`)) fs.rmSync(`tmp/${app}`, {recursive: true})
-        fs.mkdirSync(`tmp/${app}`)
+        if (await fsExists(`tmp/${app}`, app)) await fs.rm(`tmp/${app}`, {recursive: true})
+        await fs.mkdir(`tmp/${app}`)
 
         switch (configApps[app].downloadType)
         {

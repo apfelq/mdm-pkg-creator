@@ -26,8 +26,6 @@ export function updateHandlerDmgApp(app, appConfig, updates) {
             }
             if (!(yield appHelperInfo(app, appConfig))) {
                 console.log(`${app}: updateHandlerDmgApp no update available`);
-                yield fileDelete(app, `${app}.app`, `tmp`);
-                yield fileDelete(app, `${app}.dmg`, `tmp`);
                 return false;
             }
             if (!(yield appRename(app, appConfig.appName)))

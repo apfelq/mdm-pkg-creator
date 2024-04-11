@@ -19,7 +19,7 @@ import { updateHandlerScrape } from './updateHandlerScrape.js';
 import { updateHandlerZipApp } from './updateHandlerZipApp.js';
 import { updateHandlerZipPkg } from './updateHandlerZipPkg.js';
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
-import { quitSuspiciousPackage, uploadPkg } from './utils.js';
+import { fsExists, quitSuspiciousPackage, uploadPkg } from './utils.js';
 export const __dirname = process.cwd();
 function importYaml(fileName) {
     try {
@@ -35,12 +35,12 @@ function main() {
         let configApps = importYaml('config-apps');
         const configTenants = importYaml('config-tenants');
         try {
-            if (!fs.existsSync('mnt'))
-                fs.mkdirSync('mnt');
-            if (!fs.existsSync('pkgs'))
-                fs.mkdirSync('pkgs');
-            if (!fs.existsSync('tmp'))
-                fs.mkdirSync('tmp');
+            if (!(yield fsExists('mnt')))
+                yield fs.mkdir('mnt');
+            if (!(yield fsExists('pkgs')))
+                yield fs.mkdir('pkgs');
+            if (!(yield fsExists('tmp')))
+                yield fs.mkdir('tmp');
         }
         catch (e) {
             console.error(e.message);
@@ -49,9 +49,9 @@ function main() {
         const apps = Object.keys(configApps);
         const updates = [];
         for (let app of apps) {
-            if (fs.existsSync(`tmp/${app}`))
-                fs.rmSync(`tmp/${app}`, { recursive: true });
-            fs.mkdirSync(`tmp/${app}`);
+            if (yield fsExists(`tmp/${app}`, app))
+                yield fs.rm(`tmp/${app}`, { recursive: true });
+            yield fs.mkdir(`tmp/${app}`);
             switch (configApps[app].downloadType) {
                 case 'direct':
                     switch (configApps[app].downloadFileType) {
