@@ -234,7 +234,7 @@ export function pkgInstall(app) {
     return __awaiter(this, void 0, void 0, function* () {
         const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`);
         try {
-            yield exec(`/usr/sbin/installer -target "/" -pkg "${inputPath}"`);
+            yield exec(`/usr/bin/sudo /usr/sbin/installer -target "/" -pkg "${inputPath}"`);
             console.log(`${app}: pkgInstall successful`);
             return true;
         }

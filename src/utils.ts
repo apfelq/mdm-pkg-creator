@@ -263,7 +263,7 @@ export async function pkgInstall (app:string): Promise<boolean>
     const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`)
     try
     {
-        await exec(`/usr/sbin/installer -target "/" -pkg "${inputPath}"`)
+        await exec(`/usr/bin/sudo /usr/sbin/installer -target "/" -pkg "${inputPath}"`)
         console.log(`${app}: pkgInstall successful`)
         return true
     }
