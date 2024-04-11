@@ -51,7 +51,14 @@ export function appPath(app, appName) {
                 if (!(yield fsExists(appPath, app))) {
                     appPath = path.join(`/Application/${appName}`);
                     if (!(yield fsExists(appPath, app))) {
-                        const searchResult = yield exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit`);
+                        let searchResult;
+                        try {
+                            searchResult = yield exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit 2> /dev/null`);
+                        }
+                        catch (e) {
+                            if (e.code > 1)
+                                throw e;
+                        }
                         appPath = searchResult.stdout.replace(/(\r\n|\n|\r)/gm, "");
                         if (!(yield fsExists(appPath, app)))
                             throw 'Path does not exist';

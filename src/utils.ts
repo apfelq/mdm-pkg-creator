@@ -53,7 +53,15 @@ export async function appPath (app: string, appName?: string): Promise<string>
                 appPath = path.join(`/Application/${appName}`)
                 if (!await fsExists(appPath, app))
                 {
-                    const searchResult = await exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit`)
+                    let searchResult
+                    try
+                    {
+                        searchResult = await exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit 2> /dev/null`)
+                    }
+                    catch (e)
+                    {
+                        if (e.code > 1) throw e 
+                    }
                     appPath = searchResult.stdout.replace(/(\r\n|\n|\r)/gm,"")
                     if (!await fsExists(appPath, app)) throw 'Path does not exist'
                 }
