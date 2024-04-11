@@ -16,20 +16,8 @@ const exec = promisify(child_process.exec);
 const fsAccess = promisify(fs.access);
 export function appBundleIdentifier(app, appName) {
     return __awaiter(this, void 0, void 0, function* () {
-        let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`);
         try {
-            if (!(yield fsExists(inputPath, app))) {
-                let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`);
-                if (!(yield fsExists(inputPath, app))) {
-                    let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`);
-                    if (!(yield fsExists(inputPath, app))) {
-                        const appPath = yield exec(`/usr/bin/find /Applications -name "${appName}"`);
-                        let inputPath = path.join(`${appPath}`, `Contents`, `Info.plist`);
-                        if (!(yield fsExists(inputPath, app)))
-                            throw 'Path does not exist';
-                    }
-                }
-            }
+            const inputPath = path.join(yield appPath(app, appName), `Contents`, `Info.plist`);
             const output = yield exec(`sh ./src/appBundleIdentifier.sh "${inputPath}"`);
             console.log(`${app}: appBundleIdentifier successful`);
             return output.stdout.replace(/(\r\n|\n|\r)/gm, "");
@@ -42,26 +30,39 @@ export function appBundleIdentifier(app, appName) {
 }
 export function appCodeRequirement(app, appName) {
     return __awaiter(this, void 0, void 0, function* () {
-        let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`);
         try {
-            if (!(yield fsExists(inputPath, app))) {
-                let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`);
-                if (!(yield fsExists(inputPath, app))) {
-                    let inputPath = path.join(`/Application/${appName}`);
-                    if (!(yield fsExists(inputPath, app))) {
-                        const appPath = yield exec(`/usr/bin/find /Applications -name "${appName}"`);
-                        let inputPath = path.join(`${appPath}`);
-                        if (!(yield fsExists(inputPath, app)))
-                            throw 'Path does not exist';
-                    }
-                }
-            }
+            const inputPath = yield appPath(app, appName);
             const output = yield exec(`sh ./src/appCodeRequirement.sh "${inputPath}"`);
             console.log(`${app}: appCodeRequirement successful`);
             return output.stdout.replace(/(\r\n|\n|\r)/gm, "");
         }
         catch (e) {
             console.error(`${app}: appCodeRequirement failed with error "${e.message}"`);
+            throw e;
+        }
+    });
+}
+export function appPath(app, appName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let appPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`);
+        try {
+            if (!(yield fsExists(appPath, app))) {
+                appPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`);
+                if (!(yield fsExists(appPath, app))) {
+                    appPath = path.join(`/Application/${appName}`);
+                    if (!(yield fsExists(appPath, app))) {
+                        const searchResult = yield exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit`);
+                        appPath = searchResult.stdout.replace(/(\r\n|\n|\r)/gm, "");
+                        if (!(yield fsExists(appPath, app)))
+                            throw 'Path does not exist';
+                    }
+                }
+            }
+            console.log(`${app}: appPath successful`);
+            return appPath;
+        }
+        catch (e) {
+            console.error(`${app}: appPath failed with error "${e.message}"`);
             throw e;
         }
     });
@@ -83,20 +84,8 @@ export function appRename(app, appName) {
 }
 export function appVersion(app, appName) {
     return __awaiter(this, void 0, void 0, function* () {
-        let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`);
         try {
-            if (!(yield fsExists(inputPath, app))) {
-                let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`);
-                if (!(yield fsExists(inputPath, app))) {
-                    let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`);
-                    if (!(yield fsExists(inputPath, app))) {
-                        const appPath = yield exec(`/usr/bin/find /Applications -name "${appName}"`);
-                        let inputPath = path.join(`${appPath}`, `Contents`, `Info.plist`);
-                        if (!(yield fsExists(inputPath, app)))
-                            throw 'Path does not exist';
-                    }
-                }
-            }
+            const inputPath = path.join(yield appPath(app, appName), `Contents`, `Info.plist`);
             const output = yield exec(`sh ./src/appVersion.sh "${inputPath}"`);
             console.log(`${app}: appVersion successful`);
             return output.stdout.replace(/(\r\n|\n|\r)/gm, "");

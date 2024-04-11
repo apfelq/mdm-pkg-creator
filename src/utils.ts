@@ -8,23 +8,9 @@ const fsAccess = promisify(fs.access)
 
 export async function appBundleIdentifier (app: string, appName?: string): Promise<string>
 {
-    let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`)
     try
     {
-        if (!await fsExists(inputPath, app))
-        {
-            let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`)
-            if (!await fsExists(inputPath, app))
-            {
-                let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`)
-                if (!await fsExists(inputPath, app))
-                {
-                    const appPath = await exec(`/usr/bin/find /Applications -name "${appName}"`)
-                    let inputPath = path.join(`${appPath}`, `Contents`, `Info.plist`)
-                    if (!await fsExists(inputPath, app)) throw 'Path does not exist'
-                }
-            }
-        }
+        const inputPath = path.join(await appPath(app, appName), `Contents`, `Info.plist`)
         const output = await exec(`sh ./src/appBundleIdentifier.sh "${inputPath}"`)
         console.log(`${app}: appBundleIdentifier successful`)
         return output.stdout.replace(/(\r\n|\n|\r)/gm,"")
@@ -39,23 +25,9 @@ export async function appBundleIdentifier (app: string, appName?: string): Promi
 
 export async function appCodeRequirement (app: string, appName?: string): Promise<string>
 {
-    let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`)
     try
     {
-        if (!await fsExists(inputPath, app))
-        {
-            let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`)
-            if (!await fsExists(inputPath, app))
-            {
-                let inputPath = path.join(`/Application/${appName}`)
-                if (!await fsExists(inputPath, app))
-                {
-                    const appPath = await exec(`/usr/bin/find /Applications -name "${appName}"`)
-                    let inputPath = path.join(`${appPath}`)
-                    if (!await fsExists(inputPath, app)) throw 'Path does not exist'
-                }
-            }
-        }
+        const inputPath = await appPath(app, appName)
         const output = await exec(`sh ./src/appCodeRequirement.sh "${inputPath}"`)
         console.log(`${app}: appCodeRequirement successful`)
         return output.stdout.replace(/(\r\n|\n|\r)/gm,"")
@@ -63,6 +35,36 @@ export async function appCodeRequirement (app: string, appName?: string): Promis
     catch (e)
     {
         console.error(`${app}: appCodeRequirement failed with error "${e.message}"`)
+        throw e
+    }
+    
+}
+
+export async function appPath (app: string, appName?: string): Promise<string>
+{
+    let appPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`)
+    try
+    {
+        if (!await fsExists(appPath, app))
+        {
+            appPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`)
+            if (!await fsExists(appPath, app))
+            {
+                appPath = path.join(`/Application/${appName}`)
+                if (!await fsExists(appPath, app))
+                {
+                    const searchResult = await exec(`/usr/bin/find /Applications -type d -name "${appName}" -print -quit`)
+                    appPath = searchResult.stdout.replace(/(\r\n|\n|\r)/gm,"")
+                    if (!await fsExists(appPath, app)) throw 'Path does not exist'
+                }
+            }
+        }
+        console.log(`${app}: appPath successful`)
+        return appPath
+    }
+    catch (e)
+    {
+        console.error(`${app}: appPath failed with error "${e.message}"`)
         throw e
     }
     
@@ -87,23 +89,9 @@ export async function appRename (app: string, appName: string): Promise<boolean>
 
 export async function appVersion (app: string, appName?: string): Promise<string>
 {
-    let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`)
     try
     {
-        if (!await fsExists(inputPath, app))
-        {
-            let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`)
-            if (!await fsExists(inputPath, app))
-            {
-                let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`)
-                if (!await fsExists(inputPath, app))
-                {
-                    const appPath = await exec(`/usr/bin/find /Applications -name "${appName}"`)
-                    let inputPath = path.join(`${appPath}`, `Contents`, `Info.plist`)
-                    if (!await fsExists(inputPath, app)) throw 'Path does not exist'
-                }
-            }
-        }
+        const inputPath = path.join(await appPath(app, appName), `Contents`, `Info.plist`)
         const output = await exec(`sh ./src/appVersion.sh "${inputPath}"`)
         console.log(`${app}: appVersion successful`)
         return output.stdout.replace(/(\r\n|\n|\r)/gm,"")
