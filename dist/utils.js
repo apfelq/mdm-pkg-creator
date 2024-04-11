@@ -22,8 +22,12 @@ export function appBundleIdentifier(app, appName) {
                 let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`);
                 if (!(yield fsExists(inputPath, app))) {
                     let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`);
-                    if (!(yield fsExists(inputPath, app)))
-                        throw new Error('Path does not exist');
+                    if (!(yield fsExists(inputPath, app))) {
+                        const appPath = yield exec(`/usr/bin/find /Applications -name "${appName}"`);
+                        let inputPath = path.join(`${appPath}`, `Contents`, `Info.plist`);
+                        if (!(yield fsExists(inputPath, app)))
+                            throw 'Path does not exist';
+                    }
                 }
             }
             const output = yield exec(`sh ./src/appBundleIdentifier.sh "${inputPath}"`);
@@ -44,8 +48,12 @@ export function appCodeRequirement(app, appName) {
                 let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`);
                 if (!(yield fsExists(inputPath, app))) {
                     let inputPath = path.join(`/Application/${appName}`);
-                    if (!(yield fsExists(inputPath, app)))
-                        throw new Error('Path does not exist');
+                    if (!(yield fsExists(inputPath, app))) {
+                        const appPath = yield exec(`/usr/bin/find /Applications -name "${appName}"`);
+                        let inputPath = path.join(`${appPath}`);
+                        if (!(yield fsExists(inputPath, app)))
+                            throw 'Path does not exist';
+                    }
                 }
             }
             const output = yield exec(`sh ./src/appCodeRequirement.sh "${inputPath}"`);
@@ -81,8 +89,12 @@ export function appVersion(app, appName) {
                 let inputPath = path.join(__dirname, 'tmp', `${app}`, `${appName}`, `Contents`, `Info.plist`);
                 if (!(yield fsExists(inputPath, app))) {
                     let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`);
-                    if (!(yield fsExists(inputPath, app)))
-                        throw new Error('Path does not exist');
+                    if (!(yield fsExists(inputPath, app))) {
+                        const appPath = yield exec(`/usr/bin/find /Applications -name "${appName}"`);
+                        let inputPath = path.join(`${appPath}`, `Contents`, `Info.plist`);
+                        if (!(yield fsExists(inputPath, app)))
+                            throw 'Path does not exist';
+                    }
                 }
             }
             const output = yield exec(`sh ./src/appVersion.sh "${inputPath}"`);

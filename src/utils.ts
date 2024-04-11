@@ -17,7 +17,12 @@ export async function appBundleIdentifier (app: string, appName?: string): Promi
             if (!await fsExists(inputPath, app))
             {
                 let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`)
-                if (!await fsExists(inputPath, app)) throw new Error('Path does not exist')
+                if (!await fsExists(inputPath, app))
+                {
+                    const appPath = await exec(`/usr/bin/find /Applications -name "${appName}"`)
+                    let inputPath = path.join(`${appPath}`, `Contents`, `Info.plist`)
+                    if (!await fsExists(inputPath, app)) throw 'Path does not exist'
+                }
             }
         }
         const output = await exec(`sh ./src/appBundleIdentifier.sh "${inputPath}"`)
@@ -43,7 +48,12 @@ export async function appCodeRequirement (app: string, appName?: string): Promis
             if (!await fsExists(inputPath, app))
             {
                 let inputPath = path.join(`/Application/${appName}`)
-                if (!await fsExists(inputPath, app)) throw new Error('Path does not exist')
+                if (!await fsExists(inputPath, app))
+                {
+                    const appPath = await exec(`/usr/bin/find /Applications -name "${appName}"`)
+                    let inputPath = path.join(`${appPath}`)
+                    if (!await fsExists(inputPath, app)) throw 'Path does not exist'
+                }
             }
         }
         const output = await exec(`sh ./src/appCodeRequirement.sh "${inputPath}"`)
@@ -86,7 +96,12 @@ export async function appVersion (app: string, appName?: string): Promise<string
             if (!await fsExists(inputPath, app))
             {
                 let inputPath = path.join(`/Application/${appName}`, `Contents`, `Info.plist`)
-                if (!await fsExists(inputPath, app)) throw new Error('Path does not exist')
+                if (!await fsExists(inputPath, app))
+                {
+                    const appPath = await exec(`/usr/bin/find /Applications -name "${appName}"`)
+                    let inputPath = path.join(`${appPath}`, `Contents`, `Info.plist`)
+                    if (!await fsExists(inputPath, app)) throw 'Path does not exist'
+                }
             }
         }
         const output = await exec(`sh ./src/appVersion.sh "${inputPath}"`)
