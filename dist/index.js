@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import fs from 'graceful-fs';
 import path from 'path';
 import process from 'process';
+import { promisify } from 'util';
 import yaml from 'js-yaml';
 import { sendMail } from './mailer.js';
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js';
@@ -21,6 +22,8 @@ import { updateHandlerZipPkg } from './updateHandlerZipPkg.js';
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
 import { fsExists, quitSuspiciousPackage, uploadPkg } from './utils.js';
 export const __dirname = process.cwd();
+const fsMkdir = promisify(fs.mkdir);
+const fsRm = promisify(fs.rm);
 function importYaml(fileName) {
     try {
         return yaml.load(fs.readFileSync(`${fileName}.yaml`, 'utf8'));
@@ -36,11 +39,11 @@ function main() {
         const configTenants = importYaml('config-tenants');
         try {
             if (!(yield fsExists('mnt')))
-                yield fs.mkdir('mnt');
+                yield fsMkdir('mnt');
             if (!(yield fsExists('pkgs')))
-                yield fs.mkdir('pkgs');
+                yield fsMkdir('pkgs');
             if (!(yield fsExists('tmp')))
-                yield fs.mkdir('tmp');
+                yield fsMkdir('tmp');
         }
         catch (e) {
             console.error(e.message);
@@ -50,8 +53,8 @@ function main() {
         const updates = [];
         for (let app of apps) {
             if (yield fsExists(`tmp/${app}`, app))
-                yield fs.rm(`tmp/${app}`, { recursive: true });
-            yield fs.mkdir(`tmp/${app}`);
+                yield fsRm(`tmp/${app}`, { recursive: true });
+            yield fsMkdir(`tmp/${app}`);
             switch (configApps[app].downloadType) {
                 case 'direct':
                     switch (configApps[app].downloadFileType) {

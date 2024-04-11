@@ -13,6 +13,7 @@ import path from 'path';
 import { promisify } from 'util';
 import { __dirname } from './index.js';
 const exec = promisify(child_process.exec);
+const fsAccess = promisify(fs.access);
 export function appBundleIdentifier(app, appName) {
     return __awaiter(this, void 0, void 0, function* () {
         let inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.app`, `Contents`, `Info.plist`);
@@ -162,7 +163,7 @@ export function fileRename(app, oldName, newName) {
 export function fsExists(path, app) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield fs.access(path);
+            yield fsAccess(path);
             return true;
         }
         catch (e) {

@@ -4,6 +4,7 @@ import path from 'path'
 import { promisify } from 'util'
 import { __dirname, appInterface, uploadInterface } from './index.js'
 const exec = promisify(child_process.exec)
+const fsAccess = promisify(fs.access)
 
 export async function appBundleIdentifier (app: string, appName?: string): Promise<string>
 {
@@ -176,10 +177,10 @@ export async function fileRename (app: string, oldName: string, newName: string)
     }
 }
 
-export async function fsExists (path: string, app?:string) {  
+export async function fsExists (path: string, app?:string): Promise<boolean> {  
     try
     {
-        await fs.access(path)
+        await fsAccess(path)
         return true
     } 
     catch (e)

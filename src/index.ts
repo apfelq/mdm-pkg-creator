@@ -1,6 +1,7 @@
 import fs from 'graceful-fs'
 import path from 'path'
 import process from 'process'
+import { promisify } from 'util'
 import yaml from 'js-yaml'
 import { sendMail } from './mailer.js'
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js'
@@ -12,6 +13,8 @@ import { updateHandlerZipPkg } from './updateHandlerZipPkg.js'
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js'
 import { fsExists, quitSuspiciousPackage, uploadPkg } from './utils.js'
 export const __dirname = process.cwd()
+const fsMkdir = promisify(fs.mkdir)
+const fsRm = promisify(fs.rm)
 
 export interface appInterface
 {
@@ -95,9 +98,9 @@ async function main ()
     // create output dirs
     try
     {
-        if (!await fsExists('mnt')) await fs.mkdir('mnt')
-        if (!await fsExists('pkgs')) await fs.mkdir('pkgs')
-        if (!await fsExists('tmp')) await fs.mkdir('tmp')
+        if (!await fsExists('mnt')) await fsMkdir('mnt')
+        if (!await fsExists('pkgs')) await fsMkdir('pkgs')
+        if (!await fsExists('tmp')) await fsMkdir('tmp')
     } 
     catch (e) 
     {
@@ -114,8 +117,8 @@ async function main ()
     for (let app of apps)
     {
         // delete/create tmp dir
-        if (await fsExists(`tmp/${app}`, app)) await fs.rm(`tmp/${app}`, {recursive: true})
-        await fs.mkdir(`tmp/${app}`)
+        if (await fsExists(`tmp/${app}`, app)) await fsRm(`tmp/${app}`, {recursive: true})
+        await fsMkdir(`tmp/${app}`)
 
         switch (configApps[app].downloadType)
         {
