@@ -17,6 +17,7 @@ import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js';
 import { updateHandlerPkg } from './updateHandlerPkg.js';
 import { updateHandlerScrape } from './updateHandlerScrape.js';
 import { updateHandlerZipApp } from './updateHandlerZipApp.js';
+import { updateHandlerZipPkg } from './updateHandlerZipPkg.js';
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
 import { quitSuspiciousPackage, uploadPkg } from './utils.js';
 export const __dirname = process.cwd();
@@ -80,6 +81,9 @@ function main() {
                             }
                             if (configApps[app].zipFileType == 'app') {
                                 appUpdates.push(updateHandlerZipApp(app, configApps[app], updates));
+                            }
+                            else if (configApps[app].zipFileType == 'app') {
+                                appUpdates.push(updateHandlerZipPkg(app, configApps[app], updates));
                             }
                             else {
                                 console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].zipFileType}"`);
