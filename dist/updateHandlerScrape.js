@@ -12,6 +12,7 @@ import { updateHandlerDmgApp } from './updateHandlerDmgApp.js';
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js';
 import { updateHandlerPkg } from './updateHandlerPkg.js';
 import { updateHandlerZipApp } from './updateHandlerZipApp.js';
+import { updateHandlerZipPkg } from './updateHandlerZipPkg.js';
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
 export function updateHandlerScrape(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -49,6 +50,9 @@ export function updateHandlerScrape(app, appConfig, updates) {
                     }
                     if (appConfig.zipFileType == 'app') {
                         handler = yield updateHandlerZipApp(app, appConfig, updates);
+                    }
+                    if (appConfig.zipFileType == 'pkg') {
+                        handler = yield updateHandlerZipPkg(app, appConfig, updates);
                     }
                     break;
                 case 'nested-dmg':
