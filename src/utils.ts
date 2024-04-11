@@ -347,7 +347,14 @@ export async function zipExtractFile (app:string, appName: string, type: string)
     try
     {
         // Apple Script works best with absolute paths
-        await exec(`sh ./src/zipExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}" "${appName}"`)
+        if (type=='app')
+        {
+            await exec(`sh ./src/zipAppExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}" "${appName}"`)
+        }
+        else
+        {
+            await exec(`sh ./src/zipPkgExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}"`)
+        }       
         console.log(`${app}: zipExtractFile successful`)
         return true
     }

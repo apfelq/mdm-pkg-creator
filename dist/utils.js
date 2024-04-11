@@ -304,7 +304,12 @@ export function zipExtractFile(app, appName, type) {
         const extractPath = path.join(__dirname, 'tmp', `${app}`, `${app}`);
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${type}`);
         try {
-            yield exec(`sh ./src/zipExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}" "${appName}"`);
+            if (type == 'app') {
+                yield exec(`sh ./src/zipAppExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}" "${appName}"`);
+            }
+            else {
+                yield exec(`sh ./src/zipPkgExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}"`);
+            }
             console.log(`${app}: zipExtractFile successful`);
             return true;
         }
