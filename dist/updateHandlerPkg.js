@@ -24,8 +24,7 @@ export function updateHandlerPkg(app, appConfig, updates) {
                 if (!(yield pkgHelperExtractApp(app, appConfig)))
                     throw '';
             }
-            if (!(yield appHelperInfo(app, appConfig)))
-                throw '';
+            yield appHelperInfo(app, appConfig);
             yield pkgFinalize(app, appConfig.appVersion);
             yield fileDelete(app, `${app}.app`, `tmp`);
             console.log(`${app}: updateHandlerPkg update available`);

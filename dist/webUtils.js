@@ -65,7 +65,7 @@ export function download(app, appConfig) {
 }
 export function downloadCurl(app, downloadName, downloadUrl) {
     return __awaiter(this, void 0, void 0, function* () {
-        let curlBin = '/usr/local/opt/curl/bin/curl';
+        let curlBin = '/opt/homebrew/opt/curl/bin/curl';
         try {
             yield fs.promises.realpath(`${curlBin}`);
         }
@@ -106,29 +106,59 @@ export function downloadWget(app, downloadName, downloadUrl) {
         }
     });
 }
-export function scrape(app, url) {
+export function scrape(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
-        const headerGeneratorOptions = {
-            browsers: [
-                {
-                    name: 'firefox',
-                    minVersion: 91,
-                    maxVersion: 95
-                }
-            ],
-            devices: ['desktop'],
-            locales: ['en'],
-            operatingSystems: ['macos'],
-        };
-        gotOptions['url'] = url;
-        try {
-            const response = yield gotScraping.get(gotOptions);
-            console.log(`${app}: scrape successful`);
-            return response.body;
+        if (appConfig.scrapeTool === 'curl') {
+            let curlBin = '/opt/homebrew/opt/curl/bin/curl';
+            try {
+                yield fs.promises.realpath(`${curlBin}`);
+            }
+            catch (e) {
+                curlBin = '/usr/bin/curl';
+            }
+            let curlCmd = `${curlBin} '${appConfig.scrapeUrl}'`;
+            if (appConfig.scrapeFormRaw)
+                curlCmd = `${curlBin} --data-binary '${appConfig.scrapeFormRaw}' '${appConfig.scrapeUrl}'`;
+            try {
+                const output = yield exec(curlCmd);
+                console.log(`${app}: scrape successful`);
+                return output.stdout;
+            }
+            catch (e) {
+                console.error(`${app}: scrape failed with error "${e.message}"`);
+                throw e;
+            }
         }
-        catch (e) {
-            console.error(`${app}: scrape failed with error "${e.message}"`);
-            throw e;
+        else {
+            const headerGeneratorOptions = {
+                browsers: [
+                    {
+                        name: 'firefox',
+                        minVersion: 91,
+                        maxVersion: 95
+                    }
+                ],
+                devices: ['desktop'],
+                locales: ['en'],
+                operatingSystems: ['macos'],
+            };
+            gotOptions['url'] = appConfig.scrapeUrl;
+            if (appConfig.scrapeForm) {
+                gotOptions['form'] = appConfig.scrapeForm;
+            }
+            try {
+                let response;
+                if (appConfig.scrapeForm)
+                    response = yield gotScraping.post(gotOptions);
+                else
+                    response = yield gotScraping.get(gotOptions);
+                console.log(`${app}: scrape successful`);
+                return response.body;
+            }
+            catch (e) {
+                console.error(`${app}: scrape failed with error "${e.message}"`);
+                throw e;
+            }
         }
     });
 }

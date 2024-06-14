@@ -28,7 +28,7 @@ export async function updateHandlerDmgPkg (app: string, appConfig: appInterface,
         if (!await pkgHelperExtractApp(app, appConfig)) throw ''
 
         // get app info
-        if (!await appHelperInfo(app, appConfig)) throw ''
+        await appHelperInfo(app, appConfig)
         
         // finalize pkg
         await pkgFinalize(app, appConfig.appVersion)

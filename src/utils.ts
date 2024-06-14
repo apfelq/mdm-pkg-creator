@@ -322,19 +322,39 @@ export async function uploadPkg (app:string, version:string, uploadConfigs: uplo
     let uploads = []
     const inputPath = path.join(__dirname, 'pkgs', `${app}_${version}.pkg`)
 
+    // check if Homebrew's duck is installed
+    let duckBin = '/opt/homebrew/bin/duck'
+    try
+    {
+        await fs.promises.realpath(`${duckBin}`)
+    }
+    catch (e)
+    {
+        try
+        {
+            duckBin = '/usr/local/bin/duck'
+            await fs.promises.realpath(`${duckBin}`)
+        }
+        catch (e)
+        {
+            console.log(`uploadPkg: duck not found, please install via "brew install duck"`)
+            throw e
+        }
+    }
+
     for (let uploadConfig of uploadConfigs)
     {
         if (uploadConfig.username && uploadConfig.password)
         {
-            uploads.push(exec(`/usr/local/bin/duck --assumeyes --existing skip --username '${uploadConfig.username}' --password '${uploadConfig.password}' --upload '${uploadConfig.server}' '${inputPath}'`))
+            uploads.push(exec(`${duckBin} --assumeyes --existing skip --username '${uploadConfig.username}' --password '${uploadConfig.password}' --upload '${uploadConfig.server}' '${inputPath}'`))
         }
         else if (uploadConfig.username)
         {
-            uploads.push(exec(`/usr/local/bin/duck --assumeyes --existing skip --username '${uploadConfig.username}' --upload '${uploadConfig.server}' '${inputPath}'`))
+            uploads.push(exec(`${duckBin} --assumeyes --existing skip --username '${uploadConfig.username}' --upload '${uploadConfig.server}' '${inputPath}'`))
         }
         else
         {
-            uploads.push(exec(`/usr/local/bin/duck --assumeyes --existing skip --upload '${uploadConfig.server}' '${inputPath}'`))
+            uploads.push(exec(`${duckBin} --assumeyes --existing skip --upload '${uploadConfig.server}' '${inputPath}'`))
         }
     }
     try

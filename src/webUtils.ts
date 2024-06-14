@@ -75,7 +75,7 @@ export async function download (app: string, appConfig: appInterface): Promise<b
 export async function downloadCurl (app: string, downloadName:string, downloadUrl: string): Promise<boolean>
 {
     // check if Homebrew's curl is installed
-    let curlBin = '/usr/local/opt/curl/bin/curl'
+    let curlBin = '/opt/homebrew/opt/curl/bin/curl'
     try
     {
         await fs.promises.realpath(`${curlBin}`)
@@ -128,32 +128,70 @@ export async function downloadWget (app: string, downloadName:string, downloadUr
     }
 }
 
-export async function scrape (app: string, url: string): Promise<string> 
+export async function scrape (app: string, appConfig: appInterface): Promise<string> 
 {
-    //console.log(url)
-    const headerGeneratorOptions = {
-        browsers: [
-            {
-                name: 'firefox',
-                minVersion: 91,
-                maxVersion: 95
-            }
-        ],
-        devices: ['desktop'],
-        locales: ['en'],
-        operatingSystems: ['macos'],
-    }
-    gotOptions['url'] = url
+    //console.log(appConfig.scrapeUrlurl)
+    if (appConfig.scrapeTool === 'curl')
+    {
+        // check if Homebrew's curl is installed
+        let curlBin = '/opt/homebrew/opt/curl/bin/curl'
+        try
+        {
+            await fs.promises.realpath(`${curlBin}`)
+        }
+        catch (e)
+        {
+            curlBin = '/usr/bin/curl'
+        }
 
-    try
-    {
-        const response = await gotScraping.get(gotOptions)
-        console.log(`${app}: scrape successful`)
-        return response.body
+        let curlCmd = `${curlBin} '${appConfig.scrapeUrl}'`
+        if (appConfig.scrapeFormRaw) curlCmd = `${curlBin} --data-binary '${appConfig.scrapeFormRaw}' '${appConfig.scrapeUrl}'`
+        
+        try
+        {
+            const output = await exec(curlCmd)
+            console.log(`${app}: scrape successful`)
+            return output.stdout
+        }
+        catch (e)
+        {
+            console.error(`${app}: scrape failed with error "${e.message}"`)
+            throw e
+        }
     }
-    catch (e)
+    else
     {
-        console.error(`${app}: scrape failed with error "${e.message}"`)
-        throw e
+        const headerGeneratorOptions = {
+            browsers: [
+                {
+                    name: 'firefox',
+                    minVersion: 91,
+                    maxVersion: 95
+                }
+            ],
+            devices: ['desktop'],
+            locales: ['en'],
+            operatingSystems: ['macos'],
+        }
+        gotOptions['url'] = appConfig.scrapeUrl
+    
+        if (appConfig.scrapeForm)
+        {
+            gotOptions['form'] = appConfig.scrapeForm
+        }
+    
+        try
+        {
+            let response
+            if (appConfig.scrapeForm) response = await gotScraping.post(gotOptions)
+            else response = await gotScraping.get(gotOptions)
+            console.log(`${app}: scrape successful`)
+            return response.body
+        }
+        catch (e)
+        {
+            console.error(`${app}: scrape failed with error "${e.message}"`)
+            throw e
+        }
     }
 }

@@ -27,8 +27,7 @@ export function updateHandlerDmgPkg(app, appConfig, updates) {
                 return false;
             if (!(yield pkgHelperExtractApp(app, appConfig)))
                 throw '';
-            if (!(yield appHelperInfo(app, appConfig)))
-                throw '';
+            yield appHelperInfo(app, appConfig);
             yield pkgFinalize(app, appConfig.appVersion);
             yield fileDelete(app, `${app}.app`, `tmp`);
             yield fileDelete(app, `${app}.dmg`, `tmp`);

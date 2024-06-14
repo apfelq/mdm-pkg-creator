@@ -24,10 +24,7 @@ export function updateHandlerDmgApp(app, appConfig, updates) {
             else {
                 yield dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType, fileName);
             }
-            if (!(yield appHelperInfo(app, appConfig))) {
-                console.log(`${app}: updateHandlerDmgApp no update available`);
-                return false;
-            }
+            yield appHelperInfo(app, appConfig);
             if (!(yield appRename(app, appConfig.appName)))
                 throw '';
             const pkgTarget = appConfig.pkgTarget ? appConfig.pkgTarget : `/Applications`;

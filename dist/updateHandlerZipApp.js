@@ -16,12 +16,7 @@ export function updateHandlerZipApp(app, appConfig, updates) {
         try {
             yield download(app, appConfig);
             yield zipExtractFile(app, appConfig.appName, 'app');
-            if (!(yield appHelperInfo(app, appConfig))) {
-                console.log(`${app}: updateHandlerZipApp no update available`);
-                yield fileDelete(app, `${app}.app`, `tmp`);
-                yield fileDelete(app, `${app}.zip`, `tmp`);
-                return false;
-            }
+            yield appHelperInfo(app, appConfig);
             if (!(yield appRename(app, appConfig.appName)))
                 throw '';
             const pkgTarget = appConfig.pkgTarget ? appConfig.pkgTarget : `/Applications`;

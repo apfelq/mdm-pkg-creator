@@ -13,7 +13,7 @@ export async function updateHandlerScrape (app: string, appConfig: appInterface,
     try
     {
         // get website body and scrape version
-        const body = await scrape(app, appConfig.scrapeUrl)
+        const body = await scrape(app, appConfig)
         //const version = body.match(new RegExp(appConfig.scrapeRegex))[1]
         const downloadUrl = body.replace(new RegExp(appConfig.scrapeRegex, 'gm'), appConfig.downloadUrl)
 
@@ -25,6 +25,12 @@ export async function updateHandlerScrape (app: string, appConfig: appInterface,
         if ( appConfig.scrapeDownloadUrl == downloadUrl )
         {
             console.log(`${app}: updateHandlerScrape no update`)
+            return false
+        }
+
+        if ( !/^(?:http|ftp)/.test(downloadUrl) )
+        {
+            console.log(`${app}: updateHandlerScrape failed regex`)
             return false
         }
 

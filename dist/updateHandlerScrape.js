@@ -17,12 +17,16 @@ import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
 export function updateHandlerScrape(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const body = yield scrape(app, appConfig.scrapeUrl);
+            const body = yield scrape(app, appConfig);
             const downloadUrl = body.replace(new RegExp(appConfig.scrapeRegex, 'gm'), appConfig.downloadUrl);
             if (!downloadUrl)
                 throw 'version not found, check scrapeUrl & scrapeRegex';
             if (appConfig.scrapeDownloadUrl == downloadUrl) {
                 console.log(`${app}: updateHandlerScrape no update`);
+                return false;
+            }
+            if (!/^(?:http|ftp)/.test(downloadUrl)) {
+                console.log(`${app}: updateHandlerScrape failed regex`);
                 return false;
             }
             appConfig.scrapeDownloadUrl = downloadUrl;

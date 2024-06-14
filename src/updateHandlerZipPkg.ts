@@ -28,7 +28,7 @@ export async function updateHandlerZipPkg (app: string, appConfig: appInterface,
         }
         
         // get app info
-        if (!await appHelperInfo(app, appConfig)) throw ''
+        await appHelperInfo(app, appConfig)
 
         // finalize pkg
         await pkgFinalize(app, appConfig.appVersion)

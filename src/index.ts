@@ -43,8 +43,12 @@ export interface appInterface
     pkgSigned: boolean,
     pkgTarget?: string,
     scrapeDownloadUrl?: string,
+    scrapeForm?: any,
+    scrapeFormRaw?: string,
     scrapeUrl?: string,
     scrapeRegex?: string,
+    scrapeTool?: 'curl',
+    update?: boolean,
     zipFileType?: 'app' | 'pkg'
 }
 export interface mailInterface
