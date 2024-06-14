@@ -346,15 +346,15 @@ export async function uploadPkg (app:string, version:string, uploadConfigs: uplo
     {
         if (uploadConfig.username && uploadConfig.password)
         {
-            uploads.push(exec(`${duckBin} --assumeyes --existing skip --username '${uploadConfig.username}' --password '${uploadConfig.password}' --upload '${uploadConfig.server}' '${inputPath}'`))
+            uploads.push(exec(`${duckBin} --assumeyes --existing overwrite --username '${uploadConfig.username}' --password '${uploadConfig.password}' --upload '${uploadConfig.server}' '${inputPath}'`))
         }
         else if (uploadConfig.username)
         {
-            uploads.push(exec(`${duckBin} --assumeyes --existing skip --username '${uploadConfig.username}' --upload '${uploadConfig.server}' '${inputPath}'`))
+            uploads.push(exec(`${duckBin} --assumeyes --existing overwrite --username '${uploadConfig.username}' --upload '${uploadConfig.server}' '${inputPath}'`))
         }
         else
         {
-            uploads.push(exec(`${duckBin} --assumeyes --existing skip --upload '${uploadConfig.server}' '${inputPath}'`))
+            uploads.push(exec(`${duckBin} --assumeyes --existing overwrite --upload '${uploadConfig.server}' '${inputPath}'`))
         }
     }
     try
