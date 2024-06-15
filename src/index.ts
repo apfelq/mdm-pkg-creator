@@ -121,7 +121,7 @@ async function main ()
     for (let app of apps)
     {
         // delete/create tmp dir
-        if (await fsExists(`tmp/${app}`, app)) await fsRm(`tmp/${app}`, {recursive: true})
+        if (await fsExists(`tmp/${app}`, app)) await fsRm(`tmp/${app}`, {recursive: true, force: true})
         await fsMkdir(`tmp/${app}`)
 
         switch (configApps[app].downloadType)

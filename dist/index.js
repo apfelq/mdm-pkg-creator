@@ -53,7 +53,7 @@ function main() {
         const updates = [];
         for (let app of apps) {
             if (yield fsExists(`tmp/${app}`, app))
-                yield fsRm(`tmp/${app}`, { recursive: true });
+                yield fsRm(`tmp/${app}`, { recursive: true, force: true });
             yield fsMkdir(`tmp/${app}`);
             switch (configApps[app].downloadType) {
                 case 'direct':
