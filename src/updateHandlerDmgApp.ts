@@ -25,7 +25,11 @@ export async function updateHandlerDmgApp (app: string, appConfig: appInterface,
         
 
         // get app info
-        await appHelperInfo(app, appConfig)
+        if (!await appHelperInfo(app, appConfig) && !appConfig.pkgChecksumVersion)
+        {
+            console.log(`${app}: updateHandlerDmgApp no update available`)
+            return false
+        }
 
         // rename app
         if (!await appRename(app, appConfig.appName)) throw ''

@@ -1,25 +1,26 @@
-(node:63190) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(node:88534) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
 (Use `node --trace-deprecation ...` to show where the warning was created)
-Agfeo-Dashboard: scrape successful
-Agfeo-Dashboard: download successful
-Agfeo-Dashboard: dmgExtractFile successful
-Agfeo-Dashboard: appPath successful
-Agfeo-Dashboard: appBundleIdentifier successful
-Agfeo-Dashboard: appPath successful
-Agfeo-Dashboard: appCodeRequirement successful
-Agfeo-Dashboard: appPath successful
-Agfeo-Dashboard: appVersion successful
-Agfeo-Dashboard: appHelperInfo successful
-Agfeo-Dashboard: appRename successful
-Agfeo-Dashboard: pkgCreate successful
-Agfeo-Dashboard: pkgChecksum successful
-Agfeo-Dashboard: pkgSigned successful
-Agfeo-Dashboard: pkgFinalize successful
-Agfeo-Dashboard: fileDelete successful
-Agfeo-Dashboard: fileDelete successful
-Agfeo-Dashboard: updateHandlerDmgApp update available
-Agfeo-Dashboard: updateHandlerScrape update available
+TeamDrive: scrape successful
+TeamDrive: download successful
+TeamDrive: dmgInstallFile successful
+TeamDrive: appPath successful
+TeamDrive: appBundleIdentifier successful
+TeamDrive: appPath successful
+TeamDrive: appCodeRequirement successful
+TeamDrive: appPath successful
+TeamDrive: appVersion successful
+TeamDrive: appHelperInfo successful
+TeamDrive: appRename successful
+TeamDrive: pkgCreate successful
+TeamDrive: pkgChecksum successful
+TeamDrive: pkgHelperInfo new checksum available
+TeamDrive: pkgSigned successful
+TeamDrive: pkgFinalize successful
+TeamDrive: fileDelete successful
+TeamDrive: fileDelete successful
+TeamDrive: updateHandlerDmgApp update available
+TeamDrive: updateHandlerScrape update available
 updated "config-apps.yaml"
 updates published to "updates.yaml"
-Agfeo-Dashboard: uploadPkg successful
+TeamDrive: uploadPkg successful
 updates: mail notification sent

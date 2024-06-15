@@ -25,7 +25,11 @@ export async function updateHandlerPkg (app: string, appConfig: appInterface, up
         }
         
         // get app info
-        await appHelperInfo(app, appConfig)
+        if (!await appHelperInfo(app, appConfig) && !appConfig.pkgChecksumVersion)
+        {
+            console.log(`${app}: updateHandlerDmgApp no update available`)
+            return false
+        }
 
         // finalize pkg
         await pkgFinalize(app, appConfig.appVersion)

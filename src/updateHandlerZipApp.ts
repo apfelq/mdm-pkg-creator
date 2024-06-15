@@ -15,7 +15,11 @@ export async function updateHandlerZipApp (app: string, appConfig: appInterface,
         await zipExtractFile(app, appConfig.appName, 'app')
 
         // get app info
-        await appHelperInfo(app, appConfig)
+        if (!await appHelperInfo(app, appConfig) && !appConfig.pkgChecksumVersion)
+        {
+            console.log(`${app}: updateHandlerDmgApp no update available`)
+            return false
+        }
 
         // rename app
         if (!await appRename(app, appConfig.appName)) throw ''

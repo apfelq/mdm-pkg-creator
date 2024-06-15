@@ -131,7 +131,7 @@ export async function downloadWget (app: string, downloadName:string, downloadUr
 export async function scrape (app: string, appConfig: appInterface): Promise<string> 
 {
     //console.log(appConfig.scrapeUrlurl)
-    if (appConfig.scrapeTool === 'curl')
+    if (appConfig.scrapeFormRaw)
     {
         // check if Homebrew's curl is installed
         let curlBin = '/opt/homebrew/opt/curl/bin/curl'
@@ -141,11 +141,18 @@ export async function scrape (app: string, appConfig: appInterface): Promise<str
         }
         catch (e)
         {
-            curlBin = '/usr/bin/curl'
+            try
+            {
+                curlBin = '/usr/local/opt/curl/bin/curl'
+                await fs.promises.realpath(`${curlBin}`)
+            }
+            catch (e)
+            {
+                curlBin = '/usr/bin/curl'
+            }
         }
 
-        let curlCmd = `${curlBin} '${appConfig.scrapeUrl}'`
-        if (appConfig.scrapeFormRaw) curlCmd = `${curlBin} --data-binary '${appConfig.scrapeFormRaw}' '${appConfig.scrapeUrl}'`
+        const curlCmd = `${curlBin} --data-binary '${appConfig.scrapeFormRaw}' '${appConfig.scrapeUrl}'`
         
         try
         {

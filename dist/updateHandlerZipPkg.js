@@ -25,7 +25,10 @@ export function updateHandlerZipPkg(app, appConfig, updates) {
                 if (!(yield pkgHelperExtractApp(app, appConfig)))
                     throw '';
             }
-            yield appHelperInfo(app, appConfig);
+            if (!(yield appHelperInfo(app, appConfig)) && !appConfig.pkgChecksumVersion) {
+                console.log(`${app}: updateHandlerDmgApp no update available`);
+                return false;
+            }
             yield pkgFinalize(app, appConfig.appVersion);
             console.log(`${app}: updateHandlerZipPkg update available`);
             updates.push(app);

@@ -38,6 +38,7 @@ export interface appInterface
     nestedDmgFileType?: 'dmg',
     nestedDmgName?: string,
     pkgChecksum: string,
+    pkgChecksumVersion?: boolean,
     pkgInstall?: boolean,
     pkgName?: string,
     pkgSigned: boolean,
@@ -47,7 +48,6 @@ export interface appInterface
     scrapeFormRaw?: string,
     scrapeUrl?: string,
     scrapeRegex?: string,
-    scrapeTool?: 'curl',
     update?: boolean,
     zipFileType?: 'app' | 'pkg'
 }

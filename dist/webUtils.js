@@ -108,17 +108,21 @@ export function downloadWget(app, downloadName, downloadUrl) {
 }
 export function scrape(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (appConfig.scrapeTool === 'curl') {
+        if (appConfig.scrapeFormRaw) {
             let curlBin = '/opt/homebrew/opt/curl/bin/curl';
             try {
                 yield fs.promises.realpath(`${curlBin}`);
             }
             catch (e) {
-                curlBin = '/usr/bin/curl';
+                try {
+                    curlBin = '/usr/local/opt/curl/bin/curl';
+                    yield fs.promises.realpath(`${curlBin}`);
+                }
+                catch (e) {
+                    curlBin = '/usr/bin/curl';
+                }
             }
-            let curlCmd = `${curlBin} '${appConfig.scrapeUrl}'`;
-            if (appConfig.scrapeFormRaw)
-                curlCmd = `${curlBin} --data-binary '${appConfig.scrapeFormRaw}' '${appConfig.scrapeUrl}'`;
+            const curlCmd = `${curlBin} --data-binary '${appConfig.scrapeFormRaw}' '${appConfig.scrapeUrl}'`;
             try {
                 const output = yield exec(curlCmd);
                 console.log(`${app}: scrape successful`);
