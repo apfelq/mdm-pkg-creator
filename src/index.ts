@@ -303,12 +303,10 @@ async function main ()
     // upload updates
     if (config.uploads)
     {
-        let uploads = []
         for (let update of updates)
         {
-            uploads.push(uploadPkg(update, configApps[update].appVersion, config.uploads))
+            await uploadPkg(update, configApps[update].appVersion, config.uploads)
         }
-        await Promise.all(uploads)
     }
 
     // mail updates file to recipient

@@ -187,11 +187,9 @@ function main() {
         console.log('updates published to "updates.yaml"');
         quitSuspiciousPackage();
         if (config.uploads) {
-            let uploads = [];
             for (let update of updates) {
-                uploads.push(uploadPkg(update, configApps[update].appVersion, config.uploads));
+                yield uploadPkg(update, configApps[update].appVersion, config.uploads);
             }
-            yield Promise.all(uploads);
         }
         if (config.mail) {
             if (updates.length > 0) {
