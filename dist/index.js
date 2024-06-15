@@ -52,9 +52,14 @@ function main() {
         const apps = Object.keys(configApps);
         const updates = [];
         for (let app of apps) {
-            if (yield fsExists(`tmp/${app}`, app))
-                yield fsRm(`tmp/${app}`, { recursive: true, force: true });
-            yield fsMkdir(`tmp/${app}`);
+            try {
+                if (yield fsExists(`tmp/${app}`, app))
+                    yield fsRm(`tmp/${app}`, { recursive: true, force: true });
+                yield fsMkdir(`tmp/${app}`);
+            }
+            catch (e) {
+                console.log(`${app}: removal/creation of tmp-dir failed (${e.message})`);
+            }
             switch (configApps[app].downloadType) {
                 case 'direct':
                     switch (configApps[app].downloadFileType) {
