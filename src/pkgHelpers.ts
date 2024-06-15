@@ -17,11 +17,12 @@ export async function pkgHelperInfo (app: string, appConfig: appInterface): Prom
         {
             // delete pkg
             await unlink(path.join(__dirname, `tmp`, `${app}`, `${app}.pkg`))
-            console.log(`${app}: no update available`)
+            console.log(`${app}: pkgHelperInfo no update available`)
             return false
         }
 
         appConfig.pkgChecksum = checksum
+        console.error(`${app}: pkgHelperInfo new checksum available`)
 
         // check signing
         appConfig.pkgSigned = await pkgSigned(app)

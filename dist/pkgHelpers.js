@@ -19,10 +19,11 @@ export function pkgHelperInfo(app, appConfig) {
             const checksum = yield pkgChecksum(app);
             if (checksum == appConfig.pkgChecksum) {
                 yield unlink(path.join(__dirname, `tmp`, `${app}`, `${app}.pkg`));
-                console.log(`${app}: no update available`);
+                console.log(`${app}: pkgHelperInfo no update available`);
                 return false;
             }
             appConfig.pkgChecksum = checksum;
+            console.error(`${app}: pkgHelperInfo new checksum available`);
             appConfig.pkgSigned = yield pkgSigned(app);
             return true;
         }
