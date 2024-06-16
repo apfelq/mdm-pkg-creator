@@ -30,7 +30,7 @@ export async function updateHandlerZipPkg (app: string, appConfig: appInterface,
         // get app info
         if (!await appHelperInfo(app, appConfig) && !appConfig.pkgChecksumVersion)
         {
-            console.log(`${app}: updateHandlerDmgApp no update available`)
+            console.log(`${app}: updateHandlerZipPkg no update available`)
             return false
         }
 

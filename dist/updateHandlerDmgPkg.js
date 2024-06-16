@@ -28,7 +28,7 @@ export function updateHandlerDmgPkg(app, appConfig, updates) {
             if (!(yield pkgHelperExtractApp(app, appConfig)))
                 throw '';
             if (!(yield appHelperInfo(app, appConfig)) && !appConfig.pkgChecksumVersion) {
-                console.log(`${app}: updateHandlerDmgApp no update available`);
+                console.log(`${app}: updateHandlerDmgPkg no update available`);
                 return false;
             }
             yield pkgFinalize(app, appConfig.appVersion);

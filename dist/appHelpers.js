@@ -17,9 +17,12 @@ export function appHelperInfo(app, appConfig) {
             appConfig.appCodeRequirement = codeRequirement;
             const version = yield appVersion(app, appConfig.appName);
             console.log(`${app}: appHelperInfo successful`);
-            if (version == appConfig.appVersion)
+            if (version == appConfig.appVersion) {
+                console.log(`${app}: appHelperInfo version unchanged`);
                 return false;
+            }
             appConfig.appVersion = version;
+            console.log(`${app}: appHelperInfo new version available`);
             return true;
         }
         catch (e) {

@@ -20,9 +20,14 @@ export async function appHelperInfo (app: string, appConfig: appInterface): Prom
 
         console.log(`${app}: appHelperInfo successful`)
 
-        if (version == appConfig.appVersion) return false
+        if (version == appConfig.appVersion)
+        {
+            console.log(`${app}: appHelperInfo version unchanged`)
+            return false
+        }
 
         appConfig.appVersion = version
+        console.log(`${app}: appHelperInfo new version available`)
         return true
     }
     catch (e)

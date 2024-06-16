@@ -17,7 +17,7 @@ export function updateHandlerZipApp(app, appConfig, updates) {
             yield download(app, appConfig);
             yield zipExtractFile(app, appConfig.appName, 'app');
             if (!(yield appHelperInfo(app, appConfig)) && !appConfig.pkgChecksumVersion) {
-                console.log(`${app}: updateHandlerDmgApp no update available`);
+                console.log(`${app}: updateHandlerZipApp no update available`);
                 return false;
             }
             if (!(yield appRename(app, appConfig.appName)))
