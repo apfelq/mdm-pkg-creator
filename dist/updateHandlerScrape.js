@@ -26,7 +26,7 @@ export function updateHandlerScrape(app, appConfig, updates) {
                 return false;
             }
             if (!/^(?:http|ftp)/.test(downloadUrl)) {
-                console.log(`${app}: updateHandlerScrape failed regex`);
+                console.error(`${app}: updateHandlerScrape failed regex`);
                 return false;
             }
             appConfig.scrapeDownloadUrl = downloadUrl;

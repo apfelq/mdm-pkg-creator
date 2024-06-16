@@ -30,7 +30,7 @@ export async function updateHandlerScrape (app: string, appConfig: appInterface,
 
         if ( !/^(?:http|ftp)/.test(downloadUrl) )
         {
-            console.log(`${app}: updateHandlerScrape failed regex`)
+            console.error(`${app}: updateHandlerScrape failed regex`)
             return false
         }
 
