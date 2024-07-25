@@ -11,6 +11,7 @@ import { updateHandlerScrape } from './updateHandlerScrape.js'
 import { updateHandlerZipApp } from './updateHandlerZipApp.js'
 import { updateHandlerZipPkg } from './updateHandlerZipPkg.js'
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js'
+import { updateHandlerNestedZip } from './updateHandlerNestedZip.js'
 import { fsExists, quitSuspiciousPackage, uploadPkg } from './utils.js'
 export const __dirname = process.cwd()
 const fsMkdir = promisify(fs.mkdir)
@@ -29,7 +30,7 @@ export interface appInterface
     cookieUrl?: string,
     downloadType: 'direct' | 'github' | 'scrape',
     downloadUrl?: string,
-    downloadFileType: 'dmg' | 'pkg' | 'zip' | 'nested-dmg',
+    downloadFileType: 'dmg' | 'pkg' | 'zip' | 'nested-dmg' | 'nested-zip',
     downloadGithub?: string,
     downloadTool?: 'curl' | 'wget',
     dmgFileName?: string,
@@ -37,6 +38,8 @@ export interface appInterface
     dmgInstallCommand?: string,
     nestedDmgFileType?: 'dmg',
     nestedDmgName?: string,
+    nestedZipFileType?: 'dmg',
+    nestedZipName?: string,
     pkgChecksum: string,
     pkgChecksumVersion?: boolean,
     pkgInstall?: boolean,
@@ -49,7 +52,7 @@ export interface appInterface
     scrapeUrl?: string,
     scrapeRegex?: string,
     update?: boolean,
-    zipFileType?: 'app' | 'pkg'
+    zipFileType?: 'app' | 'pkg' | 'dmg'
 }
 export interface mailInterface
 {
@@ -198,6 +201,24 @@ async function main ()
                         else
                         {
                             console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].nestedDmgFileType}"`)
+                            console.error(`${app}: verify your config and/or contact developer`)
+                        }
+                        
+                        break
+
+                    case 'nested-zip':
+                        if (!configApps[app].nestedZipFileType)
+                        {
+                            console.error(`${app}: missing "nestedZipFileType" in confg`)
+                            break
+                        }
+                        if (configApps[app].nestedZipFileType == 'dmg')
+                        {
+                            appUpdates.push(updateHandlerNestedZip(app, configApps[app], updates))
+                        }
+                        else
+                        {
+                            console.error(`${app}: no updateHandler for "${configApps[app].downloadType}_${configApps[app].downloadFileType}_${configApps[app].nestedZipFileType}"`)
                             console.error(`${app}: verify your config and/or contact developer`)
                         }
                         

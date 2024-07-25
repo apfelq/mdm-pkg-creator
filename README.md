@@ -15,8 +15,7 @@ A small utility to download apps for macOS from the Internet and create a PKG th
 - install the following:
 
 ```bash
-brew install duck node npm
-brew install --cask suspicious-package
+brew install duck node npm suspicious-package
 ```
 
 - optional but recommended
