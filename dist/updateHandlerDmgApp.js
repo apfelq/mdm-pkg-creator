@@ -16,22 +16,12 @@ export function updateHandlerDmgApp(app, appConfig, updates) {
         try {
             if (!appConfig.downloadFileType.startsWith('nested'))
                 yield download(app, appConfig);
-            let fileType = appConfig.downloadFileType;
-            switch (appConfig.downloadFileType) {
-                case 'nested-dmg':
-                    fileType = appConfig.nestedDmgFileType;
-                    break;
-                case 'nested-zip':
-                    fileType = appConfig.nestedZipFileType;
-                    break;
-                default:
-            }
             const fileName = appConfig.dmgFileName ? appConfig.dmgFileName : '';
             if (appConfig.dmgInstallCommand) {
-                yield dmgInstallFile(app, fileType, appConfig.dmgInstallCommand);
+                yield dmgInstallFile(app, appConfig.dmgInstallCommand);
             }
             else {
-                yield dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType, fileName);
+                yield dmgExtractFile(app, appConfig.appName, appConfig.dmgFileType, fileName);
             }
             if (!(yield appHelperInfo(app, appConfig)) && !appConfig.pkgChecksumVersion) {
                 console.log(`${app}: updateHandlerDmgApp no update available`);

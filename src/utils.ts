@@ -113,9 +113,9 @@ export async function appVersion (app: string, appName?: string): Promise<string
     
 }
 
-export async function dmgExtractFile (app:string, downloadFileType: string, appName: string, dmgFileType: string, dmgFileName?: string): Promise<boolean>
+export async function dmgExtractFile (app:string, appName: string, dmgFileType: string, dmgFileName?: string): Promise<boolean>
 {
-    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${downloadFileType}`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.dmg`)
     const mountPoint = path.join(__dirname, 'mnt', `${app}`)
     const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${dmgFileType}`)
     const fileName = dmgFileName && dmgFileName.length > 0 ? dmgFileName : appName
@@ -134,10 +134,10 @@ export async function dmgExtractFile (app:string, downloadFileType: string, appN
     }
 }
 
-export async function dmgInstallFile (app:string, downloadFileType: string, installCommand: string): Promise<boolean>
+export async function dmgInstallFile (app:string, installCommand: string): Promise<boolean>
 {
     const appTmpDir = path.join(__dirname, 'tmp', `${app}`)
-    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${downloadFileType}`)
+    const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.dmg`)
     const mountPoint = path.join(__dirname, 'mnt', `${app}`)
     const installCmd = `${mountPoint}/${installCommand.replaceAll('<APPDIR>', appTmpDir)}`
 

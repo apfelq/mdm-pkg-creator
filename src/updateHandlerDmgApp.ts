@@ -12,26 +12,14 @@ export async function updateHandlerDmgApp (app: string, appConfig: appInterface,
         if (!appConfig.downloadFileType.startsWith('nested')) await download(app, appConfig)
 
         // extract app from dmg
-        let fileType = appConfig.downloadFileType
-        switch (appConfig.downloadFileType)
-        {
-            case 'nested-dmg':
-                fileType = appConfig.nestedDmgFileType
-                break
-            case 'nested-zip':
-                fileType = appConfig.nestedZipFileType
-                break
-            default:
-        }
-
         const fileName = appConfig.dmgFileName ? appConfig.dmgFileName : ''
         if (appConfig.dmgInstallCommand)
         {
-            await dmgInstallFile(app, fileType, appConfig.dmgInstallCommand)
+            await dmgInstallFile(app, appConfig.dmgInstallCommand)
         }
         else
         {
-            await dmgExtractFile(app, fileType, appConfig.appName, appConfig.dmgFileType, fileName)
+            await dmgExtractFile(app, appConfig.appName, appConfig.dmgFileType, fileName)
         }
         
 
