@@ -24,7 +24,7 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`))) fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`))
 
     // remove nested prefix
-    const downloadFileType = appConfig.downloadFileType.replace(/^nested-/, '')
+    const downloadFileType = appConfig.downloadFileType.replace('nested-', '')
 
     // check if specific tool is requested
     if (appConfig.downloadTool === 'curl') return downloadCurl(app, `${app}.${downloadFileType}`, downloadUrl)
