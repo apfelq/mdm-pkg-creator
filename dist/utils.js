@@ -331,6 +331,9 @@ export function zipExtractFile(app, appName, type) {
             if (type == 'app') {
                 yield exec(`sh ./src/zipAppExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}" "${appName}"`);
             }
+            if (type == 'dmg') {
+                yield exec(`sh ./src/zipDmgExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}"`);
+            }
             else {
                 yield exec(`sh ./src/zipPkgExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}"`);
             }
