@@ -27,10 +27,11 @@ export function download(app, appConfig) {
         const downloadUrl = appConfig.downloadType == 'scrape' ? appConfig.scrapeDownloadUrl : appConfig.downloadUrl;
         if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`)))
             fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`));
+        const downloadFileType = appConfig.downloadFileType.replace(/^nested-/, '');
         if (appConfig.downloadTool === 'curl')
-            return downloadCurl(app, `${app}.${appConfig.downloadFileType}`, downloadUrl);
+            return downloadCurl(app, `${app}.${downloadFileType}`, downloadUrl);
         if (appConfig.downloadTool === 'wget')
-            return downloadWget(app, `${app}.${appConfig.downloadFileType}`, downloadUrl);
+            return downloadWget(app, `${app}.${downloadFileType}`, downloadUrl);
         let cookies = undefined;
         let cookieJar = new CookieJar();
         if (appConfig.cookieUrl) {
