@@ -383,7 +383,7 @@ export async function zipExtractFile (app:string, appName: string, type: string)
         {
             await exec(`sh ./src/zipAppExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}" "${appName}"`)
         }
-        if (type=='dmg')
+        else if (type=='dmg')
         {
             await exec(`sh ./src/zipDmgExtractFile.sh "${inputPath}" "${extractPath}" "${outputPath}"`)
         }  
