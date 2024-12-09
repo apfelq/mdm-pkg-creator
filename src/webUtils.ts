@@ -53,7 +53,7 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     }
 
     // create output
-    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${appConfig.downloadFileType}`)
+    const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${downloadFileType}`)
     const fileWriterStream = fs.createWriteStream(outputPath)
 
     // download
@@ -71,7 +71,7 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     {
         console.error(`${app}: download failed with error "${e.message}"`)
         console.error(`${app}: trying to download with curl`)
-        return downloadCurl(app, `${app}.${appConfig.downloadFileType}`, downloadUrl)
+        return downloadCurl(app, `${app}.${downloadFileType}`, downloadUrl)
     }
 }
 
