@@ -16,7 +16,7 @@ export async function updateHandlerNestedZip (app: string, appConfig: appInterfa
         await zipExtractFile(app, appConfig.nestedZipName, appConfig.nestedZipFileType)
 
         // delete downloaded zip
-        await fileDelete(app, `${app}.${appConfig.downloadFileType}`, 'tmp')
+        //await fileDelete(app, `${app}.${appConfig.downloadFileType}`, 'tmp')
 
         // push to appropriate handler
         let handler = false

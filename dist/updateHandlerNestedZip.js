@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { fileDelete, zipExtractFile } from './utils.js';
+import { zipExtractFile } from './utils.js';
 import { download } from './webUtils.js';
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js';
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js';
@@ -16,7 +16,6 @@ export function updateHandlerNestedZip(app, appConfig, updates) {
         try {
             yield download(app, appConfig);
             yield zipExtractFile(app, appConfig.nestedZipName, appConfig.nestedZipFileType);
-            yield fileDelete(app, `${app}.${appConfig.downloadFileType}`, 'tmp');
             let handler = false;
             switch (appConfig.nestedZipFileType) {
                 case 'dmg':
