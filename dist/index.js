@@ -117,7 +117,7 @@ function main() {
                                 console.error(`${app}: missing "nestedZipFileType" in confg`);
                                 break;
                             }
-                            if (configApps[app].nestedZipFileType == 'dmg') {
+                            if (configApps[app].nestedZipFileType == 'dmg' || configApps[app].nestedZipFileType == 'pkg') {
                                 appUpdates.push(updateHandlerNestedZip(app, configApps[app], updates));
                             }
                             else {

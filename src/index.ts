@@ -38,7 +38,7 @@ export interface appInterface
     dmgInstallCommand?: string,
     nestedDmgFileType?: 'dmg',
     nestedDmgName?: string,
-    nestedZipFileType?: 'dmg',
+    nestedZipFileType?: 'dmg' | 'pkg',
     nestedZipName?: string,
     pkgChecksum: string,
     pkgChecksumVersion?: boolean,
@@ -212,7 +212,7 @@ async function main ()
                             console.error(`${app}: missing "nestedZipFileType" in confg`)
                             break
                         }
-                        if (configApps[app].nestedZipFileType == 'dmg')
+                        if (configApps[app].nestedZipFileType == 'dmg' || configApps[app].nestedZipFileType == 'pkg')
                         {
                             appUpdates.push(updateHandlerNestedZip(app, configApps[app], updates))
                         }

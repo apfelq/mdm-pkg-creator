@@ -11,6 +11,7 @@ import { zipExtractFile } from './utils.js';
 import { download } from './webUtils.js';
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js';
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js';
+import { updateHandlerPkg } from './updateHandlerPkg.js';
 export function updateHandlerNestedZip(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -29,6 +30,9 @@ export function updateHandlerNestedZip(app, appConfig, updates) {
                     else if (appConfig.dmgFileType == 'pkg') {
                         handler = yield updateHandlerDmgPkg(app, appConfig, updates);
                     }
+                    break;
+                case 'pkg':
+                    handler = yield updateHandlerPkg(app, appConfig, updates);
                     break;
             }
             if (!handler) {

@@ -3,6 +3,7 @@ import { download } from './webUtils.js'
 import { __dirname, appInterface } from './index.js'
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js'
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js'
+import { updateHandlerPkg } from './updateHandlerPkg.js'
 
 
 export async function updateHandlerNestedZip (app: string, appConfig: appInterface, updates: string[]): Promise<boolean>
@@ -36,6 +37,9 @@ export async function updateHandlerNestedZip (app: string, appConfig: appInterfa
                 {
                     handler = await updateHandlerDmgPkg(app, appConfig, updates)
                 }
+                break
+            case 'pkg':
+                handler = await updateHandlerPkg(app, appConfig, updates)
                 break
         }
         if (!handler)
