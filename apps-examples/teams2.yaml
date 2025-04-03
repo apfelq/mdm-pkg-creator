@@ -1,0 +1,12 @@
+appBundleIdentifier: 'com.microsoft.teams2'
+appCodeRequirement: 'identifier "com.microsoft.teams2" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = UBF8T346G9'
+appName: 'Microsoft Teams (work or school).app'
+appVersion: '24091.212.2846.1453'
+downloadFileType: 'pkg'
+downloadType: 'scrape'
+downloadUrl: '$1'
+name: 'Microsoft Teams'
+pkgChecksum: 'd8025d37edc71c2c6f0e940a652d4a16'
+pkgSigned: true
+scrapeRegex: '(https:\/\/.+?Teams_osx\.pkg)'
+scrapeUrl: 'https://teams.microsoft.com/downloads/DesktopUrl?env=production&plat=osx&arch=64'

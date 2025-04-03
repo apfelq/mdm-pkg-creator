@@ -1,5 +1,8 @@
 .DS_Store
 node_modules
+apps-enabled/*
+apps-available/*
+!.keep
 mnt
 pkgs
 tmp

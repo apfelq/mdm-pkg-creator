@@ -28,6 +28,7 @@ export function download(app, appConfig) {
         if (!fs.existsSync(path.join(__dirname, 'tmp', `${app}`)))
             fs.mkdirSync(path.join(__dirname, 'tmp', `${app}`));
         const downloadFileType = appConfig.downloadFileType.replace('nested-', '');
+        console.log(`${app}: download started`);
         if (appConfig.downloadTool === 'curl')
             return downloadCurl(app, `${app}.${downloadFileType}`, downloadUrl);
         if (appConfig.downloadTool === 'wget')

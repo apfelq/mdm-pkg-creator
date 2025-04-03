@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { dmgExtractFile, fileDelete } from './utils.js';
+import { dmgExtractFile, fileDelete, fileRename } from './utils.js';
 import { download } from './webUtils.js';
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js';
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js';
@@ -15,8 +15,9 @@ export function updateHandlerNestedDmg(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield download(app, appConfig);
-            yield dmgExtractFile(app, appConfig.nestedDmgName, appConfig.nestedDmgFileType, '');
+            yield dmgExtractFile(app, appConfig.nestedDmgName, `${appConfig.nestedDmgFileType}-nested`, '');
             yield fileDelete(app, `${app}.dmg`, 'tmp');
+            yield fileRename(app, `${app}.${appConfig.nestedDmgFileType}-nested`, `${app}.dmg`);
             let handler = false;
             switch (appConfig.nestedDmgFileType) {
                 case 'dmg':

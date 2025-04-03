@@ -26,6 +26,9 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     // remove nested prefix
     const downloadFileType = appConfig.downloadFileType.replace('nested-', '')
 
+    //inform
+    console.log(`${app}: download started`)
+
     // check if specific tool is requested
     if (appConfig.downloadTool === 'curl') return downloadCurl(app, `${app}.${downloadFileType}`, downloadUrl)
     if (appConfig.downloadTool === 'wget') return downloadWget(app, `${app}.${downloadFileType}`, downloadUrl)

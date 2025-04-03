@@ -12,6 +12,7 @@ import path from 'path';
 import process from 'process';
 import { promisify } from 'util';
 import yaml from 'js-yaml';
+import minimist from 'minimist';
 import { sendMail } from './mailer.js';
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js';
 import { updateHandlerDmgPkg } from './updateHandlerDmgPkg.js';
@@ -23,11 +24,13 @@ import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
 import { updateHandlerNestedZip } from './updateHandlerNestedZip.js';
 import { fsExists, quitSuspiciousPackage, uploadPkg } from './utils.js';
 export const __dirname = process.cwd();
+const argv = minimist(process.argv.slice(2));
 const fsMkdir = promisify(fs.mkdir);
+const fsReaddir = promisify(fs.readdir);
 const fsRm = promisify(fs.rm);
 function importYaml(fileName) {
     try {
-        return yaml.load(fs.readFileSync(`${fileName}.yaml`, 'utf8'));
+        return yaml.load(fs.readFileSync(`${fileName}`, 'utf8'));
     }
     catch (e) {
         console.log(e);
@@ -35,9 +38,32 @@ function importYaml(fileName) {
 }
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        let config = importYaml('config');
-        let configApps = importYaml('config-apps');
-        const configTenants = importYaml('config-tenants');
+        let config = importYaml('config.yaml');
+        const configTenants = importYaml('config-tenants.yaml');
+        let appConfigFiles = [];
+        if (argv._.length === 0) {
+            try {
+                const filesInAppConfigDir = yield fsReaddir('./apps-enabled', { withFileTypes: true });
+                appConfigFiles = filesInAppConfigDir.filter(item => !item.isDirectory())
+                    .filter(file => { return path.extname(file.name) === '.yaml'; })
+                    .map(file => file.name);
+            }
+            catch (e) {
+                console.error(e.message);
+            }
+        }
+        else {
+            for (let appName of argv._) {
+                if (yield fsExists(`./apps-enabled/${appName}.yaml`))
+                    appConfigFiles.push(`${appName}.yaml`);
+                else
+                    console.error(`config file for "${appName}" not found!`);
+            }
+        }
+        let configApps = {};
+        for (let appConfigFile of appConfigFiles) {
+            configApps[appConfigFile.substring(0, appConfigFile.length - 5)] = importYaml(`./apps-enabled/${appConfigFile}`);
+        }
         try {
             if (!(yield fsExists('mnt')))
                 yield fsMkdir('mnt');
@@ -182,6 +208,7 @@ function main() {
                         appName: configApps[update].appName,
                         appVersion: configApps[update].appVersion,
                         cdn: config.cdn.map(server => encodeURI(`${server}${update}_${configApps[update].appVersion}.pkg`)),
+                        name: configApps[update].name ? configApps[update].name : update,
                         pkgChecksum: configApps[update].pkgChecksum,
                         pkgSigned: configApps[update].pkgSigned
                     };
@@ -195,9 +222,11 @@ function main() {
                 }
             }
         }
+        for (let update of updates) {
+            fs.writeFileSync(path.join(__dirname, `./apps-enabled/${update}.yaml`), yaml.dump(configApps[update], { quotingType: "'", forceQuotes: true, sortKeys: true }));
+            console.log(`${update}: updated app config file`);
+        }
         fs.writeFileSync(path.join(__dirname, 'updates.yaml'), yaml.dump(tenantUpdates, { quotingType: "'", forceQuotes: true, sortKeys: true }));
-        fs.writeFileSync(path.join(__dirname, 'config-apps.yaml'), yaml.dump(configApps, { quotingType: "'", forceQuotes: true, sortKeys: true }));
-        console.log('updated "config-apps.yaml"');
         console.log('updates published to "updates.yaml"');
         quitSuspiciousPackage();
         if (config.uploads) {
@@ -207,7 +236,7 @@ function main() {
         }
         if (config.mail) {
             if (updates.length > 0) {
-                yield sendMail('MDM-PKG-CREATOR: new updates!', `MDM-PKG-CREATOR uploaded the following new PKGs:\r\n\r\n${updates.toString()}\r\n\r\nFor tenant updates and log refer to attachment.`, config.mail, [{ path: path.join(__dirname, 'updates.yaml') }, { path: path.join(__dirname, 'mdm-pkg-creator.log') }]);
+                yield sendMail('MDM-PKG-CREATOR: new updates!', `MDM-PKG-CREATOR uploaded the following new PKGs:\r\n\r\n${updates.map(update => { return configApps[update].name ? configApps[update].name : update; }).toString()}\r\n\r\nFor tenant updates and log refer to attachment.`, config.mail, [{ path: path.join(__dirname, 'updates.yaml') }, { path: path.join(__dirname, 'mdm-pkg-creator.log') }]);
             }
             else {
                 yield sendMail('MDM-PKG-CREATOR: no updates!', `MDM-PKG-CREATOR did not detect any updates.\r\n\r\nLog attached.`, config.mail, [{ path: path.join(__dirname, 'mdm-pkg-creator.log') }]);

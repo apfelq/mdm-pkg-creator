@@ -1,4 +1,4 @@
-import { dmgExtractFile, fileDelete } from './utils.js'
+import { dmgExtractFile, fileDelete, fileRename } from './utils.js'
 import { download } from './webUtils.js'
 import { __dirname, appInterface } from './index.js'
 import { updateHandlerDmgApp } from './updateHandlerDmgApp.js'
@@ -13,10 +13,11 @@ export async function updateHandlerNestedDmg (app: string, appConfig: appInterfa
         await download(app, appConfig)
 
         // extract nested file from dmg
-        await dmgExtractFile(app, appConfig.nestedDmgName, appConfig.nestedDmgFileType, '')
+        await dmgExtractFile(app, appConfig.nestedDmgName, `${appConfig.nestedDmgFileType}-nested`, '')
 
         // delete downloaded dmg
         await fileDelete(app, `${app}.dmg`, 'tmp')
+        await fileRename(app, `${app}.${appConfig.nestedDmgFileType}-nested`, `${app}.dmg`)
 
         // push to appropriate handler
         let handler = false

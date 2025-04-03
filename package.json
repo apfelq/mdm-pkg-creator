@@ -31,6 +31,7 @@
     "got-scraping": "^4.1.1",
     "graceful-fs": "^4.2.11",
     "js-yaml": "^4.1.0",
+    "minimist": "^1.2.8",
     "nodemailer": "^6.10.0",
     "tough-cookie": "^5.1.2"
   },
