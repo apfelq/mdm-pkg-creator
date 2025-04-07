@@ -1,7 +1,7 @@
 name: 'Citrix Workspace'
 additionalInfo:
   postInstall:
-    - 'defaults write com.citrix.receiver.nomas AutoUpdateState -string 'Manual''
+    - 'defaults write com.citrix.receiver.nomas AutoUpdateState -string "Manual"'
     - 'defaults write com.citrix.receiver.nomas CEIPEnabled -boolean false'
     - 'defaults write com.citrix.receiver.nomas CrashReportingEnabled -boolean false'
 appBundleIdentifier: 'com.citrix.receiver.nomas'

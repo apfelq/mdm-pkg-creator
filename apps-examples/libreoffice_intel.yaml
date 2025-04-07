@@ -10,5 +10,5 @@ downloadUrl: 'https://mirror.kumi.systems/tdf/libreoffice/stable/$1/mac/x86_64/L
 pkgChecksum: '3557e7cd20f9e51292aea4309a54d59c'
 pkgSigned: false
 scrapeDownloadUrl: 'https://mirror.kumi.systems/tdf/libreoffice/stable/24.8.5/mac/x86_64/LibreOffice_24.8.5_MacOS_x86-64.dmg'
-scrapeRegex: '[\s\S]*?([0-9]+\.[0-9]+\.[0-9]+)<\/a><\/li><\/ul><\/p>\s+<p class='dark-gray'>LibreOffice is available in the following <strong>prerelease[\s\S]*'
+scrapeRegex: '[\s\S]*?([0-9]+\.[0-9]+\.[0-9]+)<\/a><\/li><\/ul><\/p>\s+<p class="dark-gray">LibreOffice is available in the following <strong>prerelease[\s\S]*'
 scrapeUrl: 'https://www.libreoffice.org/download/download-libreoffice/'

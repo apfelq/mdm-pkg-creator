@@ -5,7 +5,6 @@ appVersion: '24091.212.2846.1453'
 downloadFileType: 'pkg'
 downloadType: 'direct'
 downloadTool: 'curl'
-downloadUrl: '$1'
 name: 'Microsoft Teams (2)'
 pkgChecksum: 'd8025d37edc71c2c6f0e940a652d4a16'
 pkgSigned: true
