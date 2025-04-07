@@ -1,6 +1,6 @@
 name: 'Element'
 appBundleIdentifier: 'im.riot.app'
-appCodeRequirement: 'identifier "im.riot.app" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '7J4U792NQT''
+appCodeRequirement: 'identifier "im.riot.app" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "7J4U792NQT"'
 appName: 'Element.app'
 appVersion: '1.11.96'
 dmgFileType: 'app'
