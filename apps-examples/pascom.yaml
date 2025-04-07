@@ -1,6 +1,6 @@
 name: 'pascom'
 appBundleIdentifier: 'net.pascom.pascomClient'
-appCodeRequirement: 'identifier 'net.pascom.pascomClient' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '7V2Y4858SC''
+appCodeRequirement: 'identifier "net.pascom.pascomClient" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '7V2Y4858SC''
 appName: 'pascom Client.app'
 appVersion: '116.R4390_df6e312b4'
 dmgFileType: 'app'

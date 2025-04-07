@@ -1,6 +1,6 @@
 name: 'Webex (Intel)'
 appBundleIdentifier: 'Cisco-Systems.Spark'
-appCodeRequirement: 'identifier 'Cisco-Systems.Spark' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DE8Y96K9QP'
+appCodeRequirement: 'identifier "Cisco-Systems.Spark" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DE8Y96K9QP'
 appName: 'Webex.app'
 appVersion: '44.8.0.30404'
 dmgFileType: 'app'

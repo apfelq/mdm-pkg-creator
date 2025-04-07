@@ -1,6 +1,6 @@
 name: 'Jabra Direct'
 appBundleIdentifier: 'com.jabra.directonline'
-appCodeRequirement: 'identifier 'com.jabra.directonline' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '55LV32M29R''
+appCodeRequirement: 'identifier "com.jabra.directonline" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '55LV32M29R''
 appName: 'Jabra Direct.app'
 appVersion: '6.21.01701'
 dmgFileType: 'pkg'

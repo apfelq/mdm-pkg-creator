@@ -1,6 +1,6 @@
 name: 'Python2'
 appBundleIdentifier: 'org.python.python'
-appCodeRequirement: 'identifier 'org.python.python' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DJ3H93M7VJidentifier 'libSystem.B' and anchor apple or identifier 'com.apple.CoreFoundation' and anchor apple or identifier 'libSystem.B' and anchor apple'
+appCodeRequirement: 'identifier "org.python.python" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = DJ3H93M7VJidentifier "libSystem.B" and anchor apple or identifier "com.apple.CoreFoundation" and anchor apple or identifier "libSystem.B" and anchor apple'
 appName: 'Python.app'
 appVersion: '2.7.18'
 downloadFileType: 'pkg'

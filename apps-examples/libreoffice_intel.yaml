@@ -1,6 +1,6 @@
 name: 'LibreOffice (Intel)'
 appBundleIdentifier: 'org.libreoffice.script'
-appCodeRequirement: 'identifier 'org.libreoffice.script' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '7P5S3ZLCN7''
+appCodeRequirement: 'identifier "org.libreoffice.script" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '7P5S3ZLCN7''
 appName: 'LibreOffice.app'
 appVersion: '24.8.5.2'
 dmgFileType: 'app'

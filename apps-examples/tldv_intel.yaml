@@ -1,6 +1,6 @@
 name: 'tldv (Intel)'
 appBundleIdentifier: 'io.tldv.desktop'
-appCodeRequirement: 'identifier 'io.tldv.desktop' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = WDASY37SGG'
+appCodeRequirement: 'identifier "io.tldv.desktop" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = WDASY37SGG'
 appName: 'tldv.app'
 appVersion: '2.9.27'
 dmgFileType: 'app'

@@ -1,6 +1,6 @@
 name: 'TeamDrive'
 appBundleIdentifier: 'com.installbuilder.appinstaller'
-appCodeRequirement: 'identifier 'com.apple.sh' and anchor appleidentifier 'com.installbuilder.appinstaller' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = W4Z63UD4CT'
+appCodeRequirement: 'identifier "com.apple.sh" and anchor appleidentifier "com.installbuilder.appinstaller" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = W4Z63UD4CT'
 appName: 'TeamDrive-Installer.app'
 appVersion: '5.2.1.3683'
 dmgFileName: 'Install-TeamDrive-[.0-9]+_TMDR.app'

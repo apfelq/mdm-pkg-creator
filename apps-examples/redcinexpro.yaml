@@ -1,6 +1,6 @@
 name: 'REDCINE-X PRO'
 appBundleIdentifier: 'com.red.RedCineX'
-appCodeRequirement: 'identifier 'com.red.RedCineX' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '4ER5V66EKT''
+appCodeRequirement: 'identifier "com.red.RedCineX" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '4ER5V66EKT''
 appName: 'REDCINE-X PRO.app'
 appVersion: '63.0'
 downloadFileType: 'pkg'

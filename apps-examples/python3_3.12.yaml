@@ -1,6 +1,6 @@
 name: 'Python3 (3.12)'
 appBundleIdentifier: 'org.python.python'
-appCodeRequirement: 'identifier 'org.python.python' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BMM5U3QVKW'
+appCodeRequirement: 'identifier "org.python.python" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BMM5U3QVKW'
 appName: 'Python.app'
 appVersion: '3.12.8'
 downloadFileType: 'pkg'

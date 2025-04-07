@@ -3,7 +3,7 @@ additionalInfo:
   postInstall:
     - 'defaults write net.freemacsoft.AppCleaner SUEnableAutomaticChecks -bool false'
 appBundleIdentifier: 'net.freemacsoft.AppCleaner'
-appCodeRequirement: 'anchor apple generic and identifier 'net.freemacsoft.AppCleaner' and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = X85ZX835W9)'
+appCodeRequirement: 'anchor apple generic and identifier "net.freemacsoft.AppCleaner" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = X85ZX835W9)'
 appName: 'AppCleaner.app'
 appVersion: '3.6.8'
 downloadFileType: 'zip'

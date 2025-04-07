@@ -1,6 +1,6 @@
 name: 'Tunnelblick'
 appBundleIdentifier: 'net.tunnelblick.tunnelblick'
-appCodeRequirement: 'identifier 'net.tunnelblick.tunnelblick' and anchor apple generic and certificate leaf[subject.OU] = Z2SG5H3HC8'
+appCodeRequirement: 'identifier "net.tunnelblick.tunnelblick" and anchor apple generic and certificate leaf[subject.OU] = Z2SG5H3HC8'
 appName: 'Tunnelblick.app'
 appVersion: '6.0.1 (build 6161)'
 dmgFileType: 'app'

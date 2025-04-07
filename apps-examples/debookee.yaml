@@ -1,6 +1,6 @@
 name: 'Debookee'
 appBundleIdentifier: 'com.iwaxx.Debookee'
-appCodeRequirement: 'identifier 'com.iwaxx.Debookee' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = AATLWWB4MZ'
+appCodeRequirement: 'identifier "com.iwaxx.Debookee" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = AATLWWB4MZ'
 appName: 'Debookee.app'
 appVersion: '8.2.0'
 downloadFileType: 'zip'
