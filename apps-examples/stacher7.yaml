@@ -10,5 +10,5 @@ downloadUrl: 'https://s7-releases.stacher-cloud.com/s7-releases/Stacher_Setup_$1
 pkgChecksum: 'ddea5dc35c649985a4d5438aa4921b62'
 pkgSigned: false
 scrapeDownloadUrl: 'https://s7-releases.stacher-cloud.com/s7-releases/Stacher_Setup_7.0.16_arm64.dmg'
-scrapeRegex: '[\s\S]*?version\: '(7\.[0-9.]+)'[\s\S]*'
+scrapeRegex: '[\s\S]*?version\: "(7\.[0-9.]+)"[\s\S]*'
 scrapeUrl: 'https://changelog.stacher.io/'
