@@ -1,0 +1,11 @@
+name: 'calibre'
+appBundleIdentifier: 'net.kovidgoyal.calibre'
+appCodeRequirement: 'identifier 'net.kovidgoyal.calibre' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = NTY7FVCEKP'
+appName: 'calibre.app'
+appVersion: '8.1.1'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://calibre-ebook.com/dist/osx'
+pkgChecksum: '18605093c3e223f8365e7080c88f8df8'
+pkgSigned: false

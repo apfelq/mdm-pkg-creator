@@ -1,0 +1,20 @@
+name: 'Citrix Workspace'
+additionalInfo:
+  postInstall:
+    - 'defaults write com.citrix.receiver.nomas AutoUpdateState -string 'Manual''
+    - 'defaults write com.citrix.receiver.nomas CEIPEnabled -boolean false'
+    - 'defaults write com.citrix.receiver.nomas CrashReportingEnabled -boolean false'
+appBundleIdentifier: 'com.citrix.receiver.nomas'
+appCodeRequirement: 'anchor apple generic and identifier 'com.citrix.receiver.nomas' and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = S272Y5R93J)'
+appName: 'Citrix Workspace.app'
+appVersion: '24.02.10'
+dmgFileType: 'pkg'
+downloadFileType: 'dmg'
+downloadType: 'scrape'
+downloadUrl: 'https://downloads.citrix.com/$1'
+pkgChecksum: 'ec980c0095f47428f2e66b5c01dd1018'
+pkgName: 'Install Citrix Workspace.pkg'
+pkgSigned: true
+scrapeDownloadUrl: 'https://downloads.citrix.com/23247/CitrixWorkspaceApp.dmg?__gda__=exp=1743712418~acl=/*~hmac=57b5d96e46fe3109fe316aac3693af511a5560c34efb6aca1ce9cb6b866c1640'
+scrapeRegex: '[\s\S]*downloads\.citrix\.com\/([0-9]+\/CitrixWorkspaceApp\.dmg\?.+hmac\=[0-9a-z]+)[\s\S]*'
+scrapeUrl: 'https://www.citrix.com/downloads/workspace-app/mac/workspace-app-for-mac-latest.html'

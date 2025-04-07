@@ -1,0 +1,11 @@
+name: 'Dropbox'
+appBundleIdentifier: 'com.getdropbox.dropbox'
+appCodeRequirement: 'identifier 'com.getdropbox.dropbox' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = G7HH3F8CAK'
+appName: 'Dropbox.app'
+appVersion: '221.4.5365'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://www.dropbox.com/download?full=1&plat=mac'
+pkgChecksum: 'c11a8096cd0ffc9cb7b3acf12590d35d'
+pkgSigned: false

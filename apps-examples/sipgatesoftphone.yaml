@@ -1,0 +1,11 @@
+name: 'sipgate softphone'
+appBundleIdentifier: 'com.sipgate.desktop'
+appCodeRequirement: 'identifier 'com.sipgate.desktop' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = K4L4M6DD76'
+appName: 'sipgate softphone.app'
+appVersion: '1.17.19'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://sipgate-desktop-app.s3.eu-central-1.amazonaws.com/sipgate-softphone.dmg'
+pkgChecksum: '5b1400122cf34a693b89ff15c7cb30e4'
+pkgSigned: false

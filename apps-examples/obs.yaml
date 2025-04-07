@@ -1,0 +1,19 @@
+name: 'OBS'
+additionalInfo:
+  postInstall:
+    - 'defaults write com.obsproject.obs-studio SUEnableAutomaticChecks -bool false'
+    - 'mkdir -p /Library/CoreMediaIO/Plug-Ins/DAL'
+    - 'cp -fr /Applications/OBS.app/Contents/Resources/obs-mac-virtualcam.plugin /Library/CoreMediaIO/Plug-Ins/DAL/'
+appBundleIdentifier: 'com.obsproject.obs-studio'
+appCodeRequirement: 'anchor apple generic and identifier 'com.obsproject.obs-studio' and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '2MMRE5MTB8')'
+appName: 'OBS.app'
+appVersion: '31.0.2'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'scrape'
+downloadUrl: '$1'
+pkgChecksum: 'fe330cfe26943e3687c243a66fe6a60c'
+pkgSigned: false
+scrapeDownloadUrl: 'https://cdn-fastly.obsproject.com/downloads/obs-studio-31.0.2-macos-apple.dmg'
+scrapeRegex: '[\s\S]*(https:\/\/cdn-fastly.obsproject.com\/downloads\/obs-studio-[0-9.]+-macos-apple\.dmg)[\s\S]*'
+scrapeUrl: 'https://obsproject.com/download'

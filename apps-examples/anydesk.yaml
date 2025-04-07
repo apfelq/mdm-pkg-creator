@@ -1,0 +1,11 @@
+name: 'AnyDesk'
+appBundleIdentifier: 'com.philandro.anydesk'
+appCodeRequirement: 'identifier 'com.philandro.anydesk' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = KHRWM533LU'
+appName: 'AnyDesk.app'
+appVersion: '9.0.1'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://download.anydesk.com/anydesk.dmg'
+pkgChecksum: '808f1ed2af368b84e451ff5156e9dec4'
+pkgSigned: false

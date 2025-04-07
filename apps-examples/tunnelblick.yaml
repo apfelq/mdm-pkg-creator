@@ -1,0 +1,12 @@
+name: 'Tunnelblick'
+appBundleIdentifier: 'net.tunnelblick.tunnelblick'
+appCodeRequirement: 'identifier 'net.tunnelblick.tunnelblick' and anchor apple generic and certificate leaf[subject.OU] = Z2SG5H3HC8'
+appName: 'Tunnelblick.app'
+appVersion: '6.0.1 (build 6161)'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://tunnelblick.net/iprelease/Latest_Tunnelblick_Stable.dmg'
+pkgChecksum: '94d969a4c3bbf411cbea452c58994a2f'
+pkgSigned: false
+pkgTarget: '/Users/Shared'

@@ -1,0 +1,14 @@
+name: 'Monotype'
+appBundleIdentifier: 'com.monotype.monotype-desktop-app'
+appCodeRequirement: ''
+appName: 'Monotype desktop app.app'
+appVersion: '6.4.4'
+downloadFileType: 'zip'
+downloadType: 'scrape'
+downloadUrl: '$1'
+pkgChecksum: '2f94c8fdf00a349cd2c8e085d998ed92'
+pkgInstall: true
+pkgSigned: true
+scrapeRegex: '[\s\S]*?(https:\/\/monotypeapp.monotype.com\/release\/[0-9]+\/mac\/system\/DTAppInstaller.pkg.zip)[\s\S]*'
+scrapeUrl: 'https://support.monotype.com/de/articles/7859096-synchronisieren-und-installieren-von-fonts-mit-der-monotype-app'
+zipFileType: 'pkg'

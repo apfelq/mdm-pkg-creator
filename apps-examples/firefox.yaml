@@ -1,0 +1,11 @@
+name: 'Firefox'
+appBundleIdentifier: 'org.mozilla.firefox'
+appCodeRequirement: 'identifier 'org.mozilla.firefox' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '43AQ936H96''
+appName: 'Firefox.app'
+appVersion: '137.0'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://download.mozilla.org/?product=firefox-latest-ssl&os=osx&lang=de'
+pkgChecksum: 'adfddb0ded0eb714e6aae00bea415672'
+pkgSigned: false

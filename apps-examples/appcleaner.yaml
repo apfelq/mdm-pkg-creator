@@ -1,0 +1,17 @@
+name: 'AppCleaner'
+additionalInfo:
+  postInstall:
+    - 'defaults write net.freemacsoft.AppCleaner SUEnableAutomaticChecks -bool false'
+appBundleIdentifier: 'net.freemacsoft.AppCleaner'
+appCodeRequirement: 'anchor apple generic and identifier 'net.freemacsoft.AppCleaner' and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = X85ZX835W9)'
+appName: 'AppCleaner.app'
+appVersion: '3.6.8'
+downloadFileType: 'zip'
+downloadType: 'scrape'
+downloadUrl: '$1'
+pkgChecksum: 'd6130cde5c9f33820af0b4ee177cd1a2'
+pkgSigned: false
+scrapeDownloadUrl: 'https://freemacsoft.net/downloads/AppCleaner_3.6.8.zip'
+scrapeRegex: '[\s\S]*?(https:\/\/freemacsoft.net\/downloads\/AppCleaner_[0-9.]+.zip)[\s\S]*'
+scrapeUrl: 'https://freemacsoft.net/appcleaner/'
+zipFileType: 'app'

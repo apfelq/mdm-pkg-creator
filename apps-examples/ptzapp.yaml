@@ -1,0 +1,11 @@
+name: 'PTZApp'
+appBundleIdentifier: 'com.aver.EZMeetup.PTZApp'
+appCodeRequirement: 'identifier 'com.aver.EZMeetup.PTZApp' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = B6T3WCD59Q'
+appName: 'PTZApp.app'
+downloadFileType: 'nested-zip'
+downloadType: 'direct'
+downloadUrl: 'https://communication.aver.com/DownloadFile.aspx?n=4115|FA2F7658-BAC9-4DBA-99C6-D414D73F2D6C&t=ServiceDownload'
+nestedZipFileType: 'pkg'
+nestedZipName: 'AVerPTZApp_.*pkg'
+pkgChecksum: 'd0f411fd822ed501d9f1b358aebd55c5'
+pkgSigned: true

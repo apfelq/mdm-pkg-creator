@@ -1,0 +1,11 @@
+name: 'Siilo'
+appBundleIdentifier: 'com.siilo.Siilo.desktop'
+appCodeRequirement: 'identifier 'com.siilo.Siilo.desktop' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '8R84JEU224''
+appName: 'Doctolib Siilo.app'
+appVersion: '9.8.0'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://siilo-distribution.siilo.com/desktop/siilo-desktop/latest/siilo-desktop-arm64.dmg'
+pkgChecksum: '266a572f296050b13492c774e17bd984'
+pkgSigned: false

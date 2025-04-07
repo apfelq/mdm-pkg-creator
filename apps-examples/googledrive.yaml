@@ -1,0 +1,12 @@
+name: 'Google Drive'
+appBundleIdentifier: 'com.google.drivefs'
+appCodeRequirement: 'identifier 'com.google.drivefs' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = EQHXZ8M8AV'
+appName: 'Google Drive.app'
+appVersion: '106.0'
+dmgFileType: 'pkg'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://dl.google.com/drive-file-stream/GoogleDrive.dmg'
+pkgChecksum: 'f7c40f57820961163b3380ba04050483'
+pkgName: 'GoogleDrive.pkg'
+pkgSigned: true

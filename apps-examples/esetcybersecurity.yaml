@@ -1,0 +1,13 @@
+name: 'ESET CyberSecurity'
+appBundleIdentifier: 'com.eset.ecs.g2'
+appCodeRequirement: 'identifier 'com.eset.ecs.g2' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = P8DQRXPVLP'
+appName: 'ESET Cyber Security.app'
+appVersion: '8.2.3000.0'
+dmgFileType: 'pkg'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://download.eset.com/com/eset/apps/home/eav/mac/latest/eset_cybersecurity.dmg'
+pkgChecksum: 'ffa5ea1ce0e63ed49a2a13cfbfe6d3e2'
+pkgName: 'Installer.pkg'
+pkgSigned: true
+pkgTarget: '/Applications'

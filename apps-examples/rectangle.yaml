@@ -1,0 +1,17 @@
+name: 'Rectangle'
+additionalInfo:
+  postInstall:
+    - 'defaults write com.knollsoft.Rectangle SUEnableAutomaticChecks -bool false'
+appBundleIdentifier: 'com.knollsoft.Rectangle'
+appCodeRequirement: 'anchor apple generic and identifier 'com.knollsoft.Rectangle' and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = XSYZ3E4B7D)'
+appName: 'Rectangle.app'
+appVersion: '0.86'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'scrape'
+downloadUrl: 'https://github.com/rxhanson/Rectangle/releases/download/v$1/Rectangle$1.dmg'
+pkgChecksum: '71285937b61ddcd0eb39afe19ba70f46'
+pkgSigned: false
+scrapeDownloadUrl: 'https://github.com/rxhanson/Rectangle/releases/download/v0.86/Rectangle0.86.dmg'
+scrapeRegex: '[\s\S]*Rectangle([0-9.]+)\.dmg[\s\S]*'
+scrapeUrl: 'https://rectangleapp.com'

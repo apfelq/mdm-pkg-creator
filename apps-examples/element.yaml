@@ -1,0 +1,11 @@
+name: 'Element'
+appBundleIdentifier: 'im.riot.app'
+appCodeRequirement: 'identifier 'im.riot.app' and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = '7J4U792NQT''
+appName: 'Element.app'
+appVersion: '1.11.96'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://packages.riot.im/desktop/install/macos/Element.dmg'
+pkgChecksum: '8ad47120147209852a6f950929d44558'
+pkgSigned: false

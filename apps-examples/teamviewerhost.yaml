@@ -1,0 +1,11 @@
+name: 'TeamViewer Host'
+appBundleIdentifier: 'com.teamviewer.TeamViewerQS'
+appCodeRequirement: 'anchor apple generic and identifier 'com.teamviewer.TeamViewerQS' and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = H7UGFBUGV6)'
+appName: 'TeamViewerQS.app'
+appVersion: '15.64.3'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://download.teamviewer.com/download/TeamViewerQS.dmg'
+pkgChecksum: '6e9e702f3c7d7e574f86b4d4e7e4b1ec'
+pkgSigned: false
