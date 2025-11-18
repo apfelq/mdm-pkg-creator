@@ -13,3 +13,11 @@ fileName="$(find -E "${2}" -regex ".*/${4}$")"
 cp -a "${fileName}" "${3}"
 
 hdiutil detach "${2}" -force
+
+if [ -d "${3}" ]; then
+    echo "extracted"
+    exit 0
+else
+    echo "failure" >&2
+    exit 1
+fi
