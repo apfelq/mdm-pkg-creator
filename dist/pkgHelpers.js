@@ -36,9 +36,7 @@ export function pkgHelperInfo(app, appConfig) {
 export function pkgHelperExtractApp(app, appConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const pkgTarget = appConfig.pkgTarget ? appConfig.pkgTarget : `/Applications`;
-            const pkgTargetApp = path.join(pkgTarget, appConfig.appName);
-            yield pkgExtractApp(app, pkgTargetApp);
+            yield pkgExtractApp(app, appConfig.appName);
             console.log(`${app}: pkgHelperExtractApp successful`);
             return true;
         }
