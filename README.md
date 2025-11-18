@@ -15,7 +15,7 @@ A small utility to download apps for macOS from the Internet and create a PKG th
 - install the following:
 
 ```bash
-brew install duck node npm suspicious-package
+brew install duck node npm
 ```
 
 - optional but recommended
@@ -28,7 +28,6 @@ brew install curl wget
 
 - get duck: <https://dist.duck.sh/>
 - get NodeJS: <https://nodejs.org/>
-- get Suspicious Package: <https://www.mothersruin.com/software/SuspiciousPackage/>
 
 ### 1.3 Text editor
 

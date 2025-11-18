@@ -22,7 +22,7 @@ import { updateHandlerZipApp } from './updateHandlerZipApp.js';
 import { updateHandlerZipPkg } from './updateHandlerZipPkg.js';
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
 import { updateHandlerNestedZip } from './updateHandlerNestedZip.js';
-import { fsExists, quitSuspiciousPackage, uploadPkg } from './utils.js';
+import { fsExists, uploadPkg } from './utils.js';
 export const __dirname = process.cwd();
 const argv = minimist(process.argv.slice(2));
 const fsMkdir = promisify(fs.mkdir);
@@ -228,7 +228,6 @@ function main() {
         }
         fs.writeFileSync(path.join(__dirname, 'updates.yaml'), yaml.dump(tenantUpdates, { quotingType: "'", forceQuotes: true, sortKeys: true }));
         console.log('updates published to "updates.yaml"');
-        quitSuspiciousPackage();
         if (config.uploads) {
             for (let update of updates) {
                 yield uploadPkg(update, configApps[update].appVersion, config.uploads);

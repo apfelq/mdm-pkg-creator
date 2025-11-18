@@ -363,9 +363,6 @@ async function main ()
     fs.writeFileSync(path.join(__dirname, 'updates.yaml'), yaml.dump(tenantUpdates, {quotingType: "'", forceQuotes: true, sortKeys: true}))
     console.log('updates published to "updates.yaml"')
 
-    // quit Suspicious Package
-    quitSuspiciousPackage()
-
     // upload updates
     if (config.uploads)
     {
