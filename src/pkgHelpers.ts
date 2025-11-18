@@ -42,9 +42,12 @@ export async function pkgHelperExtractApp (app: string, appConfig: appInterface)
     try
     {
         // extract app from pkg
-        const pkgTarget = appConfig.pkgTarget ? appConfig.pkgTarget : `/Applications` 
-        const pkgTargetApp = path.join(pkgTarget, appConfig.appName)
-        await pkgExtractApp(app, pkgTargetApp)
+
+        /* simplified in v3 by searching for the app itself */
+        //const pkgTarget = appConfig.pkgTarget ? appConfig.pkgTarget : `/Applications` 
+        //const pkgTargetApp = path.join(pkgTarget, appConfig.appName)
+        //await pkgExtractApp(app, pkgTargetApp)
+        await pkgExtractApp(app, appConfig.appName)
 
         console.log(`${app}: pkgHelperExtractApp successful`)
 
