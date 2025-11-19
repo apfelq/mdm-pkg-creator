@@ -77,6 +77,7 @@ export function downloadCurl(app, downloadName, downloadUrl) {
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${downloadName}`);
         try {
             const output = yield exec(`${curlBin} -LSs -o "${outputPath}" "${downloadUrl}"`);
+            yield fs.promises.realpath(`${outputPath}`);
             console.log(`${app}: downloadCurl successful`);
             return true;
         }
@@ -88,7 +89,7 @@ export function downloadCurl(app, downloadName, downloadUrl) {
 }
 export function downloadWget(app, downloadName, downloadUrl) {
     return __awaiter(this, void 0, void 0, function* () {
-        let wgetBin = '/usr/local/bin/wget';
+        let wgetBin = '/opt/homebrew/bin/wget';
         try {
             yield fs.promises.realpath(`${wgetBin}`);
         }

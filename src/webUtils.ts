@@ -95,6 +95,7 @@ export async function downloadCurl (app: string, downloadName:string, downloadUr
     try
     {
         const output = await exec(`${curlBin} -LSs -o "${outputPath}" "${downloadUrl}"`)
+        await fs.promises.realpath(`${outputPath}`)
         console.log(`${app}: downloadCurl successful`)
         return true
     }
@@ -108,7 +109,7 @@ export async function downloadCurl (app: string, downloadName:string, downloadUr
 export async function downloadWget (app: string, downloadName:string, downloadUrl: string): Promise<boolean>
 {
     // check if Homebrew's wget is installed
-    let wgetBin = '/usr/local/bin/wget'
+    let wgetBin = '/opt/homebrew/bin/wget'
 
     try
     {
