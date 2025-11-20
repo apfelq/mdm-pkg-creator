@@ -3,22 +3,11 @@
 # change into dir
 cd "$(dirname "${1}")" || exit 1
 
-# create working dir
-mkdir -p tmp
-cd tmp  || exit 1
-
 # extract pkg
-xar -xf "${1}"
+pkgutil --expand-full "${1}" tmp
 
-# get pkg dir
-while read path; do
-
-    cd "${path}" || continue
-    cat Payload | gunzip -dc | cpio -i
-    # find and move app
-    find . -name "${2}" -exec mv {} "${3}" \;
-
-done < <(find "$(pwd)" -maxdepth 1 -type d -name '*.pkg')
+# find and move app
+/usr/bin/find . -name "${2}" -exec mv {} "${3}" \;
 
 if [ -d "${3}" ]; then
     echo "extracted"
