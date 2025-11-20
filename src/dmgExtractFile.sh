@@ -8,13 +8,11 @@ if yes | hdiutil attach -noverify -nobrowse -mountpoint "${2}" "${1}" > /dev/nul
     done
 fi
 
-fileName="$(find -E "${2}" -regex ".*/${4}$")"
-
-cp -a "${fileName}" "${3}"
+find -E "${2}" -regex ".*/${4}$" cp -a {} "${3}" \;
 
 hdiutil detach "${2}" -force
 
-if [ -d "${3}" ]; then
+if [ -e "${3}" ]; then
     echo "extracted"
     exit 0
 else

@@ -7,9 +7,7 @@ fi
 
 unzip -d "${2}" "${1}"
 
-fileName="$(find -E "${2}" -regex ".*/${4}$")"
-
-cp -a "${fileName}" "${3}"
+find -E "${2}" -regex ".*/${4}$" cp -a {} "${3}" \;
 
 rm -rf "${2}"
 
