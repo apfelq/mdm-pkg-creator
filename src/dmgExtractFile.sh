@@ -8,7 +8,7 @@ if yes | hdiutil attach -noverify -nobrowse -mountpoint "${2}" "${1}" > /dev/nul
     done
 fi
 
-find -E "${2}" -regex ".*/${4}$" cp -a {} "${3}" \;
+find -E "${2}" -regex ".*/${4}$" -exec cp -a {} "${3}" \;
 
 hdiutil detach "${2}" -force
 

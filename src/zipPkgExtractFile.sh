@@ -7,7 +7,7 @@ fi
 
 unzip -d "${2}" "${1}"
 
-find -E "${2}" -regex ".*/.*\.pkg$" cp -a {} "${3}" \;
+find -E "${2}" -regex ".*/.*\.pkg$" -exec cp -a {} "${3}" \;
 
 rm -rf "${2}"
 
