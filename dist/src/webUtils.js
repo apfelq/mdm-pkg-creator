@@ -49,10 +49,9 @@ export function download(app, appConfig) {
         }
         const outputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.${downloadFileType}`);
         const fileWriterStream = fs.createWriteStream(outputPath);
-        gotOptions['url'] = downloadUrl;
         if (cookies)
             gotOptions['cookieJar'] = cookieJar;
-        const downloadStream = got.stream(gotOptions);
+        const downloadStream = got.stream(downloadUrl, gotOptions);
         try {
             yield pipeline(downloadStream, fileWriterStream);
             console.log(`${app}: download successful`);

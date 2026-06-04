@@ -60,9 +60,8 @@ export async function download (app: string, appConfig: appInterface): Promise<b
     const fileWriterStream = fs.createWriteStream(outputPath)
 
     // download
-    gotOptions['url'] = downloadUrl
     if (cookies) gotOptions['cookieJar'] = cookieJar
-    const downloadStream = got.stream(gotOptions)
+    const downloadStream = got.stream(downloadUrl, gotOptions)
 
     try
     {
