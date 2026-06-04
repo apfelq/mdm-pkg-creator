@@ -85,7 +85,7 @@ export async function downloadCurl (app: string, downloadName:string, downloadUr
     {
         await fs.promises.realpath(`${curlBin}`)
     }
-    catch (e)
+    catch (e: any)
     {
         curlBin = '/usr/bin/curl'
     }
@@ -98,7 +98,7 @@ export async function downloadCurl (app: string, downloadName:string, downloadUr
         console.log(`${app}: downloadCurl successful`)
         return true
     }
-    catch (e)
+    catch (e: any)
     {
         console.error(`${app}: downloadCurl failed with error "${e.message}"`)
         throw e
@@ -186,6 +186,7 @@ export async function scrape (app: string, appConfig: appInterface): Promise<str
             locales: ['en'],
             operatingSystems: ['macos'],
         }
+        
         let url = appConfig.scrapeUrl
     
         if (appConfig.scrapeForm)
