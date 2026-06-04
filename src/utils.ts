@@ -207,23 +207,15 @@ export async function munkiImportPkg (app:string, version:string, munkiConfig: m
     const inputPath = path.join(__dirname, 'pkgs', `${app}_${version}.pkg`)
 
     // check if Homebrew's munki is installed
-    let munkiPath = '/opt/homebrew/bin'
+    let munkiPath = '/usr/local/munki'
     try
     {
-        await fs.promises.realpath(`${munkiPath}`)
+        await fs.promises.realpath(`${munkiPath}/munkiimport`)
     }
     catch (e)
     {
-        try
-        {
-            munkiPath = '/usr/local/bin/munkiimport'
-            await fs.promises.realpath(`${munkiPath}`)
-        }
-        catch (e)
-        {
-            console.log(`munkiImportPkg: munki not found, please install via "brew install munki"`)
-            throw e
-        }
+        console.log(`munkiImportPkg: munki not found, please install via "brew install munki"`)
+        throw e
     }
 
     let munkiimport = `${munkiPath}/munkiimport --nointeractive --repo-url '${munkiConfig.repo}' --name '${app}' --pkgvers '${version}' --catalog production`

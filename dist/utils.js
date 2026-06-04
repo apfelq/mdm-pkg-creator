@@ -184,19 +184,13 @@ export function fsExists(path, app) {
 export function munkiImportPkg(app, version, munkiConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         const inputPath = path.join(__dirname, 'pkgs', `${app}_${version}.pkg`);
-        let munkiPath = '/opt/homebrew/bin';
+        let munkiPath = '/usr/local/munki';
         try {
-            yield fs.promises.realpath(`${munkiPath}`);
+            yield fs.promises.realpath(`${munkiPath}/munkiimport`);
         }
         catch (e) {
-            try {
-                munkiPath = '/usr/local/bin/munkiimport';
-                yield fs.promises.realpath(`${munkiPath}`);
-            }
-            catch (e) {
-                console.log(`munkiImportPkg: munki not found, please install via "brew install munki"`);
-                throw e;
-            }
+            console.log(`munkiImportPkg: munki not found, please install via "brew install munki"`);
+            throw e;
         }
         let munkiimport = `${munkiPath}/munkiimport --nointeractive --repo-url '${munkiConfig.repo}' --name '${app}' --pkgvers '${version}' --catalog production`;
         if (munkiConfig.subdir)
