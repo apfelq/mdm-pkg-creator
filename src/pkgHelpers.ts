@@ -29,7 +29,7 @@ export async function pkgHelperInfo (app: string, appConfig: appInterface): Prom
 
         return true
     }
-    catch (e)
+    catch (e: any)
     {
         console.error(`${app}: pkgHelperInfo failed with error "${e.message}"`)
         throw e

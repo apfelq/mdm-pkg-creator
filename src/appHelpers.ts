@@ -30,7 +30,7 @@ export async function appHelperInfo (app: string, appConfig: appInterface): Prom
         console.log(`${app}: appHelperInfo new version available`)
         return true
     }
-    catch (e)
+    catch (e: any)
     {
         console.error(`${app}: appHelperInfo failed with error "${e.message}"`)
         throw e

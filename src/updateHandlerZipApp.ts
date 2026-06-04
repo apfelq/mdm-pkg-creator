@@ -42,7 +42,7 @@ export async function updateHandlerZipApp (app: string, appConfig: appInterface,
         updates.push(app)
         return true
     }
-    catch (e)
+    catch (e: any)
     {
         console.error(`${app}: updateHandlerZipApp failed with error "${e.message}"`)
         return false

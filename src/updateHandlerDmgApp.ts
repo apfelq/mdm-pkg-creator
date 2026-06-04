@@ -51,7 +51,7 @@ export async function updateHandlerDmgApp (app: string, appConfig: appInterface,
         updates.push(app)
         return true
     }
-    catch (e)
+    catch (e: any)
     {
         console.error(`${app}: updateHandlerDmgApp failed with error "${e.message}"`)
         return false

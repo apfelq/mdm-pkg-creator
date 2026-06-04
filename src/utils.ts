@@ -2,7 +2,7 @@ import fs from 'graceful-fs'
 import child_process from 'child_process'
 import path from 'path'
 import { promisify } from 'util'
-import { __dirname, appInterface, uploadInterface } from './index.js'
+import { __dirname, appInterface, munkiInterface, uploadInterface } from './index.js'
 const exec = promisify(child_process.exec)
 const fsAccess = promisify(fs.access)
 
@@ -200,7 +200,51 @@ export async function fsExists (path: string, app?:string): Promise<boolean> {
         //app ? console.error(`${app}: fsExists failed with error "${e.message}"`) : console.error(`fsExists failed with error "${e.message}"`)
         return false
     }
-  }
+}
+
+export async function munkiImportPkg (app:string, version:string, munkiConfig: munkiInterface): Promise<boolean>
+{
+    const inputPath = path.join(__dirname, 'pkgs', `${app}_${version}.pkg`)
+
+    // check if Homebrew's munki is installed
+    let munkiPath = '/opt/homebrew/bin'
+    try
+    {
+        await fs.promises.realpath(`${munkiPath}`)
+    }
+    catch (e)
+    {
+        try
+        {
+            munkiPath = '/usr/local/bin/munkiimport'
+            await fs.promises.realpath(`${munkiPath}`)
+        }
+        catch (e)
+        {
+            console.log(`munkiImportPkg: munki not found, please install via "brew install munki"`)
+            throw e
+        }
+    }
+
+    let munkiimport = `${munkiPath}/munkiimport --nointeractive --repo-url '${munkiConfig.repo}' --name '${app}' --pkgvers '${version}' --catalog production`
+
+    if (munkiConfig.subdir) munkiimport = `${munkiimport} --subdirectory '${munkiConfig.subdir}'`
+
+    munkiimport = `${munkiimport} '${inputPath}'`
+    try
+    {
+        // Wait for imports to finish
+        await exec(munkiimport)
+        await exec(`${munkiPath}/makecatalogs --repo-url '${munkiConfig.repo}'`)
+        console.log(`${app}: munkiImportPkg successful`)
+        return true
+    }
+    catch (e)
+    {
+        console.error(`${app}: munkiImportPkg failed with error "${e.message}"`)
+        return false
+    }
+}
 
 export async function pkgChecksum (app:string): Promise<string>
 {

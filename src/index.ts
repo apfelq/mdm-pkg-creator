@@ -13,7 +13,7 @@ import { updateHandlerZipApp } from './updateHandlerZipApp.js'
 import { updateHandlerZipPkg } from './updateHandlerZipPkg.js'
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js'
 import { updateHandlerNestedZip } from './updateHandlerNestedZip.js'
-import { fsExists, quitSuspiciousPackage, uploadPkg } from './utils.js'
+import { fsExists, munkiImportPkg, uploadPkg } from './utils.js'
 export const __dirname = process.cwd()
 const argv = minimist(process.argv.slice(2))
 const fsMkdir = promisify(fs.mkdir)
@@ -90,6 +90,13 @@ export interface uploadInterface
     password?: string
 }
 
+export interface munkiInterface
+{
+    repo: string,
+    subdir?: string,
+    versions?: number
+}
+
 function importYaml (fileName: string): any
 {
     try {
@@ -103,7 +110,7 @@ async function main ()
 {
 
     // import config
-    let config: {cdn: string[], mail?: mailInterface, uploads?: uploadInterface[], tls?: {ciphers?: string}} = importYaml('config.yaml')
+    let config: {cdn: string[], mail?: mailInterface, munki?: munkiInterface, uploads?: uploadInterface[], tls?: {ciphers?: string}} = importYaml('config.yaml')
 
     // import config tenants
     const configTenants: {[propName: string]: string[]} = importYaml('config-tenants.yaml')
@@ -369,6 +376,15 @@ async function main ()
         for (let update of updates)
         {
             await uploadPkg(update, configApps[update].appVersion, config.uploads)
+        }
+    }
+
+    // update munki
+    if (config.munki)
+    {
+        for (let update of updates)
+        {
+            await munkiImportPkg(update, configApps[update].appVersion, config.munki)
         }
     }
 

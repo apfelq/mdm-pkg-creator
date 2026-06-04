@@ -33,7 +33,7 @@ export async function sendMail (subject: string, msg: string, settings: mailInte
         console.log(`updates: mail notification sent`)
         return true
     }
-    catch (e)
+    catch (e: any)
     {
         console.error(`updates: mail notification failed with error "${e.message}"`)
         return false

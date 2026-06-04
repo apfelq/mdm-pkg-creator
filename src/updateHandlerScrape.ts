@@ -96,7 +96,7 @@ export async function updateHandlerScrape (app: string, appConfig: appInterface,
         console.log(`${app}: updateHandlerScrape update available`)
         return true
     }
-    catch (e)
+    catch (e: any)
     {
         console.error(`${app}: updateHandlerScrape failed with error "${e.message}"`)
         return false
