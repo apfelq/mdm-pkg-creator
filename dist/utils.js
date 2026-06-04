@@ -181,6 +181,39 @@ export function fsExists(path, app) {
         }
     });
 }
+export function munkiImportPkg(app, version, munkiConfig) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const inputPath = path.join(__dirname, 'pkgs', `${app}_${version}.pkg`);
+        let munkiPath = '/opt/homebrew/bin';
+        try {
+            yield fs.promises.realpath(`${munkiPath}`);
+        }
+        catch (e) {
+            try {
+                munkiPath = '/usr/local/bin/munkiimport';
+                yield fs.promises.realpath(`${munkiPath}`);
+            }
+            catch (e) {
+                console.log(`munkiImportPkg: munki not found, please install via "brew install munki"`);
+                throw e;
+            }
+        }
+        let munkiimport = `${munkiPath}/munkiimport --nointeractive --repo-url '${munkiConfig.repo}' --name '${app}' --pkgvers '${version}' --catalog production`;
+        if (munkiConfig.subdir)
+            munkiimport = `${munkiimport} --subdirectory '${munkiConfig.subdir}'`;
+        munkiimport = `${munkiimport} '${inputPath}'`;
+        try {
+            yield exec(munkiimport);
+            yield exec(`${munkiPath}/makecatalogs --repo-url '${munkiConfig.repo}'`);
+            console.log(`${app}: munkiImportPkg successful`);
+            return true;
+        }
+        catch (e) {
+            console.error(`${app}: munkiImportPkg failed with error "${e.message}"`);
+            return false;
+        }
+    });
+}
 export function pkgChecksum(app) {
     return __awaiter(this, void 0, void 0, function* () {
         const inputPath = path.join(__dirname, 'tmp', `${app}`, `${app}.pkg`);

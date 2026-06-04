@@ -22,7 +22,7 @@ import { updateHandlerZipApp } from './updateHandlerZipApp.js';
 import { updateHandlerZipPkg } from './updateHandlerZipPkg.js';
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
 import { updateHandlerNestedZip } from './updateHandlerNestedZip.js';
-import { fsExists, uploadPkg } from './utils.js';
+import { fsExists, munkiImportPkg, uploadPkg } from './utils.js';
 export const __dirname = process.cwd();
 const argv = minimist(process.argv.slice(2));
 const fsMkdir = promisify(fs.mkdir);
@@ -231,6 +231,11 @@ function main() {
         if (config.uploads) {
             for (let update of updates) {
                 yield uploadPkg(update, configApps[update].appVersion, config.uploads);
+            }
+        }
+        if (config.munki) {
+            for (let update of updates) {
+                yield munkiImportPkg(update, configApps[update].appVersion, config.munki);
             }
         }
         if (config.mail) {
