@@ -1,0 +1,10 @@
+appBundleIdentifier: 'Newyu.LibreViewDeviceDrivers'
+appCodeRequirement: 'anchor apple generic and identifier "Newyu.LibreViewDeviceDrivers" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "5C4TK3U75S")'
+appName: 'LibreViewDeviceDrivers.app'
+appVersion: '1.2.7'
+downloadFileType: 'pkg'
+downloadType: 'direct'
+downloadUrl: 'https://www.libreview.com/files/installers/mac/LibreViewDeviceDrivers.1.2.7.pkg'
+name: 'LibreView'
+pkgChecksum: '0e12b17030805ae1e23f853aaf0a7249'
+pkgSigned: true

@@ -1,0 +1,11 @@
+appBundleIdentifier: 'com.doctolib.pro.desktop'
+appCodeRequirement: 'identifier "com.doctolib.pro.desktop" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "84K7XVJ72Q"'
+appName: 'Doctolib.app'
+appVersion: '2.108.0'
+dmgFileType: 'app'
+downloadFileType: 'dmg'
+downloadType: 'direct'
+downloadUrl: 'https://ddv-install.doctolib.fr/DoctolibProDesktop-latest-arm64.dmg'
+name: 'Doctolib'
+pkgChecksum: '573a973451cbad5f9ace2bcd32587aef'
+pkgSigned: false
