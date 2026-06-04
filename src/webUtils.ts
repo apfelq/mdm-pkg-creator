@@ -10,7 +10,7 @@ import { __dirname, appInterface } from './index.js'
 import { getPackedSettings } from 'http2'
 const exec = promisify(child_process.exec)
 const pipeline = promisify(stream.pipeline)
-let gotOptions: {https: {ciphers: string}, http2: boolean, cookieJar?: CookieJar, url?: string} = {
+let gotOptions: {https: {ciphers: string}, http2: boolean, cookieJar?: CookieJar} = {
     https: {ciphers: 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384'},
     http2: true
 }
@@ -186,7 +186,7 @@ export async function scrape (app: string, appConfig: appInterface): Promise<str
             locales: ['en'],
             operatingSystems: ['macos'],
         }
-        gotOptions['url'] = appConfig.scrapeUrl
+        let url = appConfig.scrapeUrl
     
         if (appConfig.scrapeForm)
         {
@@ -196,8 +196,8 @@ export async function scrape (app: string, appConfig: appInterface): Promise<str
         try
         {
             let response
-            if (appConfig.scrapeForm) response = await gotScraping.post(gotOptions)
-            else response = await gotScraping.get(gotOptions)
+            if (appConfig.scrapeForm) response = await gotScraping.post(url, gotOptions)
+            else response = await gotScraping.get(url, gotOptions)
             console.log(`${app}: scrape successful`)
             return response.body
         }

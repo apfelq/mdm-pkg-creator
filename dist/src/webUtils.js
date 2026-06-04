@@ -148,16 +148,16 @@ export function scrape(app, appConfig) {
                 locales: ['en'],
                 operatingSystems: ['macos'],
             };
-            gotOptions['url'] = appConfig.scrapeUrl;
+            let url = appConfig.scrapeUrl;
             if (appConfig.scrapeForm) {
                 gotOptions['form'] = appConfig.scrapeForm;
             }
             try {
                 let response;
                 if (appConfig.scrapeForm)
-                    response = yield gotScraping.post(gotOptions);
+                    response = yield gotScraping.post(url, gotOptions);
                 else
-                    response = yield gotScraping.get(gotOptions);
+                    response = yield gotScraping.get(url, gotOptions);
                 console.log(`${app}: scrape successful`);
                 return response.body;
             }
