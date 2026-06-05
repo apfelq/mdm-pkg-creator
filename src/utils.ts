@@ -219,7 +219,7 @@ export async function munkiImportPkg (app:string, appConfig:appInterface, munkiC
         throw e
     }
 
-    let munkiimport = `${munkiPath}/munkiimport --nointeractive --extract-icon --repo-url '${munkiConfig.repo}' --name '${app}' --displayname '${appConfig.name}' --pkgvers '${appConfig.appVersion}' --unattended-install --unattended-uninstall`
+    let munkiimport = `${munkiPath}/munkiimport --nointeractive --repo-url '${munkiConfig.repo}' --name '${app}' --displayname '${appConfig.name}' --pkgvers '${appConfig.appVersion}' --unattended-install --unattended-uninstall`
 
     if (munkiConfig.subdir) munkiimport = `${munkiimport} --subdirectory '${munkiConfig.subdir}'`
 

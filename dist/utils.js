@@ -193,7 +193,7 @@ export function munkiImportPkg(app, appConfig, munkiConfig) {
             console.log(`munkiImportPkg: munki not found, please install via "brew install munki"`);
             throw e;
         }
-        let munkiimport = `${munkiPath}/munkiimport --nointeractive --extract-icon --repo-url '${munkiConfig.repo}' --name '${app}' --displayname '${appConfig.name}' --pkgvers '${appConfig.appVersion}' --unattended-install --unattended-uninstall`;
+        let munkiimport = `${munkiPath}/munkiimport --nointeractive --repo-url '${munkiConfig.repo}' --name '${app}' --displayname '${appConfig.name}' --pkgvers '${appConfig.appVersion}' --unattended-install --unattended-uninstall`;
         if (munkiConfig.subdir)
             munkiimport = `${munkiimport} --subdirectory '${munkiConfig.subdir}'`;
         if (appConfig.description)
