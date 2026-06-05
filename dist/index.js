@@ -235,7 +235,7 @@ function main() {
         }
         if (config.munki) {
             for (let update of updates) {
-                yield munkiImportPkg(update, configApps[update].appVersion, config.munki);
+                yield munkiImportPkg(update, configApps[update], config.munki);
             }
         }
         if (config.mail) {

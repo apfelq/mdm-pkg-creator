@@ -31,6 +31,7 @@ export interface appInterface
     appName: string,
     appVersion: string,
     cookieUrl?: string,
+    description?: string,
     downloadType: 'direct' | 'github' | 'scrape',
     downloadUrl?: string,
     downloadFileType: 'dmg' | 'pkg' | 'zip' | 'nested-dmg' | 'nested-zip',
@@ -39,6 +40,8 @@ export interface appInterface
     dmgFileName?: string,
     dmgFileType?: string,
     dmgInstallCommand?: string,
+    munkiMaxOs?: string,
+    munkiMinOs?: string,
     name?: string,
     nestedDmgFileType?: 'dmg',
     nestedDmgName?: string,
@@ -384,7 +387,7 @@ async function main ()
     {
         for (let update of updates)
         {
-            await munkiImportPkg(update, configApps[update].appVersion, config.munki)
+            await munkiImportPkg(update, configApps[update], config.munki)
         }
     }
 
