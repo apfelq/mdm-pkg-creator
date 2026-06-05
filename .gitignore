@@ -6,6 +6,7 @@ apps-available/*
 mnt
 pkgs
 tmp
+icons
 config.yaml
 config*.yaml
 !config*.example.yaml

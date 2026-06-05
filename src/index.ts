@@ -40,6 +40,8 @@ export interface appInterface
     dmgFileName?: string,
     dmgFileType?: string,
     dmgInstallCommand?: string,
+    munkiCatalog?: string,
+    munkiIcon?: boolean,
     munkiMaxOs?: string,
     munkiMinOs?: string,
     name?: string,

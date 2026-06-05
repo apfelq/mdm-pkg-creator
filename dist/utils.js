@@ -184,6 +184,7 @@ export function fsExists(path, app) {
 export function munkiImportPkg(app, appConfig, munkiConfig) {
     return __awaiter(this, void 0, void 0, function* () {
         const inputPath = path.join(__dirname, 'pkgs', `${app}_${appConfig.appVersion}.pkg`);
+        const iconPath = path.join(__dirname, 'icons', `${app}.icns`);
         let munkiPath = '/usr/local/munki';
         try {
             yield fs.promises.realpath(`${munkiPath}/munkiimport`);
@@ -192,30 +193,32 @@ export function munkiImportPkg(app, appConfig, munkiConfig) {
             console.log(`munkiImportPkg: munki not found, please install via "brew install munki"`);
             throw e;
         }
-        let munkiimport = `${munkiPath}/munkiimport --nointeractive --extract-icon --repo-url '${munkiConfig.repo}' --name '${app}' --displayname '${appConfig.name}' --pkgvers '${appConfig.appVersion}' --catalog production --unattended-install --unattended-uninstall`;
+        let munkiimport = `${munkiPath}/munkiimport --nointeractive --extract-icon --repo-url '${munkiConfig.repo}' --name '${app}' --displayname '${appConfig.name}' --pkgvers '${appConfig.appVersion}' --unattended-install --unattended-uninstall`;
         if (munkiConfig.subdir)
             munkiimport = `${munkiimport} --subdirectory '${munkiConfig.subdir}'`;
         if (appConfig.description)
             munkiimport = `${munkiimport} --description '${appConfig.description}'`;
+        if (appConfig.munkiCatalog)
+            munkiimport = `${munkiimport} --catalog '${appConfig.munkiCatalog}'`;
+        if (appConfig.munkiIcon)
+            munkiimport = `${munkiimport} --icon-path '${iconPath}'`;
+        else
+            munkiimport = `${munkiimport}  --extract-icon`;
         if (appConfig.munkiMaxOs)
             munkiimport = `${munkiimport} --maximum-os-version '${appConfig.munkiMaxOs}'`;
         if (appConfig.munkiMinOs)
             munkiimport = `${munkiimport} --minimum-os-version '${appConfig.munkiMinOs}'`;
         if (app.substring(app.length - 4) === '_arm' || app.substring(app.length - 6) === '_intel') {
-            if (app.substring(app.length - 4) === '_arm') {
+            if (app.substring(app.length - 4) === '_arm')
                 munkiimport = `${munkiimport} --arch arm64`;
-            }
-            else {
+            else
                 munkiimport = `${munkiimport} --arch arm64 --arch x86_64`;
-            }
         }
-        else {
+        else
             munkiimport = `${munkiimport} --arch arm64 --arch x86_64`;
-        }
         munkiimport = `${munkiimport} '${inputPath}'`;
         try {
             yield exec(munkiimport);
-            yield exec(`${munkiPath}/makecatalogs --repo-url '${munkiConfig.repo}'`);
             console.log(`${app}: munkiImportPkg successful`);
             return true;
         }

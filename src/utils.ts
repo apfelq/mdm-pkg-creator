@@ -205,6 +205,7 @@ export async function fsExists (path: string, app?:string): Promise<boolean> {
 export async function munkiImportPkg (app:string, appConfig:appInterface, munkiConfig: munkiInterface): Promise<boolean>
 {
     const inputPath = path.join(__dirname, 'pkgs', `${app}_${appConfig.appVersion}.pkg`)
+    const iconPath = path.join(__dirname, 'icons', `${app}.icns`)
 
     // check if Homebrew's munki is installed
     let munkiPath = '/usr/local/munki'
@@ -218,11 +219,16 @@ export async function munkiImportPkg (app:string, appConfig:appInterface, munkiC
         throw e
     }
 
-    let munkiimport = `${munkiPath}/munkiimport --nointeractive --extract-icon --repo-url '${munkiConfig.repo}' --name '${app}' --displayname '${appConfig.name}' --pkgvers '${appConfig.appVersion}' --catalog production --unattended-install --unattended-uninstall`
+    let munkiimport = `${munkiPath}/munkiimport --nointeractive --extract-icon --repo-url '${munkiConfig.repo}' --name '${app}' --displayname '${appConfig.name}' --pkgvers '${appConfig.appVersion}' --unattended-install --unattended-uninstall`
 
     if (munkiConfig.subdir) munkiimport = `${munkiimport} --subdirectory '${munkiConfig.subdir}'`
 
     if (appConfig.description) munkiimport = `${munkiimport} --description '${appConfig.description}'`
+
+    if (appConfig.munkiCatalog) munkiimport = `${munkiimport} --catalog '${appConfig.munkiCatalog}'`
+
+    if (appConfig.munkiIcon) munkiimport = `${munkiimport} --icon-path '${iconPath}'`
+    else munkiimport = `${munkiimport}  --extract-icon`
 
     if (appConfig.munkiMaxOs) munkiimport = `${munkiimport} --maximum-os-version '${appConfig.munkiMaxOs}'`
 
@@ -230,26 +236,16 @@ export async function munkiImportPkg (app:string, appConfig:appInterface, munkiC
 
     if (app.substring(app.length - 4) === '_arm' || app.substring(app.length - 6) === '_intel')
     {
-        if (app.substring(app.length - 4) === '_arm')
-        {
-            munkiimport = `${munkiimport} --arch arm64`
-        }
-        else
-        {
-            munkiimport = `${munkiimport} --arch arm64 --arch x86_64`
-        }
+        if (app.substring(app.length - 4) === '_arm') munkiimport = `${munkiimport} --arch arm64`
+        else munkiimport = `${munkiimport} --arch arm64 --arch x86_64`
     }
-    else
-    {
-        munkiimport = `${munkiimport} --arch arm64 --arch x86_64`
-    }
+    else  munkiimport = `${munkiimport} --arch arm64 --arch x86_64`
 
     munkiimport = `${munkiimport} '${inputPath}'`
     try
     {
         // Wait for imports to finish
         await exec(munkiimport)
-        await exec(`${munkiPath}/makecatalogs --repo-url '${munkiConfig.repo}'`)
         console.log(`${app}: munkiImportPkg successful`)
         return true
     }
