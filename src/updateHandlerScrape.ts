@@ -6,6 +6,7 @@ import { updateHandlerPkg } from './updateHandlerPkg.js'
 import { updateHandlerZipApp } from './updateHandlerZipApp.js'
 import { updateHandlerZipPkg } from './updateHandlerZipPkg.js'
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js'
+import { updateHandlerNestedZip } from './updateHandlerNestedZip.js'
 
 
 export async function updateHandlerScrape (app: string, appConfig: appInterface, updates: string[]): Promise<boolean>
@@ -87,6 +88,25 @@ export async function updateHandlerScrape (app: string, appConfig: appInterface,
                     handler = await updateHandlerNestedDmg(app, appConfig, updates)
                 }
                 break
+
+            case 'nested-zip':
+                if (!appConfig.nestedZipFileType)
+                {
+                    console.error(`${app}: missing "nestedZipFileType" in confg`)
+                    break
+                }
+                if (appConfig.nestedZipFileType == 'dmg' || appConfig.nestedZipFileType == 'pkg')
+                {
+                    handler = await updateHandlerNestedZip(app, appConfig, updates)
+                }
+                else
+                {
+                    console.error(`${app}: no updateHandler for "${appConfig.downloadType}_${appConfig.downloadFileType}_${appConfig.nestedZipFileType}"`)
+                    console.error(`${app}: verify your config and/or contact developer`)
+                }
+                
+                break
+
         }
         if (!handler)
         {

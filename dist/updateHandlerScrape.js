@@ -14,6 +14,7 @@ import { updateHandlerPkg } from './updateHandlerPkg.js';
 import { updateHandlerZipApp } from './updateHandlerZipApp.js';
 import { updateHandlerZipPkg } from './updateHandlerZipPkg.js';
 import { updateHandlerNestedDmg } from './updateHandlerNestedDmg.js';
+import { updateHandlerNestedZip } from './updateHandlerNestedZip.js';
 export function updateHandlerScrape(app, appConfig, updates) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -66,6 +67,19 @@ export function updateHandlerScrape(app, appConfig, updates) {
                     }
                     if (appConfig.nestedDmgFileType == 'dmg') {
                         handler = yield updateHandlerNestedDmg(app, appConfig, updates);
+                    }
+                    break;
+                case 'nested-zip':
+                    if (!appConfig.nestedZipFileType) {
+                        console.error(`${app}: missing "nestedZipFileType" in confg`);
+                        break;
+                    }
+                    if (appConfig.nestedZipFileType == 'dmg' || appConfig.nestedZipFileType == 'pkg') {
+                        handler = yield updateHandlerNestedZip(app, appConfig, updates);
+                    }
+                    else {
+                        console.error(`${app}: no updateHandler for "${appConfig.downloadType}_${appConfig.downloadFileType}_${appConfig.nestedZipFileType}"`);
+                        console.error(`${app}: verify your config and/or contact developer`);
                     }
                     break;
             }
